@@ -17,6 +17,7 @@ import { ListPageComponent } from 'src/app/ng-relax/components/list-page/list-pa
 })
 export class SettlementComponent implements OnInit {
   @ViewChild('listPage') listPage: ListPageComponent;
+  isBtnDisVled = true;
   checked1:any = false;
   checked2: any = false;
   checked3: any = false;
@@ -186,6 +187,11 @@ selectquery(){
   });
 }
   datefun(index) {
+    if (this.dateIndex == 0){
+        this.isBtnDisVled = true;
+    }else{
+        this.isBtnDisVled = false;
+    }
     let now: any = new Date();
     let nowDayOfWeek = now.getDay();
     this.startDate = this.showWeekFirstDay(1 - nowDayOfWeek + index);

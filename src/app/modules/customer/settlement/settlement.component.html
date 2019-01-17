@@ -18,7 +18,7 @@
     </span>
     <button nz-button nzType="primary" (click)="selectquery()">查询</button>
     <div>
-      <button nz-button nzType="default" (click)="prveDate()">上周</button>
+      <button nz-button nzType="default" [disabled]="isBtnDisVled" (click)="prveDate()">上周</button>
       <button nz-button nzType="primary" (click)="nowDate()">本周</button>
       <button nz-button nzType="default" (click)="nextDate()">下周</button>
     </div>
