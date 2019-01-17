@@ -1,0 +1,60 @@
+.content span{
+  display:inline-block;
+  margin-right: 20px;
+  margin-bottom: 10px;
+}
+button{
+  margin-right: 10px;
+}
+img{
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.Syllabus span{
+  padding-right: 20px;
+}
+.table{
+  width: 100%;
+  overflow: hidden;
+}
+.nav{
+  width: 100%;
+  overflow: hidden;
+}
+.nav ul {
+  overflow: hidden;
+}
+.nav ul li span{
+  display: block;
+}
+.nav ul li{
+  width: 12%;
+  float: left;
+  padding:10px 4%;
+  list-style: none;
+  border-right: solid 1px #eee;
+  background:#fafafa ;
+}
+.nav ul li:last-child{
+  border: none;
+}
+.dataList{
+  padding: 10px;
+  color: #fff;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  background: #3aeaff;
+
+}
+.databtn{
+  color: #2e99fb; 
+  display: block;
+}
+.dataList img{
+  width: 15px;
+  height: 15px;
+}

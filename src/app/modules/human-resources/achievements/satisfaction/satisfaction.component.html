@@ -1,0 +1,81 @@
+<div class="container">
+  <!-- <ea-list-page #listPage url="/satisfaction/showSatisfaction" [allowSpace]="false"
+    [tableThead]="['门店满意度','满意度提成系数','职位','修改时间','修改人','操作']" 
+    [EaTableTbodyTr]="EaTableTbodyTr" [EaBtns]="EaBtns">
+    <ng-template #EaBtns>
+      <button nz-button nzType="dashed" style="width: 100%;" (click)="update()"><i class="anticon anticon-plus"></i>新增满意度职级</button>
+    </ng-template>
+    <ng-template let-data #EaTableTbodyTr>
+      <td>{{ data.satisfaction }}</td>
+      <td style="position: relative">
+        <ng-container *ngIf="!data.edit">
+          {{data.ratio}}
+          <i nz-icon type="edit" class="editable-cell-icon" (click)="data.edit = true"></i>
+        </ng-container>
+       <ng-container *ngIf="data.edit">
+          <nz-input-group [nzSuffix]="suffixIconButton">
+            <input type="text" nz-input [(ngModel)]="data.ratio" placeholder="请输入满意度提成系数">
+            <ng-template #suffixIconButton>
+              <i nz-icon [type]="data.loading ? 'loading' : 'save'" (click)="saveRatio(data)"></i>
+            </ng-template>
+          </nz-input-group>
+        </ng-container>
+      </td>
+      <td>{{ data.rankShortName }}</td>
+      <td>{{ data.modifyTime }}</td>
+      <td>{{ data.modifyUser }}</td>
+      <td><button nz-button nzType="primary">编辑</button> </td>
+    </ng-template>
+  </ea-list-page> -->
+<button nz-button nzType="dashed" style="width: 100%;" (click)="update(0)">
+  <i class="anticon anticon-plus"></i>新增满意度职级</button>
+<div class="main"> 
+    <nz-table #basicTable [nzData]="dataList">
+      <thead>
+        <tr>
+          <th>门店满意度</th>
+          <th>满意度提成系数</th>
+          <th>职位</th>
+          <th>修改时间</th>
+          <th>修改人</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of dataList">
+          <td>{{data.satisfaction}}</td>
+          <td>{{data.ratio}}</td>
+          <td>{{data.position}}</td>
+          <td>{{data.modifyTime}}</td>
+          <td>{{data.modifyUser}}</td>
+          <td>
+            <a (click)="update(data.id)">编辑</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a (click)="remove(data.id)">删除</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+</div>
+    <nz-modal [(nzVisible)]="isCancel" [nzTitle]="detail_title" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+        <p>
+          <nz-form-label style="width: 100px">门店满意度</nz-form-label>
+          <nz-select style="width: 200px;" nzPlaceHolder="请选择" [nzDisabled]="types"  [(ngModel)]="satisfaction" >
+            <nz-option *ngFor="let items of satisfactionList" [nzDisabled]="items.courseStatus==1" [nzLabel]="items.name" [nzValue]="items.name"></nz-option>
+          </nz-select>
+        </p>
+        <p>
+            <nz-form-label style="width: 100px">门店满意系数</nz-form-label>
+            <nz-input-number [(ngModel)]="ratio" [nzMin]="0" [nzMax]="1000" [nzStep]="1"></nz-input-number>
+        </p>
+        <p>
+          <nz-form-label style="width: 100px">职位</nz-form-label>
+            <nz-select style="width: 200px;" nzPlaceHolder="请选择"  [(ngModel)]="teacherRankId">
+              <nz-option *ngFor="let items of SyllabusAll"  [nzLabel]="items.position" [nzValue]="items.id"></nz-option>
+            </nz-select>
+        </p>
+    </nz-modal>
+</div>
+    <nz-modal [(nzVisible)]="showDelect" nzTitle="确定删除？" (nzOnCancel)="noDelect()" (nzOnOk)="isshowDelect()">
+      <p>确定删除？</p>
+    </nz-modal>
