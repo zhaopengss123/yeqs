@@ -58,7 +58,7 @@
                           </span>
                           </ng-container>
                       </div>
-                      <div>
+                      <div *ngIf="(item.galleryful-item.member.length) != 0" > 
                         添加学员：
                           <img *ngIf="item.galleryful-item.member.length>0" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
                             alt="">
@@ -89,7 +89,7 @@
                         </span>
                       </ng-container>
                     </div>
-                    <div>
+                    <div *ngIf="(item.galleryful-item.member.length) !=0 ">
                       添加学员：
                       <img *ngIf="item.galleryful-item.member.length>0" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
                         alt="">
@@ -120,7 +120,7 @@
                         </span>
                       </ng-container>
                     </div>
-                    <div>
+                    <div *ngIf="(item.galleryful-item.member.length) !=0 ">
                       添加学员：
                       <img *ngIf="item.galleryful-item.member.length>0" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
                         alt="">
@@ -151,7 +151,7 @@
                         </span>
                       </ng-container>
                     </div>
-                    <div>
+                    <div *ngIf="(item.galleryful-item.member.length) !=0 ">
                       添加学员：
                       <img *ngIf="item.galleryful-item.member.length>0" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
                         alt="">
@@ -182,7 +182,7 @@
                         </span>
                       </ng-container>
                     </div>
-                    <div>
+                    <div *ngIf="(item.galleryful-item.member.length) !=0 ">
                       添加学员：
                       <img *ngIf="item.galleryful-item.member.length>0" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
                         alt="">
@@ -213,7 +213,7 @@
                         </span>
                       </ng-container>
                     </div>
-                    <div>
+                    <div *ngIf="(item.galleryful-item.member.length) !=0 ">
                       添加学员：
                       <img *ngIf="item.galleryful-item.member.length>0" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
                         alt="">
@@ -244,8 +244,8 @@
                         </span>
                       </ng-container>
                     </div>
-                    <div>
-                      添加学员：
+                    <div *ngIf="(item.galleryful-item.member.length) !=0 ">
+                      添加学员：{{ item.galleryful-item.member.length }}
                       <img *ngIf="item.galleryful-item.member.length>0" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
                         alt="">
                       <img *ngIf="item.galleryful-item.member.length>1" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
@@ -435,7 +435,7 @@
       </div>
       <div>
         <h3 style="margin-top: 20px;">课程排期</h3>
-       <nz-radio-group style="width: 100%;" [(ngModel)]="radioValue">            
+       <nz-radio-group style="width: 100%;" [(ngModel)]="courseNames" (ngModelChange)="datalabelChange()">            
         <nz-table #basicTable [nzData]="dateList" nzShowPagination='false'>
           <thead>
             <tr>
@@ -463,7 +463,7 @@
                             <p>剩余可排课人数：{{data.galleryful-data.number }}</p>
                             <p *ngIf="data.galleryful-data.number>0">
                               <!-- <label nz-checkbox [(ngModel)]="checked1" (ngModelChange)="datalabelChange(data,1)" style="color: #fff">选择该课程</label> -->
-                              <label nz-radio [(nzValue)]="data.id" (ngModelChange)="datalabelChange(data)" style="color: #fff">选择该课程</label>
+                              <label nz-radio [(nzValue)]="data.id"  style="color: #fff">选择该课程</label>
                             </p>
                       </div>  
                 </ng-container>  
@@ -477,7 +477,7 @@
                     <p>日期：{{data.currentDate}}</p>
                     <p>剩余可排课人数：{{data.galleryful-data.number }}</p>
                     <p *ngIf="data.galleryful-data.number>0">
-                    <label nz-radio [(nzValue)]="data.id" (ngModelChange)="datalabelChange(data)" style="color: #fff">选择该课程</label>
+                    <label nz-radio [(nzValue)]="data.id" style="color: #fff">选择该课程</label>
                     </p>
                   </div>
                 </ng-container>
@@ -491,7 +491,7 @@
                     <p>日期：{{data.currentDate}}</p>
                     <p>剩余可排课人数：{{data.galleryful-data.number }}</p>
                     <p *ngIf="data.galleryful-data.number>0">
-                      <label nz-radio [(nzValue)]="data.id" (ngModelChange)="datalabelChange(data)" style="color: #fff">选择该课程</label>
+                      <label nz-radio [(nzValue)]="data.id"  style="color: #fff">选择该课程</label>
                     </p>
                   </div>
                 </ng-container>
@@ -505,7 +505,7 @@
                     <p>日期：{{data.currentDate}}</p>
                     <p>剩余可排课人数：{{data.galleryful-data.number }}</p>
                     <p *ngIf="data.galleryful-data.number>0">
-                      <label nz-radio [(nzValue)]="data.id" (ngModelChange)="datalabelChange(data)" style="color: #fff">选择该课程</label>
+                      <label nz-radio [(nzValue)]="data.id"  style="color: #fff">选择该课程</label>
                     </p>
                   </div>
                 </ng-container>
@@ -519,7 +519,7 @@
                     <p>日期：{{data.currentDate}}</p>
                     <p>剩余可排课人数：{{data.galleryful-data.number }}</p>
                     <p *ngIf="data.galleryful-data.number>0">
-                      <label nz-radio [(nzValue)]="data.id" (ngModelChange)="datalabelChange(data)" style="color: #fff">选择该课程</label>
+                      <label nz-radio [(nzValue)]="data.id"  style="color: #fff">选择该课程</label>
                     </p>
                   </div>
                 </ng-container>
@@ -533,7 +533,7 @@
                     <p>日期：{{data.currentDate}}</p>
                     <p>剩余可排课人数：{{data.galleryful-data.number }}</p>
                     <p *ngIf="data.galleryful-data.number>0">
-                      <label nz-radio [(nzValue)]="data.id" (ngModelChange)="datalabelChange(data)" style="color: #fff">选择该课程</label>
+                      <label nz-radio [(nzValue)]="data.id"  style="color: #fff">选择该课程</label>
                     </p>
                   </div>
                 </ng-container>
@@ -547,7 +547,7 @@
                     <p>日期：{{data.currentDate}}</p>
                     <p>剩余可排课人数：{{data.galleryful-data.number }}</p>
                     <p *ngIf="data.galleryful-data.number>0">
-                      <label nz-radio [(nzValue)]="data.id" (ngModelChange)="datalabelChange(data)" style="color: #fff">选择该课程</label>
+                      <label nz-radio [(nzValue)]="data.id"  style="color: #fff">选择该课程</label>
                     </p>
                   </div>
                 </ng-container>

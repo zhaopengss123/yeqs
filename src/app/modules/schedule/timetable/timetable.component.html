@@ -75,7 +75,7 @@
                           <td>{{item.startTime}}-{{item.endTime}}</td>
                           <td>
                             <ng-container *ngFor="let data of startDateList">
-                              <div class="dataList" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
+                              <div class="dataList" [style.background]="'#'+ data.colour "  *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
                                     <div>课程名称：{{ data.name }}</div> 
                                     <div>教室：{{ data.roomName }}</div>
                                     <p *ngIf="radioValue1=='B'"> 主教老师：{{ data.employeeName }}</p>
@@ -84,7 +84,7 @@
                           </td>
                           <td>
                             <ng-container *ngFor="let data of TuesdayList">
-                              <div class="dataList" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
+                              <div class="dataList" [style.background]="'#'+ data.colour " *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
                                 <div>课程名称：{{ data.name }}</div>
                                 <div>教室：{{ data.roomName }}</div>
                                 <p *ngIf="radioValue1=='B'"> 主教老师：{{ data.employeeName }}</p>
@@ -93,7 +93,7 @@
                           </td>
                           <td>
                             <ng-container *ngFor="let data of WednesdayList">
-                              <div class="dataList" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
+                              <div class="dataList" [style.background]="'#'+ data.colour " *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
                                 <div>课程名称：{{ data.name }}</div>
                                 <div>教室：{{ data.roomName }}</div>
                                 <p *ngIf="radioValue1=='B'"> 主教老师：{{ data.employeeName }}</p>
@@ -102,7 +102,7 @@
                           </td>
                           <td>
                             <ng-container *ngFor="let data of ThursdayList">
-                              <div class="dataList" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
+                              <div class="dataList" [style.background]="'#'+ data.colour " *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
                                 <div>课程名称：{{ data.name }}</div>
                                 <div>教室：{{ data.roomName }}</div>
                                 <p *ngIf="radioValue1=='B'"> 主教老师：{{ data.employeeName }}</p>
@@ -111,7 +111,7 @@
                           </td>
                           <td>
                             <ng-container *ngFor="let data of FridayList">
-                              <div class="dataList" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
+                              <div class="dataList" [style.background]="'#'+ data.colour " *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
                                 <div>课程名称：{{ data.name }}</div>
                                 <div>教室：{{ data.roomName }}</div>
                                 <p *ngIf="radioValue1=='B'"> 主教老师：{{ data.employeeName }}</p>
@@ -120,7 +120,7 @@
                           </td>
                           <td>
                             <ng-container *ngFor="let data of SaturdayList">
-                              <div class="dataList" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
+                              <div class="dataList" [style.background]="'#'+ data.colour " *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
                                 <div>课程名称：{{ data.name }}</div>
                                 <div>教室：{{ data.roomName }}</div>
                                 <p *ngIf="radioValue1=='B'"> 主教老师：{{ data.employeeName }}</p>
@@ -129,7 +129,7 @@
                           </td>
                           <td>
                             <ng-container *ngFor="let data of endDateList">
-                              <div class="dataList" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
+                              <div class="dataList" [style.background]="'#'+ data.colour " *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
                                 <div>课程名称：{{ data.name }}</div>
                                 <div>教室：{{ data.roomName }}</div>
                                 <p *ngIf="radioValue1=='B'"> 主教老师：{{ data.employeeName }}</p>

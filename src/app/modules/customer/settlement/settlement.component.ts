@@ -39,7 +39,7 @@ export class SettlementComponent implements OnInit {
   Thursday :any = '';
   Friday :any = '';
   Saturday :any = '';
-
+  courseNames:any = "";
   passwindow :any= false; 
 
   startDateList: any = '';
@@ -82,6 +82,8 @@ export class SettlementComponent implements OnInit {
   showStopcard:any = false;
   stopcardMemberdetail:any = {};
   memberdetailTk:any = {};
+  memberdetailTks:any = {};
+
   datalabelList:any = [];
   dateList:any = [];
   removeRecordData:any = {};
@@ -364,9 +366,16 @@ selectquery(){
     this.RecordList = [];
     this.datalabelList = [];
     
-    this.memberdetailTk = studentdata;
-    this.memberdetailTk.item = item;
-    console.log(this.memberdetailTk);
+    this.memberdetailTks = studentdata;
+    this.memberdetailTks.item = item;
+    this.http.post('/curriculum/selectMsg', { memberId: memberId }, false).then(res => {
+      if (res.code == 1000) {
+        this.memberdetailTk = res.result.list;
+        console.log(this.memberdetailTk);
+      } else {
+        this.message.create('error', res.info);
+      }
+    });
   }
 
   closeAdjust(){
@@ -402,21 +411,21 @@ selectquery(){
 
     // });
     let paramJson: any = JSON.stringify({
-      babyNumber: this.memberdetailTk.number,
+      babyNumber: this.memberdetailTk.babyNumber,
       name: this.memberdetailTk.name,
       parentName: this.memberdetailTk.parentName,
       cardNumber: this.memberdetailTk.cardNumber,
-      memberId: this.memberdetailTk.item.memberId,
+      memberId: this.memberdetailTks.item.memberId,
       cardCode: this.memberdetailTk.cardCode,
       list: this.datalabelList,
       mobilePhone: this.memberdetailTk.mobilePhone
     });
     let paramJsonDelect:any = JSON.stringify({
-      syllabusName: this.memberdetailTk.name,
-      memberId: this.memberdetailTk.item.memberId,
-      startTime: this.memberdetailTk.startTime,
-      endTime: this.memberdetailTk.endTime,
-      currentDate: this.memberdetailTk.currentDate
+      syllabusName: this.memberdetailTks.name,
+      memberId: this.memberdetailTks.item.memberId,
+      startTime: this.memberdetailTks.startTime,
+      endTime: this.memberdetailTks.endTime,
+      currentDate: this.memberdetailTks.currentDate
     });                
     this.http.post('/curriculum/adjustDeleteRecord', { paramJson: paramJsonDelect }, false).then(res => {
       if (res.code == 1000) {
@@ -530,9 +539,45 @@ selectquery(){
     });
   }
   //选择课程
-  datalabelChange(data){
+  datalabelChange(){
+      
     this.datalabelList = [];
-    this.datalabelList.push(data);   
+    
+    this.RecordList1.map(item=>{
+      if (item.id == this.courseNames){
+        this.datalabelList.push(item);
+      }
+    })
+    this.RecordList2.map(item => {
+      if (item.id == this.courseNames) {
+        this.datalabelList.push(item);
+      }
+    })
+    this.RecordList3.map(item => {
+      if (item.id == this.courseNames) {
+        this.datalabelList.push(item);
+      }
+    })
+    this.RecordList4.map(item => {
+      if (item.id == this.courseNames) {
+        this.datalabelList.push(item);
+      }
+    })
+    this.RecordList5.map(item => {
+      if (item.id == this.courseNames) {
+        this.datalabelList.push(item);
+      }
+    })
+    this.RecordList6.map(item => {
+      if (item.id == this.courseNames) {
+        this.datalabelList.item;
+      }
+    })
+    this.RecordList7.map(item => {
+      if (item.id == this.courseNames) {
+        this.datalabelList.push(item);
+      }
+    })                        
   }
   settlement(item){
     let appointmentInfo = {

@@ -287,15 +287,16 @@ export class ListComponent implements OnInit {
         this.radioValue = '';
         this.RecordList = [];
         this.datalabelList = [];
-        // this.http.post('/curriculum/selectMsg', { memberId: this.checkedItems[0] }, false).then(res => {
-        //   if (res.code == 1000) {
-        //     this.memberdetailTk = res.result.list;
-        //   } else {
-        //     this.message.create('error', res.info);
-        //   }
-        // });
+
       this.listPage.eaTable.dataSet.map(res => {
         if (res.id == this.checkedItems[0]) {
+          this.http.post('/curriculum/selectMsg', { memberId: res.memberId }, false).then(res => {
+            if (res.code == 1000) {
+              this.memberdetailTk = res.result.list;
+            } else {
+              this.message.create('error', res.info);
+            }
+          });
           this.memberData = res;
         }
       })
@@ -330,16 +331,15 @@ export class ListComponent implements OnInit {
     }
    
     let paramJson: any = JSON.stringify({
-      babyNumber: this.memberData.babyNumber,
+      babyNumber: this.memberdetailTk.babyNumber,
       status: status,
       name: this.memberData.name,
       parentName: this.memberData.parentName,
-      cardNumber: this.memberData.cardNumber,
+      cardNumber: this.memberdetailTk.cardNumber,
       memberId: this.memberData.memberId,
-      cardCode: this.memberData.cardCode,
-      mobilePhone: this.memberData.mobilePhone,
+      cardCode: this.memberdetailTk.cardCode,
+      mobilePhone: this.memberdetailTk.mobilePhone,
       list: this.datalabelList
- 
     });
     //排课
     this.http.post('/curriculum/insertMemberRecord', { paramJson }, false).then(res => {
@@ -354,7 +354,7 @@ export class ListComponent implements OnInit {
           this.isrepeat = false;
           this.showAdjust = false;
         }
-      } else if (res.code == 1000){
+      } else if (res.code == 1001){
         this.message.create('error', '该用户已经排过课了！');
       } else {
         this.message.create('error', res.info);
