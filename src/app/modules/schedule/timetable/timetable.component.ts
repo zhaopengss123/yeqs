@@ -224,8 +224,6 @@ export class TimetableComponent implements OnInit {
         this.message.create('error', res.info);
       }
     }); 
-    
-   
   }
  get_month_date(dates) {
    var oDate = new Date(Date.parse(dates));
