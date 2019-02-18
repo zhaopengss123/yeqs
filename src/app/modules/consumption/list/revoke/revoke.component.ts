@@ -20,9 +20,11 @@ export class UpdateRevokeComponent implements OnInit {
     private http: HttpService,
     private fb: FormBuilder = new FormBuilder()
   ) {
+ 
   }
 
   ngOnInit() {
+    console.log(this.recordInfo);
     this.formGroup = this.fb.group({
       memberName: [{ value: this.recordInfo.memberName, disabled: true }],
       memberNick: [{ value: this.recordInfo.memberNick, disabled: true }],
@@ -40,8 +42,10 @@ export class UpdateRevokeComponent implements OnInit {
       weight: [{ value: this.recordInfo.weight, disabled: true }],
       temperature: [{ value: this.recordInfo.temperature, disabled: true }],
       comment: [{ value: this.recordInfo.comment, disabled: true }],
-      reason: [, [Validators.required]]
+      reason: [, [Validators.required]],
+      id: [ this.recordInfo.id ]
     });
+
   }
 
   @DrawerSave('/customer/revocationConsume') save: () => Promise<boolean>;

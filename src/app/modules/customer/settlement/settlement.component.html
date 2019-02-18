@@ -299,7 +299,7 @@
           </span>
           <span style="margin-left: 10px;">
             <nz-form-label>小名</nz-form-label>
-            <input nz-input style="width: 150px;"  [(ngModel)]="studentInformation.parentName" disabled>
+            <input nz-input style="width: 150px;"  [(ngModel)]="studentInformation.nick" disabled>
           </span>
         </p>
         <p>
@@ -345,7 +345,7 @@
           <button nz-button nzType="primary" nzSize="small"  (click)="settlement(item)">结算</button>
           <button nz-button nzType="primary" nzSize="small" [disabled]="!item.id" (click)="memberStopcard(item.memberId)">停卡</button>
           <!-- <button nz-button nzType="primary" nzSize="small" [disabled]="!item.id" (click)="memberRecord(item.memberId,studentdata)">延期</button> -->
-          <button nz-button nzType="primary" nzSize="small" [disabled]="!item.id" (click)="removeRecord(item.memberId,studentdata.id)">取消</button>
+          <button nz-button nzType="primary" nzSize="small"  (click)="removeRecord(item.memberId,studentdata.id)">取消</button>
         </div>
       </div>
     </nz-modal>

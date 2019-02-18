@@ -177,6 +177,7 @@ export class HomeComponent implements OnInit {
   datefun(index) {
     let now: any = new Date();
     let nowDayOfWeek = now.getDay();
+    nowDayOfWeek = nowDayOfWeek == 0 ? 7 : nowDayOfWeek;
     this.startDate = this.showWeekFirstDay(1 - nowDayOfWeek + index);
     this.Tuesday = this.showWeekFirstDay(2 - nowDayOfWeek + index);
     this.Wednesday = this.showWeekFirstDay(3 - nowDayOfWeek + index);

@@ -192,8 +192,9 @@ selectquery(){
     }else{
         this.isBtnDisVled = false;
     }
-    let now: any = new Date();
+    let now: any = new Date('2019-02-17');
     let nowDayOfWeek = now.getDay();
+    nowDayOfWeek =  nowDayOfWeek == 0 ? 7 : nowDayOfWeek;
     this.startDate = this.showWeekFirstDay(1 - nowDayOfWeek + index);
     this.Tuesday = this.showWeekFirstDay(2 - nowDayOfWeek + index);;
     this.Wednesday = this.showWeekFirstDay(3 - nowDayOfWeek + index);;
@@ -209,9 +210,9 @@ selectquery(){
     this.nowendDate = this.endDate
     }
   };
-  showWeekFirstDay(i) {
+  showWeekFirstDay(i) { 
     let that = this;
-    var day3 = new Date();
+    var day3 = new Date('2019-02-17');
     day3.setTime(day3.getTime() + i * 24 * 60 * 60 * 1000);
     let Month = (day3.getMonth() + 1) < 10 ? '0' + (day3.getMonth() + 1) : (day3.getMonth() + 1);
     let dayDate = (day3.getDate()) < 10 ? '0' + (day3.getDate()) : (day3.getDate());
