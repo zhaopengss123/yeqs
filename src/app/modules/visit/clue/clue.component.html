@@ -1,13 +1,15 @@
 <div class="container">
   <ea-query [node]="queryNode" (onSubmit)="EaTable.request($event)"></ea-query>
 
-  <ea-table #EaTable [thead]="tableNode" [EaTableTbodyTr]="EaTableTbodyTr" [paramsDefault]="{traceType: 0, followStageId: 2}"
-    [allowSpace]="false" url="/customer/noCardReturnVisitList">
+  <button nz-button [nzType]="'primary'" routerLink="/home/visit/newinfo/0" style="margin-bottom: 16px;">新增客户线索</button>
+
+  <ea-table #EaTable [thead]="tableNode" [EaTableTbodyTr]="EaTableTbodyTr"
+    [allowSpace]="false" url="/retrunVisit/clubList">
     <ng-template let-data #EaTableTbodyTr>
-      <td nzWidth="120px" nzLeft="0">
-        <a href="javascript: void(0);" [routerLink]="{outlets: {aux: 'preview/' + data.id}}">{{ data.nick }}</a>
+      <td>
+        <a (click)="preview(data.id)">{{ data.nick }}</a>
       </td>
-      <td>{{ data.name || '--' }}</td>
+      <td><a (click)="preview(data.id)">{{ data.name }}</a></td>
       <td>{{ data.birthday || '--' }}</td>
       <td>
         <i class="iconfont" [title]="data.sex" [ngClass]="[ data.sex === '男' ? 'icon-nan' : 'icon-nv']"></i>

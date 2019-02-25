@@ -192,7 +192,7 @@ selectquery(){
     }else{
         this.isBtnDisVled = false;
     }
-    let now: any = new Date('2019-02-17');
+    let now: any = new Date();
     let nowDayOfWeek = now.getDay();
     nowDayOfWeek =  nowDayOfWeek == 0 ? 7 : nowDayOfWeek;
     this.startDate = this.showWeekFirstDay(1 - nowDayOfWeek + index);
@@ -212,7 +212,7 @@ selectquery(){
   };
   showWeekFirstDay(i) { 
     let that = this;
-    var day3 = new Date('2019-02-17');
+    var day3 = new Date();
     day3.setTime(day3.getTime() + i * 24 * 60 * 60 * 1000);
     let Month = (day3.getMonth() + 1) < 10 ? '0' + (day3.getMonth() + 1) : (day3.getMonth() + 1);
     let dayDate = (day3.getDate()) < 10 ? '0' + (day3.getDate()) : (day3.getDate());

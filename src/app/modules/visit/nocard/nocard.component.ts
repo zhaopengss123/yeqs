@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { PreviewComponent } from '../preview/preview.component';
+import { NzDrawerService } from 'ng-zorro-antd';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-nocard',
   templateUrl: './nocard.component.html',
@@ -14,35 +16,34 @@ export class NocardComponent implements OnInit {
       label       : '宝宝昵称',
       key         : 'nick',
       type        : 'input',
-      placeholder : '请输入宝宝昵称'
     },
     {
       label       : '来源',
       key         : 'sourceId',
       type        : 'select',
       optionsUrl  : '/common/sourceList',
-      placeholder : '请选择客户来源'
     },
     {
       label       : '家长姓名',
       key         : 'parentName',
       type        : 'input',
-      placeholder : '请输入家长姓名',
-      isHide      : true
     }, 
     {
       label       : '手机号码',
       key         : 'mobilePhone',
       type        : 'input',
-      placeholder : '请输入家长手机号码',
-      isHide      : true
+    },
+    {
+      label       : '下次跟进',
+      key         : 'nextFollowTime',
+      type        : 'rangepicker',
+      valueKey    : ['nextFollowTimeStart', 'nextFollowTimeEnd']
     },
     {
       label       : '宝宝性别',
       key         : 'sex',
       type        : 'select',
       options     : [ { name: '男', id: '男' }, { name: '女', id: '女' } ],
-      placeholder : '请选择宝宝性别',
       isHide      : true
     },
     {
@@ -50,7 +51,6 @@ export class NocardComponent implements OnInit {
       key         : 'birthday',
       type        : 'rangepicker',
       valueKey    : ['babyBirthdayStart', 'babyBirthdayEnd'],
-      placeholder : ['选择开始时间', '选择结束时间'],
       isHide      : true
     },
     {
@@ -58,15 +58,6 @@ export class NocardComponent implements OnInit {
       key         : 'createTime',
       type        : 'rangepicker',
       valueKey    : ['createDateStart', 'createDateEnd'],
-      placeholder : ['选择开始时间', '选择结束时间'],
-      isHide      : true
-    },
-    {
-      label       : '下次跟进',
-      key         : 'nextFollowTime',
-      type        : 'rangepicker',
-      valueKey    : ['nextFollowTimeStart', 'nextFollowTimeEnd'],
-      placeholder : ['选择开始时间', '选择结束时间'],
       isHide      : true
     },
     {
@@ -74,7 +65,6 @@ export class NocardComponent implements OnInit {
       key         : 'lastFollowTime',
       type        : 'rangepicker',
       valueKey    : ['lastFollowTimeStart', 'lastFollowTimeEnd'],
-      placeholder : ['选择开始时间', '选择结束时间'],
       isHide      : true
     },
     {
@@ -82,7 +72,6 @@ export class NocardComponent implements OnInit {
       key         : 'collectorId',
       type        : 'select',
       optionsUrl  : '/common/collectorList',
-      placeholder : '请选择收集者',
       isHide      : true
     },
     {
@@ -90,7 +79,6 @@ export class NocardComponent implements OnInit {
       key         : 'recommendedId',
       type        : 'select',
       optionsUrl  : '/common/recommenderList',
-      placeholder : '请选择推荐人',
       isHide      : true
     },
   ];
@@ -159,14 +147,19 @@ export class NocardComponent implements OnInit {
   ]
 
   constructor(
-    private activatedRoute: ActivatedRoute
+    private drawer: NzDrawerService,
+    private format: DatePipe
   ) { }
-
   ngOnInit() {
-    this.activatedRoute.queryParamMap.subscribe( (res: any) => {
-      if (res.params.reset) {
-        this.table._request();
-      }
-    })
+  }
+
+  preview(id) {
+    const drawer = this.drawer.create({
+      nzWidth: 860,
+      nzContent: PreviewComponent,
+      nzClosable: false,
+      nzContentParams: { id, followStageId: 3 }
+    });
+    drawer.afterClose.subscribe(res => res && this.table._request());
   }
 }
