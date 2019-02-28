@@ -200,13 +200,11 @@ export class ListComponent implements OnInit {
     } else if (type === 'open') {
       this.listPage.eaTable.dataSet.map(res => {
         if (res.id == this.checkedItems[0]) {
-          if (res.status == 1) {
+    
             this.showDrawer = true;
             this.drawerTitle = this.operationComponents[type].title;
             this.createComponent(this.operationComponents[type]);
-          } else {
-            this.message.warning('该卡不能重开卡！');
-          }
+        
         }
       })
     } else if (type === 'supplement') {

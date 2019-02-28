@@ -152,10 +152,9 @@
             <nz-form-label nzRequired>顾客满意度</nz-form-label>
             <nz-form-control>
               <nz-select formControlName="satisfaction" nzPlaceHolder="请选择顾客满意度">
-                <nz-option nzLabel="一般" nzValue="一般"></nz-option>
+  
                 <nz-option nzLabel="满意" nzValue="满意"></nz-option>
-                <nz-option nzLabel="表扬" nzValue="表扬"></nz-option>
-                <nz-option nzLabel="不好" nzValue="不好"></nz-option>
+                <nz-option nzLabel="不满意" nzValue="不满意"></nz-option>
               </nz-select>
               <nz-form-explain *ngIf="timesCountGroup.get('satisfaction').dirty && timesCountGroup.get('satisfaction').hasError('required')">请选择顾客满意度！</nz-form-explain>
             </nz-form-control>
@@ -215,10 +214,8 @@
             <nz-form-label nzRequired>顾客满意度</nz-form-label>
             <nz-form-control>
               <nz-select formControlName="satisfaction" nzPlaceHolder="请选择顾客满意度">
-                <nz-option nzLabel="一般" nzValue="一般"></nz-option>
                 <nz-option nzLabel="满意" nzValue="满意"></nz-option>
-                <nz-option nzLabel="表扬" nzValue="表扬"></nz-option>
-                <nz-option nzLabel="不好" nzValue="不好"></nz-option>
+                <nz-option nzLabel="不满意" nzValue="不满意"></nz-option>
               </nz-select>
               <nz-form-explain *ngIf="singleTimeGroup.get('satisfaction').dirty && singleTimeGroup.get('satisfaction').hasError('required')">请选择顾客满意度！</nz-form-explain>
             </nz-form-control>

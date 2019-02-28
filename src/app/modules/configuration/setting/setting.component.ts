@@ -32,6 +32,7 @@ export class SettingComponent implements OnInit {
     });
 
     this.messageSendForm = this.fb.group({
+      id: [],
       consumeSms: [false],
       consumeMsg: [false],
       reserveSms: [false],

@@ -53,14 +53,14 @@ export class ConsumptionComponent implements OnInit, OnDestroy {
       temperaturePost: [],
       weight: [],
       temperature: [],
-      satisfaction: ['一般', [Validators.required]],
+      satisfaction: ['满意', [Validators.required]],
       consumeDate: [{ value: null, disabled: true }]
     });
     this.singleTimeGroup = this.fb.group({
       commodityId: [, [Validators.required]],
       consumption: [, [Validators.required]],
       swimTeacherId: [, [Validators.required]],
-      satisfaction: ['一般', [Validators.required]],
+      satisfaction: ['满意', [Validators.required]],
       consumeDate: [{ value: null, disabled: true }]
     });
 

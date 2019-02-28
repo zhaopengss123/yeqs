@@ -13,8 +13,8 @@ import { DrawerRefClose } from 'src/app/ng-relax/decorators/drawerRefClose.decor
 export class SatisfactionUpdateComponent implements OnInit {
 
   formGroup: FormGroup;
-
-  @GetList('/bonusSatisfaction/getTeacherRanks') teacherRankList: any;
+  teacherRankList:any = {};
+  
 
   constructor(
     private http: HttpService,
@@ -22,13 +22,14 @@ export class SatisfactionUpdateComponent implements OnInit {
     private drawerRef: NzDrawerRef
   ) {
     typeof this.teacherRankList === 'function' && this.teacherRankList();
-
+    this.http.post('/satisfaction/selectPosition', {
+    },false).then(res => {
+      this.teacherRankList = res.result;
+    }).catch();
     this.formGroup = this.fb.group({
       rankId: [, [Validators.required]],
-      rank1: [, [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
-      rank2: [, [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
-      rank3: [, [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
-      rank4: [, [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
+      rank2: [, [Validators.required, Validators.pattern(/^[0-9]\d*$/)]],
+      rank4: [, [Validators.required, Validators.pattern(/^[0-9]\d*$/)]],
     })
   }
 
@@ -36,6 +37,9 @@ export class SatisfactionUpdateComponent implements OnInit {
   }
 
   saveLoading: boolean;
+  getData(){
+
+  }
   save() {
     if (this.formGroup.invalid) {
       for (let i in this.formGroup.controls) {
@@ -46,7 +50,7 @@ export class SatisfactionUpdateComponent implements OnInit {
       this.saveLoading = true;
       let params = { 
         rankId: this.formGroup.get('rankId').value,
-        rank: [this.formGroup.get('rank1').value, this.formGroup.get('rank2').value, this.formGroup.get('rank3').value, this.formGroup.get('rank4').value]
+        rank: [ this.formGroup.get('rank2').value, this.formGroup.get('rank4').value]
       };
       this.http.post('/bonusSatisfaction/addBonusSatisfaction', {
         paramJson: JSON.stringify(params)

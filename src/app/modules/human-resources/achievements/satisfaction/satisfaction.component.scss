@@ -2,12 +2,10 @@
   font-size: 16px;
   cursor: pointer;
   position: absolute;
-  top: 18px;
+  top: 50%;
   right: 16px;
+  margin-top: -8px;
 }
 :host ::ng-deep .anticon-save {
   cursor: pointer;
-}
-.main{
-  margin-top: 20px;
 }
