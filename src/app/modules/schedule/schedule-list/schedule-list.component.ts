@@ -25,6 +25,7 @@ export class ScheduleListComponent implements OnInit {
   dateIndex:any = 0;
   formList:any = [];
   mobilePhone:any = '';
+  memberName: any = '';
   tablecurr:any = 0;
   currformList: any = "";
   member:any = {};
@@ -178,14 +179,15 @@ export class ScheduleListComponent implements OnInit {
   squeryList(){
     let that = this;
     let isMobile = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
-    if (!isMobile.test(that.mobilePhone)) {
-      this.message.create('error', '请输入正确的手机号');
-      return false; 
-    }
+    // if (!isMobile.test(that.mobilePhone)) {
+    //   this.message.create('error', '请输入正确的手机号');
+    //   return false; 
+    // }
     let paramJson: any = JSON.stringify({
       startDate: that.startDate,
       endDate: that.endDate,
-      mobilePhone: that.mobilePhone
+      mobilePhone: that.mobilePhone,
+      memberName: that.memberName
     });
     that.http.post('/curriculum/selectMemberReserve', { paramJson }, false).then(res => {
       if (res.code == 1000) {

@@ -284,42 +284,70 @@
         </div>
   </div> -->
   <div class="tc_form">
-    <nz-modal [(nzVisible)]="showstudentsForm" nzTitle="查询" (nzOnCancel)="closestudentsForm()" (nzOnOk)="isstudentsForm()" [nzOkLoading]="isOkLoading">
-      <p style="border-bottom: solid 1px #eee; padding-bottom: 10px;">
-        <nz-form-label>家长电话</nz-form-label>
-        <input nz-input style="width: 200px;" placeholder="请输入" [(ngModel)]="mobilePhone">
-        <button style="margin-left: 10px;" nz-button nzType="primary" (click)="selectshowstudents()">查询</button>
-      </p>
+    <nz-modal [(nzVisible)]="showstudentsForm" nzWidth="800" nzTitle="查询" (nzOnCancel)="closestudentsForm()" (nzOnOk)="isstudentsForm()" [nzOkLoading]="isOkLoading">
+      <div class="select_main">
+      <div class="select_left">
+              <p>
+                <input nz-input style="width: 150px;" placeholder="请输入" [(ngModel)]="mobilePhone">
+                <button style="margin-left: 10px;" nz-button nzType="primary" (click)="selectshowstudents()">查询</button>
+              </p>
+              <div class="select_list">
+                    <div class="select_tit">客户信息</div>
+                    <nz-table #basicTable [nzData]="memberList_b">
+                      <thead>
+                        <tr>
+                          <th>姓名</th>
+                          <th>小名</th>
+                          <th>手机号</th>
+                          <th>操作</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let data of memberList_b">
+                          <td>{{data.name}}</td>
+                          <td>{{data.nick}}</td>
+                          <td>{{data.mobilePhone}}</td>
+                          <td>
+                            <a (click)="selectMemberList(data)">选择</a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </nz-table>
+              </div>
+
+      </div>
+      <div class="select_right">
+
       <div style="border-bottom: solid 1px #eee; padding-bottom: 10px; margin-bottom: 10px;">
         <h3>学员基本信息</h3>
         <p>
           <span>
             <nz-form-label>姓名</nz-form-label>
-            <input nz-input style="width: 150px;" [(ngModel)]="studentInformation.name" disabled>
+            <input nz-input style="width: 120px;" [(ngModel)]="studentInformation.name" disabled>
           </span>
           <span style="margin-left: 10px;">
             <nz-form-label>小名</nz-form-label>
-            <input nz-input style="width: 150px;"  [(ngModel)]="studentInformation.nick" disabled>
+            <input nz-input style="width: 120px;"  [(ngModel)]="studentInformation.nick" disabled>
           </span>
         </p>
         <p>
           <span>
             <nz-form-label>生日</nz-form-label>
-            <input nz-input style="width: 150px;"  [(ngModel)]="studentInformation.birthday" disabled>
+            <input nz-input style="width: 120px;"  [(ngModel)]="studentInformation.birthday" disabled>
           </span>
           <span style="margin-left: 10px;">
             <nz-form-label>性别</nz-form-label>
-            <input nz-input style="width: 150px;"  [(ngModel)]="studentInformation.sex" disabled>
+            <input nz-input style="width: 120px;"  [(ngModel)]="studentInformation.sex" disabled>
           </span>
         </p>
         <p>
           <span>
             <nz-form-label>状态</nz-form-label>
-            <input nz-input style="width: 150px;"  [(ngModel)]="studentInformation.havacard" disabled>
+            <input nz-input style="width: 120px;"  [(ngModel)]="studentInformation.havacard" disabled>
           </span>
           <span style="margin-left: 10px;">
             <nz-form-label>家长电话</nz-form-label>
-            <input nz-input style="width: 150px;"  [(ngModel)]="studentInformation.mobilePhone" disabled>
+            <input nz-input style="width: 120px;"  [(ngModel)]="studentInformation.mobilePhone" disabled>
           </span>
         </p>
       </div>
@@ -329,6 +357,8 @@
         <p>教室：{{showroomName}}</p>
         <p>主教老师：{{showemployeeName}}</p>
       </div>
+     </div> 
+    </div>
     </nz-modal>
 
     <nz-modal [(nzVisible)]="showListdetail" nzTitle="查询" (nzOnCancel)="closeListdetail()" (nzOnOk)="closeListdetail()" >

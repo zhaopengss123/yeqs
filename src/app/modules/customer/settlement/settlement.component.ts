@@ -88,7 +88,7 @@ export class SettlementComponent implements OnInit {
   datalabelList:any = [];
   dateList:any = [];
   removeRecordData:any = {};
-
+  memberList_b: any = [];
   memberdetail:any = {
     name: '',
     parentName: '',
@@ -289,6 +289,9 @@ selectquery(){
       }
     }); 
   }
+  selectMemberList(data){
+    this.studentInformation = data;
+  }
 //预约时学员信息查询
   selectshowstudents(){
     
@@ -297,6 +300,10 @@ selectquery(){
           if(res.result.length){
             this.studentInformation = res.result[0];
             this.studentInformation.havacard = this.studentInformation.havacard == 0 ? '体验' : '正式'; 
+            res.result.map(item=>{
+              item.havacard = item.havacard == 0 ? '体验' : '正式'; 
+            })
+            this.memberList_b = res.result;
           }else{
             this.message.create('error', '无学员信息~');
           }
