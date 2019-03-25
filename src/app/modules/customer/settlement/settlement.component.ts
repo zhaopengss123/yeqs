@@ -89,6 +89,7 @@ export class SettlementComponent implements OnInit {
   dateList:any = [];
   removeRecordData:any = {};
   memberList_b: any = [];
+  memberUserDetail:any = { memberId:0 };
   memberdetail:any = {
     name: '',
     parentName: '',
@@ -235,6 +236,19 @@ selectquery(){
   };
   ngOnInit() {
   }
+
+  memberUserDetails(memberId){
+    this.http.post('/curriculum/memberIdMsg', {
+      memberId
+    }, false).then(res => {
+      this.isOkLoading = false;
+      if (res.code == 1000) {
+        this.memberUserDetail = res.result[0];
+      } else {
+        this.message.create('error', res.info);
+      }
+    }); 
+  }
   //查询弹框
   showstudents(data){
     this.studentInformation = {
@@ -254,6 +268,7 @@ selectquery(){
   }
   closestudentsForm(){
     this.showstudentsForm = false;
+    this.memberList_b = [];
   }
   isstudentsForm(){
     //this.showstudentsForm = false;
@@ -290,19 +305,14 @@ selectquery(){
     }); 
   }
   selectMemberList(data){
+    data.havacard = data.havacard == 0 ? '体验' : '正式'; 
     this.studentInformation = data;
   }
 //预约时学员信息查询
   selectshowstudents(){
-    
     this.http.post('/curriculum/selectMemberMsg', { mobilePhone: this.mobilePhone }, false).then(res => {
       if(res.code==1000){
           if(res.result.length){
-            this.studentInformation = res.result[0];
-            this.studentInformation.havacard = this.studentInformation.havacard == 0 ? '体验' : '正式'; 
-            res.result.map(item=>{
-              item.havacard = item.havacard == 0 ? '体验' : '正式'; 
-            })
             this.memberList_b = res.result;
           }else{
             this.message.create('error', '无学员信息~');
@@ -319,7 +329,8 @@ selectquery(){
     
   }
   closeListdetail(){
-    this.showListdetail = false;    
+    this.showListdetail = false; 
+    this.memberUserDetail = { memberId:0 };   
   }
 
   //延期弹框
@@ -453,6 +464,7 @@ selectquery(){
                       this.datalabelList = [];
                       this.selectquery();
                       this.showListdetail = false;
+                      this.memberUserDetail = { memberId:0 }; 
                       this.RecordList1 = [];
                       this.RecordList2 = [];               
                       this.RecordList3 = [];
@@ -479,6 +491,7 @@ selectquery(){
       }
     }); 
   }
+  
 //办卡选课中课表展示
   selectlabel(){
     this.http.post('/curriculum/selectIdRecord', { syllabusName: this.radioValue }, false).then(res => {
@@ -546,6 +559,7 @@ selectquery(){
         this.message.create('success', '操作成功！');
         this.showStopcard = false;
         this.showListdetail = false;
+        this.memberUserDetail = { memberId:0 }; 
         this.selectquery();
       } else {
         this.message.create('error', res.info);
@@ -646,6 +660,7 @@ selectquery(){
     // drawerRef.afterClose.subscribe(res => res && this.listPage.eaTable._request());
     drawerRef.afterClose.subscribe(res =>{
       this.showListdetail = false;
+      this.memberUserDetail = { memberId:0 };
       this.nowDate();
     });
   }
@@ -668,6 +683,7 @@ selectquery(){
           this.passwindow = false;
           this.nowDate();
           this.showListdetail = false;
+          this.memberUserDetail = { memberId:0 };
         }else{
           this.message.create('error', res.info);
         }

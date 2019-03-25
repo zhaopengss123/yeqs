@@ -64,3 +64,17 @@
   margin-bottom: 5px;
   border-radius: 5px;
 }
+
+.memberDetail{
+  width: 100%;
+  overflow: hidden;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: solid 1px #fafafa;
+}
+.memberDetail div{
+  width: 50%;
+  float: left;
+  height: 40px;
+  line-height: 10px;
+}

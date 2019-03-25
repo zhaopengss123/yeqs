@@ -40,7 +40,9 @@ export class TimetableComponent implements OnInit {
   FridayList: any = '';
   SaturdayList: any = '';
   dateList: any = [];
-
+  studentdata :any =[];
+  showListdetail:any = false;
+  memberUserDetail:any  = false;
       listDataMap = {
     eight : [
       { type: 'warning', content: 'This is warning event.' },
@@ -119,11 +121,16 @@ export class TimetableComponent implements OnInit {
     return s3;
   }
   getDayListquery1() {
-    let startDate = this.startDate;
-    let endDate = this.endDate;
-    this.http.post('/curriculum/dailySchedule', { startDate, endDate }, false).then(res => {
+    let paramJson: any = JSON.stringify({
+      employeeId: 0,
+      roomId: 0,
+      syllabusName: '',
+      startDate: this.startDate,
+      endDate: this.endDate
+    }); 
+    this.http.post('/curriculum/selectCondition', { paramJson }, false).then(res => {
       if (res.code == 1000) {
-        this.weekList = res.result.list
+        this.weekList = res.result
         let startDateList = [],
           endDateList = [],
           TuesdayList = [],
@@ -148,6 +155,7 @@ export class TimetableComponent implements OnInit {
             endDateList.push(item);
           }
         })
+        console.log(startDateList);
         this.startDateList = startDateList;
         this.endDateList = endDateList;
         this.TuesdayList = TuesdayList;
@@ -272,6 +280,28 @@ getmonthList(dates){
   }
     window.open(`${this.domain}/curriculum/poiExcel?paramJson=${paramJson}`);
   }
+  details(data) {
+    this.studentdata = data;
+    this.showListdetail = true;
+
+  }
+  closeListdetail() {
+    this.showListdetail = false;
+    this.memberUserDetail = false;
+  }
+
+  memberUserDetails(memberId) {
+    this.http.post('/curriculum/memberIdMsg', {
+      memberId
+    }, false).then(res => {
+      if (res.code == 1000) {
+        this.memberUserDetail = res.result[0];
+      } else {
+        this.message.create('error', res.info);
+      }
+    });
+  }
+
 
   ngOnInit() {
   }

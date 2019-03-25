@@ -54,7 +54,7 @@
                       <div> 学员：{{!item.member.length?'暂无':''}}
                          <ng-container *ngIf="item.member.length">   
                           <span *ngFor="let items of item.member; let i = index" style="margin: 0;">
-                            {{items.memberName}}{{ !(items.expireDate >= nowtime||!items.expireDate) ? '(过)':'' }}{{ i == item.member.length-1 ? '' : '，'}}
+                            {{items.memberName}}{{ i == item.member.length-1 ? '' : '，'}}
                           </span>
                           </ng-container>
                       </div>
@@ -84,7 +84,7 @@
                     <div> 学员：{{!item.member.length?'暂无':''}}
                       <ng-container *ngIf="item.member.length">
                         <span *ngFor="let items of item.member; let i = index" style="margin: 0;">
-                          {{items.memberName}}{{ !(items.expireDate >= nowtime||!items.expireDate) ? '(过)':'' }}{{ i == item.member.length-1 ? '' :
+                          {{items.memberName}}{{ i == item.member.length-1 ? '' :
                           '，'}}
                         </span>
                       </ng-container>
@@ -115,7 +115,7 @@
                     <div> 学员：{{!item.member.length?'暂无':''}}
                       <ng-container *ngIf="item.member.length">
                         <span *ngFor="let items of item.member; let i = index" style="margin: 0;">
-                          {{items.memberName}}{{ !(items.expireDate >= nowtime||!items.expireDate) ? '(过)':'' }}{{ i == item.member.length-1 ? '' :
+                          {{items.memberName}}{{ i == item.member.length-1 ? '' :
                           '，'}}
                         </span>
                       </ng-container>
@@ -146,7 +146,7 @@
                     <div> 学员：{{!item.member.length?'暂无':''}}
                       <ng-container *ngIf="item.member.length">
                         <span *ngFor="let items of item.member; let i = index" style="margin: 0;">
-                          {{items.memberName}}{{ !(items.expireDate >= nowtime||!items.expireDate) ? '(过)':'' }}{{ i == item.member.length-1 ? '' :
+                          {{items.memberName}}{{ i == item.member.length-1 ? '' :
                           '，'}}
                         </span>
                       </ng-container>
@@ -177,7 +177,7 @@
                     <div> 学员：{{!item.member.length?'暂无':''}}
                       <ng-container *ngIf="item.member.length">
                         <span *ngFor="let items of item.member; let i = index" style="margin: 0;">
-                          {{items.memberName}}{{ !(items.expireDate >= nowtime||!items.expireDate) ? '(过)':'' }}{{ i == item.member.length-1 ? '' :
+                          {{items.memberName}}{{ i == item.member.length-1 ? '' :
                           '，'}}
                         </span>
                       </ng-container>
@@ -208,7 +208,7 @@
                     <div> 学员：{{!item.member.length?'暂无':''}}
                       <ng-container *ngIf="item.member.length">
                         <span *ngFor="let items of item.member; let i = index" style="margin: 0;">
-                          {{items.memberName}}{{ !(items.expireDate >= nowtime||!items.expireDate) ? '(过)':'' }}{{ i == item.member.length-1 ? '' :
+                          {{items.memberName}}{{ i == item.member.length-1 ? '' :
                           '，'}}
                         </span>
                       </ng-container>
@@ -239,7 +239,7 @@
                     <div> 学员：{{!item.member.length?'暂无':''}}
                       <ng-container *ngIf="item.member.length">
                         <span *ngFor="let items of item.member; let i = index" style="margin: 0;">
-                          {{items.memberName}}{{ !(items.expireDate >= nowtime||!items.expireDate) ? '(过)':'' }}{{ i == item.member.length-1 ? '' :
+                          {{items.memberName}}{{ i == item.member.length-1 ? '' :
                           '，'}}
                         </span>
                       </ng-container>
@@ -263,53 +263,30 @@
       </tbody>
     </nz-table>
   </div>
-  <!-- <div class="table">
-      <div class="nav">
-        <ul>
-            
-        </ul>  
-        <ul>
-          <li>时段</li>
-          <li>星期一<span>{{startDate}}</span></li>
-          <li>星期二<span>{{Tuesday}}</span></li>
-          <li>星期三<span>{{Wednesday}}</span></li>
-          <li>星期四<span>{{Thursday}}</span></li>
-          <li>星期五<span>{{Friday}}</span></li>
-          <li>星期六<span>{{Saturday}}</span></li>
-          <li>星期日<span>{{endDate}}</span></li>
-        </ul>
-        </div>
-        <div class="main">
 
-        </div>
-  </div> -->
   <div class="tc_form">
     <nz-modal [(nzVisible)]="showstudentsForm" nzWidth="800" nzTitle="查询" (nzOnCancel)="closestudentsForm()" (nzOnOk)="isstudentsForm()" [nzOkLoading]="isOkLoading">
       <div class="select_main">
       <div class="select_left">
               <p>
-                <input nz-input style="width: 150px;" placeholder="请输入" [(ngModel)]="mobilePhone">
+                <input nz-input style="width: 150px;" placeholder="请输入客户电话" [(ngModel)]="mobilePhone">
                 <button style="margin-left: 10px;" nz-button nzType="primary" (click)="selectshowstudents()">查询</button>
               </p>
               <div class="select_list">
                     <div class="select_tit">客户信息</div>
-                    <nz-table #basicTable [nzData]="memberList_b">
+                    <nz-table #basicTable nzShowPagination="false" [nzData]="memberList_b">
                       <thead>
                         <tr>
                           <th>姓名</th>
                           <th>小名</th>
                           <th>手机号</th>
-                          <th>操作</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let data of memberList_b">
+                        <tr *ngFor="let data of memberList_b" (click)="selectMemberList(data)">
                           <td>{{data.name}}</td>
                           <td>{{data.nick}}</td>
                           <td>{{data.mobilePhone}}</td>
-                          <td>
-                            <a (click)="selectMemberList(data)">选择</a>
-                          </td>
                         </tr>
                       </tbody>
                     </nz-table>
@@ -368,15 +345,26 @@
         <p>主教老师：{{studentdata.employeeName}}</p>
         <div>
           <h3>学员</h3>
-        </div>
+        </div> 
         <div style="margin-top: 10px;" *ngFor="let item of studentdata.member">
-          <span style="min-width:90px; display:inline-block; padding-right: 20px;">{{item.memberName}} ：</span>
+          <span  *ngIf="item.memberId == memberUserDetail.memberId"  class="users activitys"  (click)="memberUserDetails(item.memberId)" >{{item.memberName}}:</span>
+          <span  *ngIf="item.memberId != memberUserDetail.memberId"   class="users"  (click)="memberUserDetails(item.memberId)" >{{item.memberName}}:</span>
           <button nz-button nzType="primary" nzSize="small" [disabled]="!item.id" (click)="Adjust(item.memberId,item.memberName,item,studentdata)">调课</button>
-          <button nz-button nzType="primary" nzSize="small"  (click)="settlement(item)">结算</button>
+          <button nz-button nzType="primary" nzSize="small" (click)="settlement(item)" [disabled]="item.reserveStatus!=0">{{ item.reserveStatus==0?'结算':'已结算' }}</button>
           <button nz-button nzType="primary" nzSize="small" [disabled]="!item.id" (click)="memberStopcard(item.memberId)">停卡</button>
           <!-- <button nz-button nzType="primary" nzSize="small" [disabled]="!item.id" (click)="memberRecord(item.memberId,studentdata)">延期</button> -->
           <button nz-button nzType="primary" nzSize="small"  (click)="removeRecord(item.memberId,studentdata.id)">取消</button>
         </div>
+        <div class="memberDetail" *ngIf="memberUserDetail.memberId !=0 && memberUserDetail">
+          <div>姓名：{{ memberUserDetail.name }}</div>
+          <div>性别：{{ memberUserDetail.sex }}</div>
+          <div>家长电话：{{ memberUserDetail.mobilePhone }}</div>
+          <div>家长姓名：{{ memberUserDetail.parentName }}</div>
+          <div>宝宝生日：{{ memberUserDetail.birthday }}</div>
+          <div>客户状态：{{ memberUserDetail.havacard == 1? '会员' :'非会员' }}</div>
+        </div>
+
+
       </div>
     </nz-modal>
 

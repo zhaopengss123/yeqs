@@ -73,3 +73,24 @@ img{
   padding-right: 5px;
   margin-right: 5px;
 }
+.memberDetail{
+  width: 100%;
+  overflow: hidden;
+  margin-top:20px;
+  padding-top: 20px;
+  border-top: solid 1px #eee;
+}
+.memberDetail div{
+  width: 50%;
+  float: left; 
+  height: 40px;
+  line-height: 10px;
+}
+.users{
+  min-width:90px; display:inline-block;  cursor: pointer; 
+}
+.activitys.activitys{
+
+   color:#20adf9;
+   font-weight:bold;
+}  
