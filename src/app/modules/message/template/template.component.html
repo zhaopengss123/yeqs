@@ -1,7 +1,7 @@
 <div class="container">
   <ea-query-simp [node]="queryNode" title="短信模板配置" (onSubmit)="table.request($event)"></ea-query-simp>
 
-  <button nz-button nzType="dashed" style="width: 100%; margin-bottom: 24px;" (click)="updateTemplate(null)"><i class="anticon anticon-plus"></i>新增消息模板</button>
+  <button nz-button nzType="primary" style="margin-bottom: 24px;" (click)="updateTemplate(null)"><i class="anticon anticon-plus"></i>新增消息模板</button>
 
   <ea-table 
     #table 

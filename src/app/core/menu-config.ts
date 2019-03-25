@@ -21,11 +21,11 @@ export const MenuConfig = [
       //   key   : '/home/customer/paycard',
       //   isLeaf: true
       // },
-      {
-        title : '潜在客户',
-        key   : '/home/customer/potential',
-        isLeaf: true
-      },
+      // {
+      //   title : '潜在客户',
+      //   key   : '/home/customer/potential',
+      //   isLeaf: true
+      // },
       {
         title : '无意向客户',
         key   : '/home/customer/nointention',
@@ -75,28 +75,18 @@ export const MenuConfig = [
       }
     ]
   },
-  // {
-  //   title : '预约管理',
-  //   key   : '/home/appointment',
-  //   icon  : 'anticon-calendar',
-  //   children : [
-  //     {
-  //       title : '预约列表',
-  //       key   : '/home/appointment/list',
-  //       isLeaf: true
-  //     },
-  //     {
-  //       title : '预约设置',
-  //       key   : '/home/appointment/setting',
-  //       isLeaf: true
-  //     },
-  //     {
-  //       title : '泳师设置',
-  //       key   : '/home/appointment/swimmer',
-  //       isLeaf: true
-  //     }
-  //   ]
-  // },
+  {
+    title : '预约管理',
+    key   : '/home/appointment',
+    icon  : 'anticon-calendar',
+    children : [
+      {
+        title : '预约列表',
+        key   : '/home/appointment/list',
+        isLeaf: true
+      }
+    ]
+  },
   {
     title : '消费管理',
     key   : '/home/consumption',
@@ -112,11 +102,11 @@ export const MenuConfig = [
         key   : '/home/consumption/revoke',
         isLeaf: true
       },
-      {
-        title : '消费短信记录',
-        key   : '/home/consumption/shortmsg',
-        isLeaf: true
-      },
+      // {
+      //   title : '消费短信记录',
+      //   key   : '/home/consumption/shortmsg',
+      //   isLeaf: true
+      // },
       {
         title : '满意度修改记录',
         key   : '/home/consumption/satisfaction',
@@ -127,11 +117,11 @@ export const MenuConfig = [
       //   key   : '/home/consumption/curriculum',
       //   isLeaf: true
       // },
-      {
-        title : '福利消费列表',
-        key   : '/home/consumption/welfare',
-        isLeaf: true
-      }
+      // {
+      //   title : '福利消费列表',
+      //   key   : '/home/consumption/welfare',
+      //   isLeaf: true
+      // }
     ]
   },
   {

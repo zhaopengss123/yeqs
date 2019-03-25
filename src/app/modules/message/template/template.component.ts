@@ -10,7 +10,7 @@ import { TableComponent } from 'src/app/ng-relax/components/table/table.componen
 })
 export class TemplateComponent implements OnInit {
 
-  @ViewChild('table') table: TableComponent 
+  @ViewChild('table') table: TableComponent
 
   queryNode = [
     {

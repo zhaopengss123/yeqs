@@ -41,12 +41,11 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <nz-form-item>
-        <nz-form-label>儿童类型</nz-form-label>
+        <nz-form-label>婴儿类型</nz-form-label>
         <nz-form-control>
-          <nz-select  formControlName="babyType" placeholder="未记录儿童类型">
-          <nz-option nzLabel="0-3岁" nzValue="0-3岁"></nz-option>
-          <nz-option nzLabel="3-6岁" nzValue="3-6岁"></nz-option>
-          <nz-option nzLabel="6-12岁" nzValue="6-12岁"></nz-option>
+          <nz-select  formControlName="babyType" placeholder="未记录婴儿类型">
+            <nz-option nzValue="婴儿" nzLabel="婴儿"></nz-option>
+            <nz-option nzValue="幼儿" nzLabel="幼儿"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -110,9 +109,9 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <nz-form-item>
-        <nz-form-label nzRequired>授课老师</nz-form-label>
+        <nz-form-label nzRequired>预约泳师</nz-form-label>
         <nz-form-control>
-          <nz-select formControlName="swimTeacherId" nzPlaceHolder="未记录授课老师">
+          <nz-select formControlName="swimTeacherId" nzPlaceHolder="未记录预约泳师">
             <nz-option *ngFor="let option of teacherList" [nzValue]="option.id" [nzLabel]="option.name"></nz-option>
           </nz-select>
         </nz-form-control>

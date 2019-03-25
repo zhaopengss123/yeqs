@@ -1,10 +1,9 @@
 import { FormComponent } from './form/form.component';
-import { NzDrawerService, NzMessageService } from 'ng-zorro-antd';
+import { NzDrawerService, NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { QueryNode } from 'src/app/ng-relax/components/query/query.component';
 import { HttpService } from './../../../ng-relax/services/http.service';
-import { AppState } from './../../../core/reducers/reducers-config';
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-sendout',
@@ -12,8 +11,6 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./sendout.component.scss']
 })
 export class SendoutComponent implements OnInit {
-
-  @ViewChild('breadcrumbTmpt') breadcrumbTmpt: TemplateRef<any>; 
 
   queryNode: QueryNode[] = [
     {
@@ -43,10 +40,10 @@ export class SendoutComponent implements OnInit {
       optionsUrl: '/member/communityList'
     },
     {
-      label: '儿童类型',
+      label: '婴儿类型',
       key: 'babyType',
       type: 'select',
-      options: [{ name: '0-3岁', id: '0-3岁' }, { name: '3-6岁', id: '3-6岁' }, { name: '6-12岁', id: '6-12岁' }],    
+      options: [{ name: '婴儿', id: '婴儿' }, { name: '幼儿', id: '幼儿' }]
     },
     {
       label: '是否办卡',
@@ -88,20 +85,36 @@ export class SendoutComponent implements OnInit {
 
   transferList: any[] = [];
 
-  smsBalance: number;
+  smsBalanceSurplus: number;
 
   queryLoading: boolean;
 
   constructor(
-    private store: Store<AppState>,
     private http: HttpService,
     private drawer: NzDrawerService,
-    private message: NzMessageService
+    private message: NzMessageService,
+    private fb: FormBuilder = new FormBuilder(),
+    private modal: NzModalService
   ) { 
-    this.http.post('/smsBalance/balance', {}, false).then(res => this.smsBalance = res.result)
+    this.http.post('/smsBalance/balance', {}, false).then(res => this.smsBalanceSurplus = res.result);
+
+    this.http.post('/common/getStoreSmsTemplate', {}, false).then(res => this.smsTemplateList = res.result);
+    this.http.post('/smsBalance/balance', {}, false).then(res => this.smsBalance = res.result);
   }
   ngOnInit() {
-    this.store.dispatch({ type: 'setBreadcrumb', payload: this.breadcrumbTmpt });
+    this.formGroup = this.fb.group({
+      mobilePhones: [],
+      type: [1],
+      template: [],
+      content: [, [Validators.required]]
+    });
+    /* ----------------------- 短信内容根据模板自动填充 ----------------------- */
+    this.formGroup.get('template').valueChanges.subscribe(id => {
+      this.smsTemplateList.map(item => item.id === id && this.formGroup.patchValue({ content: item.memo }));
+    });
+    this.formGroup.get('content').valueChanges.subscribe(val => {
+      this.sendNum = this.selectList.length * (val && val.length > 60 ? Math.ceil(val.length / 60) : 1);
+    })
   }
 
   query(params = {}) {
@@ -124,20 +137,48 @@ export class SendoutComponent implements OnInit {
       map.list.map((item, idx) => this.selectList.indexOf(item.mobilePhone) != -1 && this.selectList.splice(this.selectList.indexOf(item.mobilePhone), 1));
     }
   }
-
-
   sendout() {
     if (!this.selectList.length) {
       this.message.warning('请选择需要发送的手机号码')
     } else {
-      this.drawer.create({
-        nzWidth: 720,
-        nzTitle: '发送短信',
-        nzContent: FormComponent,
-        nzContentParams: { phoneList: this.selectList }
-      });
+      this.save();
     }
   }
 
 
+
+  /* ------------- 短信发送 ------------- */
+  formGroup: FormGroup;
+  smsTemplateList: any[] = [];
+  smsBalance = 0;
+  sendNum = 0;
+  saveLoading: boolean;
+  save() {
+    if (this.smsBalanceSurplus <= 0) {
+      this.message.warning('短信剩余条数不足，请充值后发送');
+    } else if (this.formGroup.invalid) {
+      for (let control in this.formGroup.controls) {
+        this.formGroup.controls[control].markAsDirty();
+        this.formGroup.controls[control].updateValueAndValidity();
+      }
+    } else if (this.smsBalance - this.sendNum < 0) {
+      this.modal.confirm({
+        nzTitle: '提示',
+        nzContent: `短信剩余条数不足，公司已为您垫付<b>${this.smsBalance - this.sendNum}</b>条短信费用！此次发送成功后，如不续购短信，则不可再次发送。`,
+        nzOnOk: () => this._sendSms()
+      })
+    } else {
+      this._sendSms();
+    }
+  }
+
+  _sendSms() {
+    this.saveLoading = true;
+    this.formGroup.patchValue({ mobilePhones: this.selectList.join(','), })
+    this.http.post('/smsSend/sendSmsToConsume', {
+      paramJson: JSON.stringify(this.formGroup.value)
+    }).then(res => {
+      this.saveLoading = false;
+    });
+  }
 }

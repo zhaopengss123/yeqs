@@ -44,7 +44,7 @@
 </form>
 
 <nz-tabset [(nzSelectedIndex)]="consumptionType">
-  <nz-tab nzTitle="计次服务" [nzDisabled]="!appointmentInfo.cardCode">
+  <nz-tab nzTitle="计次服务" [nzDisabled]="!appointmentInfo.haveCard || (appointmentInfo.haveCard && !memberCardList.length)">
     <form nz-form [formGroup]="timesCountGroup">
       <div nz-row nzGutter="8">
         <div nz-col nzSpan="12">
@@ -86,7 +86,7 @@
           <nz-form-item>
             <nz-form-label nzRequired>消费金额</nz-form-label>
             <nz-form-control>
-              <input nz-input formControlName="consumption" placeholder="请选择消费服务">
+              <input nz-input formControlName="consumption" placeholder="请输入消费金额" readonly>
               <nz-form-explain *ngIf="timesCountGroup.get('consumption').dirty && timesCountGroup.get('consumption').hasError('required')">请输入消费金额！</nz-form-explain>
             </nz-form-control>
           </nz-form-item>
@@ -191,7 +191,7 @@
           <nz-form-item>
             <nz-form-label nzRequired>消费金额</nz-form-label>
             <nz-form-control>
-              <input nz-input formControlName="consumption" placeholder="请输入消费金额">
+              <input nz-input formControlName="consumption" placeholder="请输入消费金额" readonly>
               <nz-form-explain *ngIf="singleTimeGroup.get('consumption').dirty && singleTimeGroup.get('consumption').hasError('required')">请输入消费金额！</nz-form-explain>
             </nz-form-control>
           </nz-form-item>

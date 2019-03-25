@@ -61,7 +61,9 @@ export class PreviewComponent implements OnInit {
       }
     } else {
       this.saveLoading = true;
-      this.http.post('/reserve/modity', { paramJson: JSON.stringify(this.formGroup.value) }).then(res => {
+      let params = this.formGroup.value;
+      delete params.albumUrl;
+      this.http.post('/reserve/modity', { paramJson: JSON.stringify(params) }).then(res => {
         this.drawerRef.close(true);
       })
     }
@@ -73,8 +75,9 @@ export class PreviewComponent implements OnInit {
   reserveChange(e) {
     if (e) {
       let newHour = this.format.transform(e, 'yyyy-MM-dd HH:mm').split(' ')[1];
-      this.appointmentInfo.rHour = newHour.split(':')[0];
-      this.appointmentInfo.rMinute = newHour.split(':')[1];
+      let rHour = newHour.split(':')[0];
+      let rMinute = newHour.split(':')[1];
+      this.formGroup.patchValue({ rHour, rMinute })
     }
   }
 

@@ -1,7 +1,5 @@
 import { QueryNode } from './../../../ng-relax/components/query/query.component';
-import { AppState } from './../../../core/reducers/reducers-config';
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-sendlog',
@@ -10,8 +8,10 @@ import { Store } from '@ngrx/store';
 })
 export class SendlogComponent implements OnInit {
 
+  showMoreMobile: boolean;
+  moreMobile: string;
+
   constructor(
-    private store: Store<AppState>
   ) { }
 
   ngOnInit() {
@@ -24,7 +24,7 @@ export class SendlogComponent implements OnInit {
 
   queryNode: QueryNode[] = [
     {
-      label : '接收手机号',
+      label : '接收手机',
       key   : 'mobile',
       type  : 'input'
     },

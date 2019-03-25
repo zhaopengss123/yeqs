@@ -1,4 +1,4 @@
-import { NzDrawerRef } from 'ng-zorro-antd';
+import { NzDrawerRef, NzMessageService } from 'ng-zorro-antd';
 import { HttpService } from './../../../../ng-relax/services/http.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -27,8 +27,9 @@ export class ConsumptionComponent implements OnInit {
 
   constructor(
     private http: HttpService,
-    private drawerRef: NzDrawerRef<boolean>,
-    private fb: FormBuilder = new FormBuilder()
+    private drawerRef: NzDrawerRef<boolean | any>,
+    private fb: FormBuilder = new FormBuilder(),
+    private message: NzMessageService
   ) { }
 
   ngOnInit() {
@@ -67,7 +68,7 @@ export class ConsumptionComponent implements OnInit {
 
     /* ------------------------- 消费服务、商品改变自动填写消费金额 ------------------------- */
     this.timesCountGroup.get('commodityId').valueChanges.subscribe(id => {
-      this.http.post('/customer/price', { id, cardId: this.timesCountGroup.get('cardId').value }, false).then(res => {
+      this.http.post('/customer/price', { id, cardId: this.timesCountGroup.get('cardId').value, isCrossed: this.appointmentInfo.isCrossed }, false).then(res => {
         this.timesCountGroup.patchValue({ consumption: res.result.price });
       })
     });
@@ -97,12 +98,20 @@ export class ConsumptionComponent implements OnInit {
       this.timesCountGroup.patchValue({ swimTeacherId: res.result[0].id });
       this.singleTimeGroup.patchValue({ swimTeacherId: res.result[0].id });
     });
-    this.http.post('/member/communityList', {}, false).then(res => this.communityList = res.result);
-    this.http.post('/swimRing/getStoreSwimRings', {}, false).then(res => this.swimRingList = res.result);
-    this.http.post('/memberCard/getMemberCards', { memberId: this.appointmentInfo.memberId }, false).then(res => {
-      this.memberCardList = res.result;
-      res.result.length && this.timesCountGroup.patchValue({ cardId: res.result[0].id });
-    });
+
+    /* -------------------- 如果有会员卡则去请求 会员卡列表和泳圈型号 -------------------- */
+    if (this.appointmentInfo.haveCard) {
+      this.http.post('/memberCard/getMemberCards', { memberId: this.appointmentInfo.memberId }, false).then(res => {
+        this.memberCardList = res.result;
+        if (res.result.length) {
+          this.timesCountGroup.patchValue({ cardId: res.result[0].id });
+          this.http.post('/swimRing/getStoreSwimRings', {}, false).then(res => this.swimRingList = res.result);
+        } else {
+          this.consumptionType = 1;
+          this.message.error('该客户会员卡(停卡，或过期，或卡次用尽)无法使用，请使用单次消费', { nzDuration: 5000 });
+        }
+      });
+    }
 
     this.http.post('/commodity/getCommonCommodities', {}, false).then(res => {
       this.commoditieListdc = res.result;
@@ -119,7 +128,6 @@ export class ConsumptionComponent implements OnInit {
       baseValue[key] = this.baseFormGroup.controls[key].value;
     })
     if (this.consumptionType === 0) {
-      console.log(this.baseFormGroup, this.baseFormGroup.value)
       if (this.timesCountGroup.invalid) {
         for (let i in this.timesCountGroup.controls) {
           this.timesCountGroup.controls[i].markAsDirty();
@@ -128,7 +136,7 @@ export class ConsumptionComponent implements OnInit {
       } else {
         this.saveLoading = true;
         this.http.post('/customer/create', { paramJson: JSON.stringify(Object.assign(baseValue, this.timesCountGroup.value)) }).then(res => {
-          this.drawerRef.close(true);
+          this.drawerRef.close(res.code == 1000 ? { id: res.result.id } : true);
         });
       }
     } else {
@@ -140,7 +148,7 @@ export class ConsumptionComponent implements OnInit {
       } else {
         this.saveLoading = true;
         this.http.post('/customer/create', { paramJson: JSON.stringify(Object.assign(baseValue, this.singleTimeGroup.value)) }).then(res => {
-          this.drawerRef.close(true);
+          this.drawerRef.close(res.code == 1000 ? { id: res.result.id } : true);
         });
       }
     }

@@ -5,8 +5,10 @@ import { PreviewComponent } from './preview/preview.component';
 import { HttpService } from './../../../ng-relax/services/http.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { QueryNode } from './../../../ng-relax/components/query/query.component';
-import { NzDrawerService } from 'ng-zorro-antd';
-import { FormControl } from '@angular/forms';
+import { NzDrawerService, NzModalService } from 'ng-zorro-antd';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { query } from '@angular/animations';
+import { MemberCardDetailComponent } from '../../public/member-card-detail/member-card-detail.component';
 
 @Component({
   selector: 'app-list',
@@ -35,105 +37,169 @@ export class ListComponent implements OnInit {
       isHide      : true
     },
     {
-      label       : '授课老师',
+      label       : '预约泳师',
       key         : 'reserveTeacherId',
       type        : 'select',
       optionsUrl  : '/member/getStoreTeachers',
       isHide      : true
     },
+    // {
+    //   label       : '婴儿类型',
+    //   key         : 'babyType',
+    //   type        : 'select',
+    //   options     : [ { name: '婴儿', id: '婴儿' }, { name: '幼儿', id: '幼儿' } ],
+    //   isHide      : true
+    // },
+    // {
+    //   label       : '业务类型',
+    //   key         : 'categoryId',
+    //   type        : 'select',
+    //   optionsUrl  : '/cardBusinessManagement/getStoreCardTypeCategores',
+    //   isHide      : true
+    // },
     {
-      label       : '儿童类型',
-      key         : 'babyType',
-      type        : 'select',
-      options     : [{ name: '0-3岁', id: '0-3岁' }, { name: '3-6岁', id: '3-6岁' }, { name: '6-12岁', id: '6-12岁' } ],
-      isHide      : true
+      label       : '预约日期',
+      key         : 'appointmentDate',
+      valueKey    : ['startDate', 'endDate'],
+      type        : 'rangepicker',
+      default     : [new Date(), new Date()]
     },
-    {
-      label       : '业务类型',
-      key         : 'categoryId',
-      type        : 'select',
-      optionsUrl  : '/cardBusinessManagement/getStoreCardTypeCategores',
-      isHide      : true
-    },
+    // {
+    //   label       : '最小时段',
+    //   key         : 'startHour',
+    //   type        : 'select',
+    //   options     : [ 
+    //     { name: 0, id: 0 },
+    //     { name: 1, id: 1 },
+    //     { name: 2, id: 2 },
+    //     { name: 3, id: 3 },
+    //     { name: 4, id: 4 },
+    //     { name: 5, id: 5 },
+    //     { name: 6, id: 6 },
+    //     { name: 7, id: 7 },
+    //     { name: 8, id: 8 },
+    //     { name: 9, id: 9 },
+    //     { name: 10, id: 10 },
+    //     { name: 11, id: 11 },
+    //     { name: 12, id: 12 },
+    //     { name: 13, id: 13 },
+    //     { name: 14, id: 14 },
+    //     { name: 15, id: 15 },
+    //     { name: 16, id: 16 },
+    //     { name: 17, id: 17 },
+    //     { name: 18, id: 18 },
+    //     { name: 19, id: 19 },
+    //     { name: 20, id: 20 },
+    //     { name: 21, id: 21 },
+    //     { name: 22, id: 22 },
+    //     { name: 23, id: 23 },
+    //                 ],
+    //   isHide      : true
+    // },
+    // {
+    //   label       : '最大时段',
+    //   key         : 'endHour',
+    //   type        : 'select',
+    //   options     : [ 
+    //     { name: 0, id: 0 },
+    //     { name: 1, id: 1 },
+    //     { name: 2, id: 2 },
+    //     { name: 3, id: 3 },
+    //     { name: 4, id: 4 },
+    //     { name: 5, id: 5 },
+    //     { name: 6, id: 6 },
+    //     { name: 7, id: 7 },
+    //     { name: 8, id: 8 },
+    //     { name: 9, id: 9 },
+    //     { name: 10, id: 10 },
+    //     { name: 11, id: 11 },
+    //     { name: 12, id: 12 },
+    //     { name: 13, id: 13 },
+    //     { name: 14, id: 14 },
+    //     { name: 15, id: 15 },
+    //     { name: 16, id: 16 },
+    //     { name: 17, id: 17 },
+    //     { name: 18, id: 18 },
+    //     { name: 19, id: 19 },
+    //     { name: 20, id: 20 },
+    //     { name: 21, id: 21 },
+    //     { name: 22, id: 22 },
+    //     { name: 23, id: 23 },
+    //                 ],
+    //   isHide      : true
+    // },
     {
       label       : '预约状态',
       key         : 'reserveStatus',
       type        : 'select',
       options     : [ { name: '预约中', id: 0 }, { name: '已撤销', id: 1 }, { name: '已完成', id: 2 } ]
     },
-    {
-      label       : '预约日期',
-      key         : 'appointmentDate',
-      valueKey    : ['startDate', 'endDate'],
-      type        : 'rangepicker',
-      default     : [new Date(), new Date()],
-      ranges      : { 
-                      '今天': [new Date(), new Date()], 
-                      '明天': [new Date(new Date().getTime() + 60 * 60 * 24 * 1000), new Date(new Date().getTime() + 60 * 60 * 24 * 1000)],
-                      '第三天': [new Date(new Date().getTime() + 60 * 60 * 24 * 1000 * 2), new Date(new Date().getTime() + 60 * 60 * 24 * 1000 * 2)],
-                      '第四天': [new Date(new Date().getTime() + 60 * 60 * 24 * 1000 * 3), new Date(new Date().getTime() + 60 * 60 * 24 * 1000 * 3)],
-                      '第五天': [new Date(new Date().getTime() + 60 * 60 * 24 * 1000 * 4), new Date(new Date().getTime() + 60 * 60 * 24 * 1000 * 4)],
-                      '第六天': [new Date(new Date().getTime() + 60 * 60 * 24 * 1000 * 5), new Date(new Date().getTime() + 60 * 60 * 24 * 1000 * 5)],
-                      '第七天': [new Date(new Date().getTime() + 60 * 60 * 24 * 1000 * 6), new Date(new Date().getTime() + 60 * 60 * 24 * 1000 * 6)],
-                    }
-    },
-    {
-      label       : '预约时段',
-      key         : 'appointmentHour',
-      valueKey    : ['startHour', 'endHour'],
-      type        : 'between',
-      isHide      : true
-    },
-    {
-      label       : '只看跨店',
-      key         : 'babyType',
-      type        : 'select',
-      options     : [ { name: '是', id: 1 }, { name: '否', id: 0 } ],
-      isHide      : true
-    },
-    {
-      label       : '当天预约',
-      key         : 'overdue',
-      type        : 'select',
-      options     : [ { name: '是', id: 1 }, { name: '否', id: 0 } ],
-      isHide      : true
-    }
+    // {
+    //   label       : '只看跨店',
+    //   key         : 'babyType',
+    //   type        : 'radio',
+    //   options     : [ { name: '是', id: 1 }, { name: '否', id: 0 } ],
+    //   isHide      : true
+    // },
+    // {
+    //   label       : '当天预约',
+    //   key         : 'overdue',
+    //   type        : 'radio',
+    //   options     : [ { name: '是', id: 1 }, { name: '否', id: 0 } ],
+    //   isHide      : true
+    // }
   ];
 
   paramsInit;
 
+  weilaiForm: FormGroup;
+  weilaiOptionList: any[] = []
+
   constructor(
     private http: HttpService,
     private drawer: NzDrawerService,
-    private format: DatePipe
+    private format: DatePipe,
+    private fb: FormBuilder = new FormBuilder(),
+    private modal: NzModalService
   ) { 
     this.paramsInit = {
       startDate: this.format.transform(new Date(), 'yyyy-MM-dd'),
       endDate: this.format.transform(new Date(), 'yyyy-MM-dd'),
     };
+    this.weilaiForm = this.fb.group({
+      weilai: []
+    })
     this.http.post('/homePage/getWeeks', {}, false).then(res => {
-      this.listPage.eaQuery._queryForm.addControl('weilai', new FormControl(null));
-      let queryNode: QueryNode = {
-        label: '未来几天',
-        type: 'select',
-        key: 'weilai',
-        options: [],
-        optionKey: { label: 'name', value: 'id' }
-      }
-      res.result.map(item => queryNode.options.push({ name: item.week, id: new Date(item.date)}))
-      this.listPage.eaQuery._node.push(queryNode);
-
-      this.listPage.eaQuery._queryForm.get('weilai').valueChanges.subscribe(res => {
+      res.result.map(item => this.weilaiOptionList.push({ name: item.week, id: new Date(item.date)}));
+      this.weilaiOptionList[0].name = '今天';
+      this.weilaiForm.patchValue({ weilai: this.weilaiOptionList[0].id })
+      this.weilaiForm.get('weilai').valueChanges.subscribe(res => {
         if (res) {
-          this.listPage.eaQuery._queryForm.patchValue({ appointmentDate: [res, res] });
-          this.listPage.eaQuery._submit();
+          this.isChange = false;
+          this.listPage.eaTable.request({ startDate: this.format.transform(res, 'yyyy-MM-dd'), endDate: this.format.transform(res, 'yyyy-MM-dd') })
+          this.listPage.eaQuery._queryForm.patchValue({ appointmentDate: [res, res] })
         }
       })
     });
   }
 
+  isChange: boolean = true;
+
+  requestDataLength: number = 0;
   ngOnInit() {
-    
+    setTimeout(() => {
+      this.listPage.eaQuery._queryForm.get('appointmentDate').valueChanges.subscribe(res => {
+        this.isChange && this.weilaiForm.patchValue({ weilai: null });
+        this.isChange = true;
+      })
+    });
+  }
+
+  welcome(data) {
+    if (!data.isWelcome) {
+      data.isWelcome = true;
+      this.http.post('/reserve/welcome', { id: data.id }).then(res => {})
+    }
   }
 
   /* ------------------- 查看预约 ------------------- */
@@ -167,7 +233,25 @@ export class ListComponent implements OnInit {
       }
     });
 
-    drawerRef.afterClose.subscribe(res => res && this.listPage.eaTable._request());
+    drawerRef.afterClose.subscribe(res => {
+      res && this.listPage.eaQuery._submit();
+
+      if (typeof res === 'object' && res.id) {
+        /* ------------------- 如果此用户为会员，则显示本次的消费卡信息 ------------------- */
+        this.http.post('/customer/viewCardDateils', { id: res.id }, false).then(res => {
+          if (res.code == 1000) {
+            res.result.totalTimes = `${res.result.times + res.result.freeTimes}（${res.result.times}/${res.result.freeTimes}）`;
+            res.result.remainTimes = `${res.result.remaintimes + res.result.remainFreeTimes}（${res.result.remaintimes}/${res.result.remainFreeTimes}）`
+            this.modal.create({
+              nzTitle: '消费完成',
+              nzContent: MemberCardDetailComponent,
+              nzComponentParams: { memberInfo: res.result },
+              nzOkText: null
+            })
+          }
+        })
+      }
+    });
   }
 
   /* ------------------- 撤销预约 ------------------- */
