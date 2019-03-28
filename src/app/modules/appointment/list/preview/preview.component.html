@@ -41,22 +41,8 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <nz-form-item>
-        <nz-form-label>婴儿类型</nz-form-label>
         <nz-form-control>
-          <nz-select  formControlName="babyType" placeholder="未记录婴儿类型">
-            <nz-option nzValue="婴儿" nzLabel="婴儿"></nz-option>
-            <nz-option nzValue="幼儿" nzLabel="幼儿"></nz-option>
-          </nz-select>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col nzSpan="12">
-      <nz-form-item>
-        <nz-form-label nzRequired>所属社区</nz-form-label>
-        <nz-form-control>
-          <nz-select formControlName="communityId" nzPlaceHolder="未记录所属社区">
-            <nz-option *ngFor="let option of communityList" [nzValue]="option.id" [nzLabel]="option.name"></nz-option>
-          </nz-select>
+          <input nz-input formControlName="babyType" placeholder="未记录婴儿类型">
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -80,7 +66,7 @@
       <nz-form-item>
         <nz-form-label>特殊标记</nz-form-label>
         <nz-form-control>
-          <nz-select  formControlName="spec" nzPlaceHolder="未记录特殊标记">
+          <nz-select  disabled  formControlName="spec" nzPlaceHolder="未记录特殊标记">
             <nz-option [nzValue]="1" nzLabel="是"></nz-option>
             <nz-option [nzValue]="0" nzLabel="否"></nz-option>
           </nz-select>
@@ -93,7 +79,7 @@
       <nz-form-item>
         <nz-form-label nzRequired>预约日期</nz-form-label>
         <nz-form-control>
-          <nz-date-picker [nzDisabled]="appointmentInfo.reserveStatus != 0" nzFormat="yyyy-MM-dd" formControlName="reserveDate" nzPlaceHolder="请选择预约日期"></nz-date-picker>
+          <nz-date-picker disabled nzFormat="yyyy-MM-dd" formControlName="currentDate" nzPlaceHolder="请选择预约日期"></nz-date-picker>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -101,7 +87,7 @@
       <nz-form-item>
         <nz-form-label nzRequired>预约时间</nz-form-label>
         <nz-form-control>
-          <nz-time-picker [nzDisabled]="appointmentInfo.reserveStatus != 0" [nzDisabledHours]="disabledHours" [nzMinuteStep]="15" nzFormat="HH:mm" formControlName="reserveHM" name="reserveHM" (ngModelChange)="reserveChange($event)" nzPlaceHolder="请选择预约时间段"></nz-time-picker>
+            <input disabled nz-input formControlName="startTime" placeholder="">
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -111,19 +97,7 @@
       <nz-form-item>
         <nz-form-label nzRequired>预约泳师</nz-form-label>
         <nz-form-control>
-          <nz-select formControlName="swimTeacherId" nzPlaceHolder="未记录预约泳师">
-            <nz-option *ngFor="let option of teacherList" [nzValue]="option.id" [nzLabel]="option.name"></nz-option>
-          </nz-select>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col nzSpan="12">
-      <nz-form-item>
-        <nz-form-label nzRequired>泳圈型号</nz-form-label>
-        <nz-form-control>
-          <nz-select formControlName="ringId" nzPlaceHolder="未记录泳圈型号">
-            <nz-option *ngFor="let option of swimRingList" [nzValue]="option.id" [nzLabel]="option.name"></nz-option>
-          </nz-select>
+          <input nz-input disabled formControlName="teacherName" placeholder="未记录预约泳师">
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -133,14 +107,15 @@
       <nz-form-item>
         <nz-form-label>备注</nz-form-label>
         <nz-form-control>
-          <textarea nz-input formControlName="comment" name="comment" [nzAutosize]="{ minRows: 4, maxRows: 4 }" placeholder="未记录备注"></textarea>
+          <textarea nz-input disabled formControlName="remarks" name="remarks" [nzAutosize]="{ minRows: 4, maxRows: 4 }" placeholder="未记录备注"></textarea>
         </nz-form-control>
       </nz-form-item>
     </div>
   </div>
 </form>
 
-<div class="footer" *ngIf="appointmentInfo.reserveStatus == 0">
+<!-- <div class="footer" *ngIf="appointmentInfo.startTime == 0"> -->
+  <!-- <div class="footer" *ngIf="appointmentInfo.startTime == 0">
   <button nz-button (click)="closeDrawer()">取消</button>
   <button nz-button nzType="primary" [nzLoading]="saveLoading" (click)="saveDrawer()">保存</button>
-</div>
+</div> -->

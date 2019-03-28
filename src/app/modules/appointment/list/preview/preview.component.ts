@@ -37,7 +37,7 @@ export class PreviewComponent implements OnInit {
     this.appointmentInfo.reserveHM = new Date(`${this.appointmentInfo.reserveDate} ${this.appointmentInfo.rHour}:${this.appointmentInfo.rMinute}`);
     if (this.appointmentInfo.reserveStatus == 0) {
       Object.keys(this.appointmentInfo).map(key => {
-        if (key == 'name' || key == 'monthAge' || key == 'communityId' || key == 'reserveDate' || key == 'rHour' || key == 'rMinute' || key == 'swimTeacherId') {
+        if (key == 'name' || key == 'monthAge' ||  key == 'reserveDate' || key == 'rHour' || key == 'rMinute' || key == 'swimTeacherId') {
           groups[key] = [this.appointmentInfo[key], [Validators.required]];
         } else {
           groups[key] = [this.appointmentInfo[key]];

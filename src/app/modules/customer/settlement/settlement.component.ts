@@ -2,12 +2,16 @@ import { environment } from './../../../../environments/environment';
 import { ConsumptionsComponents } from './consumptions/consumptions.component';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { DatePipe } from '@angular/common';
+import { Store } from '@ngrx/store';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NzDrawerService } from 'ng-zorro-antd';
 import { ListPageComponent } from 'src/app/ng-relax/components/list-page/list-page.component';
+import { AppState } from 'src/app/core/reducers/reducers-config';
+import { Subject } from 'rxjs';
+import { debounceTime, filter } from 'rxjs/operators';
 
 
 @Component({
@@ -17,6 +21,9 @@ import { ListPageComponent } from 'src/app/ng-relax/components/list-page/list-pa
 })
 export class SettlementComponent implements OnInit {
   @ViewChild('listPage') listPage: ListPageComponent;
+
+  searchSubject = new Subject();
+
   isBtnDisVled = true;
   checked1:any = false;
   checked2: any = false;
@@ -103,16 +110,25 @@ export class SettlementComponent implements OnInit {
     birthday:'',
     sex:'',
     havacard:'',
-    mobilePhone:''
+    mobilePhone:'',
+    remarks:''
   }
+  storeId:any = "";
+  loading_b:any = false;
+  total_b: any = "";
+  pageIndex_b:any = 1;
+  pageSize_b:any = 10;
+  remarks:any = "";
   constructor(
 
     private http: HttpService,
     private message: NzMessageService,
+    private store: Store<AppState>,
     private format: DatePipe,
     private drawer: NzDrawerService
 
   ) {
+    this.store.select('userInfoState').subscribe(res => { this.storeId = res.store['id']; }); 
     this.seletdataList();
     this.nowDate();
     this.selectSyllabusAll();
@@ -235,6 +251,33 @@ selectquery(){
     }
   };
   ngOnInit() {
+    this.searchSubject.pipe(debounceTime(500), filter((txt: string) => txt.length >= 1)).subscribe(res => {
+
+    if ((isNaN(this.mobilePhone) && this.mobilePhone!="" || (!isNaN(this.mobilePhone) && this.mobilePhone.length > 3)) ){
+      // 
+      //http://tsms.beibeiyue.com/sms/erp/query
+      this.loading_b = true; 
+      this.http.get('http://es.beibeiyue.com/es/erp/query', { index: 'qs', storeId: this.storeId, type: 'member', condition: this.mobilePhone, pageNo:this.pageIndex_b, pageSize:10 }, false).then(res => {
+      this.loading_b = false;
+      if (res.returnCode == 'SUCCESS') {
+        if(res.result){
+          this.memberList_b = res.result;
+          this.total_b = res.total;
+        }else{
+          this.memberList_b = [];
+          this.total_b = 0;
+          this.pageIndex_b = 1;
+        }
+        } else {
+          this.message.create('error', res.returnMsg);
+        }
+      });
+    }else{
+      this.memberList_b =[];
+      this.total_b = 0;
+      this.pageIndex_b = 1;
+    }
+    })
   }
 
   memberUserDetails(memberId){
@@ -257,7 +300,8 @@ selectquery(){
       birthday: '',
       sex: '',
       havacard: '',
-      mobilePhone: ''
+      mobilePhone: '',
+      remarks:''
     };
     this.mobilePhone = '';
     this.showstudentsForm = true;
@@ -292,12 +336,14 @@ selectquery(){
       memberId: this.studentInformation.memberId,
       memberName: this.studentInformation.name,
       parentName: this.studentInformation.parentName,
-      mobilePhone: this.studentInformation.mobilePhone
+      mobilePhone: this.studentInformation.mobilePhone,
+      remarks: this.studentInformation.remarks
     }, false).then(res => {
       this.isOkLoading = false;
       if (res.code == 1000) {
         this.message.create('success', '添加成功！');
         this.showstudentsForm = false;
+        this.memberList_b  = [];
         this.selectquery();
       } else {
         this.message.create('error', res.info);
@@ -305,18 +351,20 @@ selectquery(){
     }); 
   }
   selectMemberList(data){
-    data.havacard = data.havacard == 0 ? '体验' : '正式'; 
-    this.studentInformation = data;
+
+    this.selectshowstudents(data.id);
   }
 //预约时学员信息查询
-  selectshowstudents(){
-    this.http.post('/curriculum/selectMemberMsg', { mobilePhone: this.mobilePhone }, false).then(res => {
+  selectshowstudents(memberId){
+    this.http.post('/curriculum/memberIdMsg', { memberId }, false).then(res => {
       if(res.code==1000){
-          if(res.result.length){
-            this.memberList_b = res.result;
-          }else{
-            this.message.create('error', '无学员信息~');
-          }
+        if (res.result.length){
+          res.result[0].havacard = res.result[0].havacard == 0 ? '体验' : '正式'; 
+          this.studentInformation = res.result[0];
+        }else{
+          this.studentInformation = {};
+          this.message.create('error', '无会员信息');
+        }
       }else{
         this.message.create('error', res.info); 
       }
@@ -496,6 +544,7 @@ selectquery(){
   selectlabel(){
     this.http.post('/curriculum/selectIdRecord', { syllabusName: this.radioValue }, false).then(res => {
       if (res.code == 1000) {
+        this.datalabelList = [];
         this.RecordList = res.result.list;
         this.RecordList1 = [];
         this.RecordList2 = [];
@@ -645,6 +694,7 @@ selectquery(){
   /* ------------------- 结算预约 ------------------- */
   
   consumption(appointmentInfo) {
+    console.log(appointmentInfo);
     const drawerRef = this.drawer.create({
       nzTitle: '添加消费',
       nzContent: ConsumptionsComponents,
@@ -689,4 +739,10 @@ selectquery(){
         }
     });
   }
+  modelChange(){
+    
+    this.searchSubject.next(this.mobilePhone);
+
+  }
+
 }

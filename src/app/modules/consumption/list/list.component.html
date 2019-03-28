@@ -30,7 +30,7 @@
       <td>{{ data.swimDuration }}</td>
       <td>{{ data.weighRemind ? '需要' : '不需要' }}</td>
       <td>{{ data.photoRemind ? '需要' : '不需要' }}</td>
-      <td>{{ data.comment }}</td>
+      <td><span *ngIf="data.comment" nz-tooltip [nzTitle]="data.comment">{{ data.comment.length > 10 ? data.comment.substr(0, 10) + '...' : data.comment }}</span></td>
     </ng-template>
 
     <ng-template #EaBtns>
@@ -41,7 +41,7 @@
           <button nz-button nz-dropdown>更多操作<i class="anticon anticon-down"></i></button>
           <ul nz-menu>
             <li nz-menu-item><a (click)="operation('revoke')">撤销</a></li>
-            <li nz-menu-item><a (click)="operation('message')">发短信</a></li>
+            <!-- <li nz-menu-item><a (click)="operation('message')">发短信</a></li> -->
             <!-- <li nz-menu-item><a (click)="operation('curriculum')">添加课程</a></li> -->
           </ul>
         </nz-dropdown>

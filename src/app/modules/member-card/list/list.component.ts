@@ -298,7 +298,7 @@ export class ListComponent implements OnInit {
           this.memberData = res;
         }
       })
-    
+     
       }
   }
     /* ----------------- 新增抽屉组件并传参Id及用户信息 ----------------- */
@@ -375,6 +375,7 @@ export class ListComponent implements OnInit {
   selectlabel() {
     this.http.post('/curriculum/selectIdRecord', { syllabusName: this.radioValue }, false).then(res => {
       if (res.code == 1000) {
+        this.datalabelList = [];
         this.RecordList = res.result.list;
         this.RecordList1 = [];
         this.RecordList2 = [];

@@ -166,13 +166,13 @@
             </nz-form-control>
           </nz-form-item>
         </div>
-        <div nz-col nzSpan="3" *ngIf="followStageId != 4">
+        <!-- <div nz-col nzSpan="3" *ngIf="followStageId != 4">
           <nz-form-item>
             <nz-form-control>
               <nz-switch formControlName="status" nzCheckedChildren="已预约到店" nzUnCheckedChildren="未预约到店"></nz-switch>
             </nz-form-control>
           </nz-form-item>
-        </div>
+        </div> -->
         <div nz-col nzSpan="4" style="height: 63px; float: right">
           <button (click)="saveFollowRecord()" style="margin-top: 4px;float: right;" nz-button nzType="primary" [nzLoading]="saveFollowRecordLoading" [style.margin-top]="'5px'">发布</button>
         </div>

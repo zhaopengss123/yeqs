@@ -9,6 +9,7 @@ import { NzDrawerService, NzModalService } from 'ng-zorro-antd';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { query } from '@angular/animations';
 import { MemberCardDetailComponent } from '../../public/member-card-detail/member-card-detail.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list',
@@ -43,20 +44,7 @@ export class ListComponent implements OnInit {
       optionsUrl  : '/member/getStoreTeachers',
       isHide      : true
     },
-    // {
-    //   label       : '婴儿类型',
-    //   key         : 'babyType',
-    //   type        : 'select',
-    //   options     : [ { name: '婴儿', id: '婴儿' }, { name: '幼儿', id: '幼儿' } ],
-    //   isHide      : true
-    // },
-    // {
-    //   label       : '业务类型',
-    //   key         : 'categoryId',
-    //   type        : 'select',
-    //   optionsUrl  : '/cardBusinessManagement/getStoreCardTypeCategores',
-    //   isHide      : true
-    // },
+
     {
       label       : '预约日期',
       key         : 'appointmentDate',
@@ -64,103 +52,27 @@ export class ListComponent implements OnInit {
       type        : 'rangepicker',
       default     : [new Date(), new Date()]
     },
-    // {
-    //   label       : '最小时段',
-    //   key         : 'startHour',
-    //   type        : 'select',
-    //   options     : [ 
-    //     { name: 0, id: 0 },
-    //     { name: 1, id: 1 },
-    //     { name: 2, id: 2 },
-    //     { name: 3, id: 3 },
-    //     { name: 4, id: 4 },
-    //     { name: 5, id: 5 },
-    //     { name: 6, id: 6 },
-    //     { name: 7, id: 7 },
-    //     { name: 8, id: 8 },
-    //     { name: 9, id: 9 },
-    //     { name: 10, id: 10 },
-    //     { name: 11, id: 11 },
-    //     { name: 12, id: 12 },
-    //     { name: 13, id: 13 },
-    //     { name: 14, id: 14 },
-    //     { name: 15, id: 15 },
-    //     { name: 16, id: 16 },
-    //     { name: 17, id: 17 },
-    //     { name: 18, id: 18 },
-    //     { name: 19, id: 19 },
-    //     { name: 20, id: 20 },
-    //     { name: 21, id: 21 },
-    //     { name: 22, id: 22 },
-    //     { name: 23, id: 23 },
-    //                 ],
-    //   isHide      : true
-    // },
-    // {
-    //   label       : '最大时段',
-    //   key         : 'endHour',
-    //   type        : 'select',
-    //   options     : [ 
-    //     { name: 0, id: 0 },
-    //     { name: 1, id: 1 },
-    //     { name: 2, id: 2 },
-    //     { name: 3, id: 3 },
-    //     { name: 4, id: 4 },
-    //     { name: 5, id: 5 },
-    //     { name: 6, id: 6 },
-    //     { name: 7, id: 7 },
-    //     { name: 8, id: 8 },
-    //     { name: 9, id: 9 },
-    //     { name: 10, id: 10 },
-    //     { name: 11, id: 11 },
-    //     { name: 12, id: 12 },
-    //     { name: 13, id: 13 },
-    //     { name: 14, id: 14 },
-    //     { name: 15, id: 15 },
-    //     { name: 16, id: 16 },
-    //     { name: 17, id: 17 },
-    //     { name: 18, id: 18 },
-    //     { name: 19, id: 19 },
-    //     { name: 20, id: 20 },
-    //     { name: 21, id: 21 },
-    //     { name: 22, id: 22 },
-    //     { name: 23, id: 23 },
-    //                 ],
-    //   isHide      : true
-    // },
+
     {
       label       : '预约状态',
       key         : 'reserveStatus',
       type        : 'select',
       options     : [ { name: '预约中', id: 0 }, { name: '已撤销', id: 1 }, { name: '已完成', id: 2 } ]
     },
-    // {
-    //   label       : '只看跨店',
-    //   key         : 'babyType',
-    //   type        : 'radio',
-    //   options     : [ { name: '是', id: 1 }, { name: '否', id: 0 } ],
-    //   isHide      : true
-    // },
-    // {
-    //   label       : '当天预约',
-    //   key         : 'overdue',
-    //   type        : 'radio',
-    //   options     : [ { name: '是', id: 1 }, { name: '否', id: 0 } ],
-    //   isHide      : true
-    // }
   ];
 
   paramsInit;
-
+  
   weilaiForm: FormGroup;
   weilaiOptionList: any[] = []
-
+  totalPage:any = 0;
   constructor(
     private http: HttpService,
     private drawer: NzDrawerService,
     private format: DatePipe,
     private fb: FormBuilder = new FormBuilder(),
-    private modal: NzModalService
+    private modal: NzModalService,
+    private routerinfo: ActivatedRoute
   ) { 
     this.paramsInit = {
       startDate: this.format.transform(new Date(), 'yyyy-MM-dd'),
@@ -186,7 +98,9 @@ export class ListComponent implements OnInit {
   isChange: boolean = true;
 
   requestDataLength: number = 0;
+  private routingPath;
   ngOnInit() {
+    this.routingPath = this.routerinfo.snapshot.url[0].path;
     setTimeout(() => {
       this.listPage.eaQuery._queryForm.get('appointmentDate').valueChanges.subscribe(res => {
         this.isChange && this.weilaiForm.patchValue({ weilai: null });

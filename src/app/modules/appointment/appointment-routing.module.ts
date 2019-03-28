@@ -1,4 +1,5 @@
 import { AppointSettingComponent } from './appoint-setting/appoint-setting.component';
+
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ListComponent } from './list/list.component';
@@ -12,6 +13,12 @@ const routes: Routes = [
     component: ListComponent,
     canActivate: [ AuthGuardService ]
   },
+  {
+    path: 'teachlist',
+    data: { title: '泳师专用预约列表' },
+    component: ListComponent,
+    canActivate: [AuthGuardService]
+  },  
   {
     path: 'setting',
     data: { title: '预约设置', hideTitle: true },

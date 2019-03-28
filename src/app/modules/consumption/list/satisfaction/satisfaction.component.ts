@@ -35,7 +35,13 @@ export class UpdateSatisfactionComponent implements OnInit {
       swimTeacher: [{ value: this.recordInfo.swimTeacher, disabled: true }],
       consumeDate: [{ value: this.recordInfo.consumeDate, disabled: true }],
       comment: [{ value: this.recordInfo.comment, disabled: true }],
-      satisfaction: [this.recordInfo.satisfaction]
+      satisfaction: [this.recordInfo.satisfaction],
+      assisTeacherId: [this.recordInfo.assisTeacherId],
+      showerTeacherId: [this.recordInfo.showerTeacherId],
+      teacherId: [this.recordInfo.teacherId]
+    });
+    setTimeout(() => {
+      console.log(this.formGroup.value) 
     });
   }
 

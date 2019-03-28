@@ -84,6 +84,11 @@ export const MenuConfig = [
         title : '预约列表',
         key   : '/home/appointment/list',
         isLeaf: true
+      },
+      {
+        title: '泳师专用列表',
+        key: '/home/appointment/teachlist',
+        isLeaf: true
       }
     ]
   },

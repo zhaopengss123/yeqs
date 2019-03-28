@@ -48,6 +48,8 @@ export class ConsumptionsComponents implements OnInit {
     this.timesCountGroup = this.fb.group({
       cardId: [, [Validators.required]],
       swimTeacherId: [, [Validators.required]],
+      assisTeacherId: [, [Validators.required]],
+      showerTeacherId: [, [Validators.required]],
       commodityId: [, [Validators.required]],
       consumption: [, [Validators.required]],
       pulmonary: [],
@@ -61,7 +63,9 @@ export class ConsumptionsComponents implements OnInit {
     this.singleTimeGroup = this.fb.group({
       commodityId: [, [Validators.required]],
       consumption: [],
-      swimTeacherId: [],
+      swimTeacherId: [, [Validators.required]],
+      assisTeacherId: [, [Validators.required]],
+      showerTeacherId: [, [Validators.required]],
       satisfaction: ['满意'],
       consumeDate: []
     });
@@ -88,9 +92,9 @@ export class ConsumptionsComponents implements OnInit {
       this.memberCardList = res.result;
       res.result.length && this.timesCountGroup.patchValue({ cardId: res.result[0].id });
     });
-    this.http.post('/commodity/getStoreCommodities', {}, false).then(res => this.commoditieList = res.result);
+    this.http.post('/commodity/getCardCommodities', {}, false).then(res => this.commoditieList = res.result);
     this.http.post('/commodity/getCommonCommodities', {}, false).then(res => this.commodityList = res.result);
-  }
+  }                        
 
 
   saveLoading: boolean;

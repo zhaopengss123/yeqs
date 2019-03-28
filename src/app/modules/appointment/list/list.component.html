@@ -5,55 +5,40 @@
     [allowSpace]="false"
     [queryNode]="queryNode"
     [paramsDefault]="paramsInit"
-    [showPage]="false"
+    [showPage]="true"
     (requestDataChange)="requestDataLength = $event.length"
     [tableThead]="[ '照片', '卡号', '卡类型', '婴儿类型', '姓名', '小名', '月龄'  ,'预约时间', '消费时间', '预约状态', '预约泳师',  '操作时间' ,'爽约率',  '备注',  '操作' ]"
     
     [EaTableTbodyTr]="EaTableTbodyTr"
     [EaBtns]="EaBtns">
-    <!-- [tableThead]="[ '照片', '卡号', '卡类型', '婴儿类型', '姓名', '小名', '月龄'  ,'预约时间', '消费时间', '预约状态', '预约泳师', '泳圈', '操作时间', '预约方式', '跨店'
-    ,'爽约率', '业务类型', '备注', '取消人' , '操作' ]" -->
     <ng-template let-data #EaTableTbodyTr>
       <td>
-        <nz-avatar nzShape="square" [nzOverlayStyle]="{padding: '0 !important'}" nzPlacement="rightBottom" [nzSrc]="data.albumUrl" nz-tooltip [nzTitle]="titleTemplate"></nz-avatar>
+        <nz-avatar nzShape="square" [nzOverlayStyle]="{padding: '0 !important'}" nzPlacement="rightBottom" [nzSrc]="data.AlbumUrl" nz-tooltip [nzTitle]="titleTemplate"></nz-avatar>
         <ng-template #titleTemplate>
-          <img [src]="data.albumUrl" [ngStyle]="{'max-width': '226px', 'max-height': '400px', 'transform': 'scale(1.1)'}">
+          <img [src]="data.AlbumUrl" [ngStyle]="{'max-width': '226px', 'max-height': '400px', 'transform': 'scale(1.1)'}">
         </ng-template>
       </td>
-      <td>{{ data.cardCode }}</td>
-      <td>{{ data.cardTypeName }}</td>
+      <td>{{ routingPath == 'list' ? data.cardCode : "***" }}</td>
+      <td>{{ data.cardTypeName}}</td>
       <td>{{ data.babyType }}</td>
       <td>{{ data.name }}</td>
       <td>{{ data.nick }}</td>
       <td>{{ data.monthAge }}</td>
-      <td>{{ data.reserveDate }}&nbsp;{{ data.rHour }}:{{ data.rMinute }}</td>
+      <td>{{ data.currentDate }}&nbsp;{{ data.startTime }}</td>
       <td>{{ data.consumeDate }}</td>
       <td><nz-tag [nzColor]="data.reserveStatus == 0 ? '#87d068' : data.reserveStatus == 1 ? '#f50' : '#2db7f5'">{{ data.reserveStatus == 0 ? '预约中' : data.reserveStatus == 1 ? '已撤销' : '已完成' }}</nz-tag></td>
       <td>{{ data.teacherName }}</td>
-      <td>{{ data.updateTime }}</td>
+      <td>{{ data.updateTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
       <!-- <td>{{ data.isCrossed == 1 ? '是' : '否' }}</td> -->
       <td>{{ data.reserveCancel/data.reserveTotal | percent }}</td>
-
-      <td><span nz-tooltip [nzTitle]="data.comment">{{ data.comment.substr(0, 10) }}</span></td>
-     
-      <td>
+      <td><span *ngIf="data.remarks" nz-tooltip [nzTitle]="data.remarks">{{ data.remarks.length > 10 ? data.remarks.substr(0, 10) + '...' : data.remarks }}</span></td>
+      <td *ngIf="routingPath == 'list'">
         <a (click)="preview(data)">查看</a>
-        <nz-divider nzType="vertical" *ngIf="!data.isWelcome"></nz-divider>
-        <a (click)="welcome(data)" *ngIf="!data.isWelcome">欢迎</a>
-        <nz-divider nzType="vertical" *ngIf="data.reserveStatus == 0"></nz-divider>
-        <nz-dropdown *ngIf="data.reserveStatus == 0">
-          <a nz-dropdown>操作<i class="anticon anticon-down"></i>
-          </a>
-          <ul nz-menu nzSelectable>
-            <li nz-menu-item>
-              <a (click)="reserveCancel(data.id)">撤销</a>
-            </li>
-            <li nz-menu-item>
-              <a (click)="consumption(data)">结算</a>
-            </li>
-          </ul>
-        </nz-dropdown>
+        <nz-divider nzType="vertical" ></nz-divider>
+        <a (click)="reserveCancel(data.id)" *ngIf="data.reserveStatus!=1" reserveStatus>撤销</a>
+        <a  *ngIf="data.reserveStatus==1" reserveStatus style="color: #ccc;">已撤销</a>
       </td>
+       <td *ngIf="routingPath != 'list'"></td>
     </ng-template>
 
     <ng-template #EaBtns>
@@ -67,5 +52,4 @@
       </form>
     </ng-template>
   </ea-list-page>
-  <div style="margin-top: 16px;" *ngIf="requestDataLength">共{{ requestDataLength }}条记录</div>
 </div>

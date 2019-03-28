@@ -19,7 +19,7 @@ export class DetailComponent implements OnInit {
     subTypes: [],
     others: []
   }
-
+  resultId:any = null;
   constructor(
     private http: HttpService,
     private message: NzMessageService,
@@ -66,6 +66,7 @@ export class DetailComponent implements OnInit {
       this.http.post('/bonusSalesDetail/getByEmployeeAndMonth', { 
         paramJson: JSON.stringify(params)
       }, false).then(res => {
+        this.resultId = res.result.id;
         if (res.result == null) {
           this.formula = null;
         } else {

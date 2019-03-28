@@ -264,32 +264,36 @@
     </nz-table>
   </div>
 
-  <div class="tc_form">
-    <nz-modal [(nzVisible)]="showstudentsForm" nzWidth="800" nzTitle="查询" (nzOnCancel)="closestudentsForm()" (nzOnOk)="isstudentsForm()" [nzOkLoading]="isOkLoading">
+  <div class="tc_form sem">
+    <nz-modal [(nzVisible)]="showstudentsForm" nzWidth="1100" nzTitle="查询" (nzOnCancel)="closestudentsForm()" (nzOnOk)="isstudentsForm()" [nzOkLoading]="isOkLoading">
       <div class="select_main">
       <div class="select_left">
               <p>
-                <input nz-input style="width: 150px;" placeholder="请输入客户电话" [(ngModel)]="mobilePhone">
-                <button style="margin-left: 10px;" nz-button nzType="primary" (click)="selectshowstudents()">查询</button>
+                <input nz-input  placeholder="请输入搜索内容" [(ngModel)]="mobilePhone" (ngModelChange)="modelChange()">
               </p>
               <div class="select_list">
                     <div class="select_tit">客户信息</div>
-                    <nz-table #basicTable nzShowPagination="false" [nzData]="memberList_b">
+                    <nz-table #basicTable nzShowPagination="false" [nzData]="memberList_b" [nzLoading]="loading_b">
                       <thead>
                         <tr>
                           <th>姓名</th>
                           <th>小名</th>
+                          <th>家长姓名</th>
                           <th>手机号</th>
+                          <th>备注</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let data of memberList_b" (click)="selectMemberList(data)">
-                          <td>{{data.name}}</td>
-                          <td>{{data.nick}}</td>
-                          <td>{{data.mobilePhone}}</td>
+                        <tr class="shkem" *ngFor="let data of memberList_b" (click)="selectMemberList(data)">
+                          <td><span *ngIf="data.name"  [innerHTML]="data.name"></span></td>
+                          <td ><span *ngIf="data.mobile" [innerHTML]="data.nick"></span></td>
+                          <td ><span *ngIf="data.parentName" [innerHTML]="data.parentName"></span></td>
+                          <td ><span *ngIf="data.mobile" [innerHTML]="data.mobile"></span></td>
+                          <td><span *ngIf="data.comment" nz-tooltip [nzTitle]="data.comment" [innerHTML]="data.comment.length > 10 ? data.comment.substr(0, 10) + '...' : data.comment"></span></td>
                         </tr>
                       </tbody>
                     </nz-table>
+                     <div style="text-align: right; margin-top: 20px">  <nz-pagination [(nzPageIndex)]="pageIndex_b" [nzTotal]="total_b" [nzSize]="'small'"  nzShowQuickJumper (nzPageIndexChange)="modelChange()" ></nz-pagination></div>
               </div>
 
       </div>
@@ -327,6 +331,12 @@
             <input nz-input style="width: 120px;"  [(ngModel)]="studentInformation.mobilePhone" disabled>
           </span>
         </p>
+        <p>
+          <span>
+            <nz-form-label>备注</nz-form-label>
+            <textarea rows="4" nz-input [(ngModel)]="studentInformation.remarks"></textarea>
+          </span>
+        </p>
       </div>
       <div>
         <h3>课程信息</h3>
@@ -353,7 +363,7 @@
           <button nz-button nzType="primary" nzSize="small" (click)="settlement(item)" [disabled]="item.reserveStatus!=0">{{ item.reserveStatus==0?'结算':'已结算' }}</button>
           <button nz-button nzType="primary" nzSize="small" [disabled]="!item.id" (click)="memberStopcard(item.memberId)">停卡</button>
           <!-- <button nz-button nzType="primary" nzSize="small" [disabled]="!item.id" (click)="memberRecord(item.memberId,studentdata)">延期</button> -->
-          <button nz-button nzType="primary" nzSize="small"  (click)="removeRecord(item.memberId,studentdata.id)">取消</button>
+          <!-- <button nz-button nzType="primary" nzSize="small"  (click)="removeRecord(item.memberId,studentdata.id)">取消</button> -->
         </div>
         <div class="memberDetail" *ngIf="memberUserDetail.memberId !=0 && memberUserDetail">
           <div>姓名：{{ memberUserDetail.name }}</div>

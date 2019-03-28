@@ -55,7 +55,7 @@
     <td>{{ data.salesName }}</td>
     <td>{{ data.withdrawAmount }}</td>
     <td>{{ data.contractNo }}</td>
-    <td>{{ data.comment }}</td>
+    <td><span *ngIf="data.comment" nz-tooltip [nzTitle]="data.comment">{{ data.comment.length > 10 ? data.comment.substr(0, 10) + '...' : data.comment }}</span></td>
   </ng-template>
 
 
