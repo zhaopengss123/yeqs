@@ -467,7 +467,7 @@ selectquery(){
     this.RecordList7 = []; 
   }
   isAdjust(){
-    if (!this.datalabelList.length){
+      if (!this.datalabelList.length){
       this.message.create('error', '请选择课程');
       return false;
     }
@@ -593,7 +593,7 @@ selectquery(){
   }
 //确认停卡
   isStopcard(){
-    console.log(this.stopcardMemberdetail);
+
     if (!this.stopcardMemberdetail.reopenDate){
       this.message.create('error','日期不能为空');
       return false;
@@ -619,7 +619,6 @@ selectquery(){
   datalabelChange(){
       
     this.datalabelList = [];
-    
     this.RecordList1.map(item=>{
       if (item.id == this.courseNames){
         this.datalabelList.push(item);
@@ -647,7 +646,7 @@ selectquery(){
     })
     this.RecordList6.map(item => {
       if (item.id == this.courseNames) {
-        this.datalabelList.item;
+        this.datalabelList.push(item);
       }
     })
     this.RecordList7.map(item => {
@@ -694,7 +693,6 @@ selectquery(){
   /* ------------------- 结算预约 ------------------- */
   
   consumption(appointmentInfo) {
-    console.log(appointmentInfo);
     const drawerRef = this.drawer.create({
       nzTitle: '添加消费',
       nzContent: ConsumptionsComponents,

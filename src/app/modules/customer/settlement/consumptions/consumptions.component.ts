@@ -32,7 +32,6 @@ export class ConsumptionsComponents implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.appointmentInfo)
     /* ---------------- 根据有无会员卡选择消费方式 ---------------- */
     this.consumptionType = this.appointmentInfo.cardId ? 0 : 1;
     

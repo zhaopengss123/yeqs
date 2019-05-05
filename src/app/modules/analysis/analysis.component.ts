@@ -162,7 +162,7 @@ export class AnalysisComponent implements OnInit {
    
       if (this.formData.datePickerList) {
         this.formData.datePickerList.map(res => {
-          this.formModel.addControl(res.fieldName, new FormControl())
+          this.formModel.addControl(res.fieldName, new FormControl(new Date()))
         })
       }
 

@@ -68,7 +68,6 @@ export class AdjustmentComponent implements OnInit {
     } else if (data == false){
       this.removeId = [];
     }
-    console.log(this.removeId);
   }
 
   checkAll(value: boolean): void {
@@ -106,6 +105,7 @@ export class AdjustmentComponent implements OnInit {
     this.http.post('/curriculum/selectReserveRecord', { paramJson }, false).then(res => {
       if (res.code == 1000) {
         this.data = res.result.list;
+        this.removeId = [];
       }
     });       
   };
@@ -185,6 +185,7 @@ export class AdjustmentComponent implements OnInit {
 
   hideAdjust(){
     this.isAdjust = false;
+    
   }
   //确认调课
   AdjustOk(){

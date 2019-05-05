@@ -46,6 +46,8 @@ export class ConsumptionComponent implements OnInit, OnDestroy {
     this.timesCountGroup = this.fb.group({
       cardId: [, [Validators.required]],
       swimTeacherId: [, [Validators.required]],
+      assisTeacherId: [, [Validators.required]],
+      showerTeacherId: [, [Validators.required]],
       commodityId: [, [Validators.required]],
       consumption: [, [Validators.required]],
       ringId: [],
@@ -60,6 +62,8 @@ export class ConsumptionComponent implements OnInit, OnDestroy {
       commodityId: [, [Validators.required]],
       consumption: [, [Validators.required]],
       swimTeacherId: [, [Validators.required]],
+      assisTeacherId: [, [Validators.required]], 
+      showerTeacherId: [, [Validators.required]],
       satisfaction: ['满意', [Validators.required]],
       consumeDate: [{ value: null, disabled: true }]
     });

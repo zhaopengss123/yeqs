@@ -59,12 +59,12 @@ export class ScheduleListComponent implements OnInit {
     this.nowDate();
     this.http.post('/intelligent/selectScour', {}, false).then(res => {
       this.dateList = res.result.list;
-      console.log(this.dateList);
     });  
   }
   tabcurr(i){
     this.tablecurr = i;
-    
+    console.log(this.tablecurr,i);
+    // this.nowDate();
   }
   nowDate(){
     this.dateIndex = 0;
@@ -74,9 +74,7 @@ export class ScheduleListComponent implements OnInit {
         this.queryList();
       }
     }else{
-      if (this.mobilePhone != "") {
         this.squeryList();
-      }     
     }
   };
   prveDate(){
@@ -179,10 +177,10 @@ export class ScheduleListComponent implements OnInit {
   squeryList(){
     let that = this;
     let isMobile = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
-    // if (!isMobile.test(that.mobilePhone)) {
-    //   this.message.create('error', '请输入正确的手机号');
-    //   return false; 
-    // }
+    if (!isMobile.test(that.mobilePhone) && !that.memberName) {
+      this.message.create('error', '请输入正确的手机号或学员姓名');
+      return false; 
+    }
     let paramJson: any = JSON.stringify({
       startDate: that.startDate,
       endDate: that.endDate,

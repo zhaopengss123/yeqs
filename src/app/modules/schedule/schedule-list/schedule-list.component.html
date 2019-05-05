@@ -11,7 +11,7 @@
           <button nz-button nzType="default" (click)="export(2)">导出</button>
         </div>
         <div class="dateSelect">
-          <button nz-button nzType="default" (click)="prveDate()">上周</button>
+          <button nz-button nzType="default"  (click)="prveDate()">上周</button>
           <button nz-button nzType="primary" (click)="nowDate()">本周</button>
           <button nz-button nzType="default" (click)="nextDate()">下周</button>
           <button nz-button nzType="dashed">{{startDate}}——{{endDate}}</button>
@@ -147,13 +147,13 @@
         <div class="dateSelect">
           <button nz-button nzType="dashed" *ngIf="member.name">学员姓名：{{member.name}}  </button>
           <button nz-button nzType="dashed" *ngIf="member.mobilePhone">学员电话：{{member.mobilePhone}} </button>
-          <button nz-button nzType="default" (click)="prveDate()">上周</button>
-          <button nz-button nzType="primary" (click)="nowDate()">本周</button>
-          <button nz-button nzType="default" (click)="nextDate()">下周</button>
+          <button nz-button nzType="default" [disabled]="mobilePhone.length!=11 && !memberName" (click)="prveDate()">上周</button>
+          <button nz-button nzType="primary" [disabled]="mobilePhone.length!=11 && !memberName" (click)="nowDate()">本周</button>
+          <button nz-button nzType="default" [disabled]="mobilePhone.length!=11 && !memberName" (click)="nextDate()">下周</button>
           <button nz-button nzType="dashed">{{startDate}}——{{endDate}}</button>
         </div>
                 <div class="List_table">
-                  <nz-table #basicTable [nzData]="currformList">
+                  <nz-table #basicTable [nzData]="currformList" nzShowPagination='false'>
                     <thead>
                       <tr>
                         <th>时段</th>

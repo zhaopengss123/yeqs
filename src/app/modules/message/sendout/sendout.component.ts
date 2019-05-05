@@ -43,13 +43,13 @@ export class SendoutComponent implements OnInit {
       label: '婴儿类型',
       key: 'babyType',
       type: 'select',
-      options: [{ name: '婴儿', id: '婴儿' }, { name: '幼儿', id: '幼儿' }]
+      options: [{ name: '0-3岁', id: '0-3岁' }, { name: '3-6岁', id: '3-6岁' }, { name: '6-12岁', id: '6-12岁' }],    
     },
     {
       label: '是否办卡',
-      key: 'havacard',
+      key: 'havecard',
       type: 'select',
-      options: [{ name: '已办卡', id: 0 }, { name: '未办卡', id: 1 }]
+      options: [{ name: '已办卡', id: 1 }, { name: '未办卡', id: 0 }]
     },
     {
       label: '近期消费',

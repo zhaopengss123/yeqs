@@ -101,6 +101,12 @@ export class IntelligentComponent implements OnInit {
     this.form.list[index].list.push(jsons);
   }
   isTime() {
+
+    this.form.list = [];
+    this.weekList.map(item => {
+      item.booles = false;
+    })
+
     if (this.startDate != "" && this.startDate != null) {
       this.startDate = this.format.transform(this.startDate, 'yyyy-MM-dd');
       let mydate = new Date(this.startDate);
