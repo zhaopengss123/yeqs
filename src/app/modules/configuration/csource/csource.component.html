@@ -1,0 +1,45 @@
+<div class="container">
+    <ea-query-simp [node]="[{label: '客户来源', key: 'sourceName', type: 'input'}]" title="客户来源" (onSubmit)="table.request($event)"></ea-query-simp>
+    <button nz-button nzType="dashed" style="width: 100%; margin-bottom: 24px;" (click)="update()"><i class="anticon anticon-plus"></i>新增来源</button>
+   
+    <ea-table 
+    #table 
+    url="/management/selectSource" 
+    [thead]="['客户来源','操 作']"
+    [isParamJson]="false"
+    [EaTableTbodyTr]="EaTableTbodyTr">
+    <ng-template let-data #EaTableTbodyTr>
+      <td>{{ data.sourceName }}</td>
+      <td>
+        <a (click)="update(data)">编辑</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a nz-popconfirm nzTitle="确定要删除吗?" (nzOnConfirm)="delete(data.sourceId)">删除</a>
+      </td>
+    </ng-template>
+  </ea-table>
+  
+  </div>
+
+
+  <ng-template #drawerTemplate let-data let-drawerRef="drawerRef">
+      <form nz-form [formGroup]="formGroup">
+        <div nz-row nzGutter="8">
+          <div nz-col nzSpan="24">
+            <nz-form-item>
+              <nz-form-label nzRequired nzFor="sourceName">客户来源</nz-form-label>
+              <nz-form-control>
+                <input nz-input placeholder="请输入客户来源" formControlName="sourceName" id="name">
+                <nz-form-explain *ngIf="formGroup.get('sourceName').dirty && formGroup.get('sourceName').hasError('required')">请输入客户来源！</nz-form-explain>
+                <!--<nz-form-explain *ngIf="formGroup.get('sourceName').dirty && formGroup.get('sourceName').hasError('duplicated')">客户来源已存在</nz-form-explain>
+                 <nz-form-explain *ngIf="formGroup.get('name').dirty && formGroup.get('name').pending">
+                  <i class="anticon anticon-spin anticon-loading"></i>正在客户来源是否存在...</nz-form-explain> -->
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+      </form>
+      <div class="footer">
+        <button nz-button (click)="drawerRef.close()">取消</button>
+        <button nz-button nzType="primary" [nzLoading]="saveLoading" (click)="save(drawerRef)">保存</button>
+      </div>
+    </ng-template>

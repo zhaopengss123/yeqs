@@ -6,6 +6,7 @@ import { NgRelaxModule } from '../../ng-relax/ng-relax.module';
 import { SettingComponent } from './setting/setting.component';
 import { SwimmingCircleComponent } from './swimming-circle/swimming-circle.component';
 import { CommunityComponent } from './community/community.component';
+import { CsourceComponent } from './csource/csource.component';
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import { CommunityComponent } from './community/community.component';
     ConfigurationRoutingModule,
     NgRelaxModule
   ],
-  declarations: [SettingComponent, SwimmingCircleComponent, CommunityComponent]
+  declarations: [SettingComponent, SwimmingCircleComponent, CommunityComponent, CsourceComponent]
 })
 export class ConfigurationModule { }

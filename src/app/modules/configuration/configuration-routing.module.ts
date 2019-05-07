@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SettingComponent } from './setting/setting.component';
 import { AuthGuardService } from 'src/app/ng-relax/services/auth-guard.service';
+import { CsourceComponent } from './csource/csource.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,12 @@ const routes: Routes = [
     path: 'community',
     data: { title: '社区管理' },
     component: CommunityComponent,
+    canActivate: [ AuthGuardService ]
+  },
+  {
+    path: 'csource',
+    data: { title: '客户来源' },
+    component: CsourceComponent,
     canActivate: [ AuthGuardService ]
   }
 ];
