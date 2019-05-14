@@ -74,7 +74,7 @@ export class NewinformationComponent implements OnInit {
 
     this.cache.get('/retrunVisit/getEmployeeList').subscribe(res => this.collectorList = res);
     this.cache.get('/common/recommenderList').subscribe(res => this.recommenderList = res);
-    this.cache.get('/common/sourceList').subscribe(res => this.sourceList = res);
+    this.cache.get('/management/selectSource').subscribe(res => this.sourceList = res);
     this.cache.get('/common/parentIdentityList').subscribe(res => this.parentIdentityList = res);
     this.cache.get('/member/communityList').subscribe(res => this.showCommunityList = res);
   }
@@ -96,7 +96,7 @@ export class NewinformationComponent implements OnInit {
       parentRelationShipId: [],                                                        // 家长身份
       parentWeChat: [, [Validators.pattern(/^[A-Za-z0-9]{6,30}/)]],                                   // 家长QQ或者微信
 
-      sourceId: [, [Validators.required]],                                                        // 来源
+      customerSourceId: [, [Validators.required]],                                                        // 来源
       recommendedId: [],                                                                               // 推荐人
       collectorId: [],                                                                               // 收集人
     });

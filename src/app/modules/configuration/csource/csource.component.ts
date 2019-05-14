@@ -36,15 +36,18 @@ export class CsourceComponent implements OnInit {
       this.formGroup.get('sourceName').updateValueAndValidity();
       return;
     }
+    this.saveLoading = true;
     if(this.formGroup.value.sourceId){
       this.http.post('/management/updateSource', { sourceName: this.formGroup.value.sourceName, sourceId:this.formGroup.value.sourceId }).then(res => {
         drawerRef.close();
         this.table._request();
+        this.saveLoading = false;
       })
     }else{
       this.http.post('/management/insertSource', { sourceName: this.formGroup.value.sourceName }).then(res => {
         drawerRef.close();
         this.table._request();
+        this.saveLoading = false;
       })
     }
 

@@ -133,20 +133,8 @@
       <nz-form-item>
         <nz-form-label>客户来源</nz-form-label>
         <nz-form-control>
-          <nz-select formControlName="source" [nzAllowClear]="true" nzPlaceHolder="请选择客户来源">
-            <nz-option nzLabel="灯箱路牌" nzValue="灯箱路牌"></nz-option>
-            <nz-option nzLabel="朋友推荐" nzValue="朋友推荐"></nz-option>
-            <nz-option nzLabel="网络推广" nzValue="网络推广"></nz-option>
-            <nz-option nzLabel="社区宣传" nzValue="社区宣传"></nz-option>
-            <nz-option nzLabel="合作机构" nzValue="合作机构"></nz-option>
-            <nz-option nzLabel="美行" nzValue="美行"></nz-option>
-            <nz-option nzLabel="周末去哪儿" nzValue="周末去哪儿"></nz-option>
-            <nz-option nzLabel="门店市场" nzValue="门店市场"></nz-option>
-            <nz-option nzLabel="门店人员" nzValue="门店人员"></nz-option>
-            <nz-option nzLabel="异业合作" nzValue="异业合作"></nz-option>
-            <nz-option nzLabel="打包生活" nzValue="打包生活"></nz-option>
-            <nz-option nzLabel="周边亲子特惠" nzValue="周边亲子特惠"></nz-option>
-            <nz-option nzLabel="其他" nzValue="其他"></nz-option>
+          <nz-select  formControlName="customerSourceId" [nzAllowClear]="true" nzPlaceHolder="请选择客户来源">
+            <nz-option *ngFor="let item of sourceList" [(nzLabel)]="item.sourceName" [(nzValue)]="item.sourceId"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>

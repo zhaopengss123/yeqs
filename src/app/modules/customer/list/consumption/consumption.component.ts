@@ -1,7 +1,7 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-
+import { NzMessageService } from 'ng-zorro-antd';
 @Component({
   selector: 'app-consumption',
   templateUrl: './consumption.component.html',
@@ -29,6 +29,7 @@ export class ConsumptionComponent implements OnInit, OnDestroy {
   constructor(
     private http: HttpService,
     private fb: FormBuilder = new FormBuilder(),
+    private message: NzMessageService,
   ) { 
   }
 
@@ -126,6 +127,11 @@ export class ConsumptionComponent implements OnInit, OnDestroy {
       Object.keys(this.baseFormGroup.controls).map(key => {
         baseValue[key] = this.baseFormGroup.controls[key].value;
       })
+      if(!this.baseFormGroup.controls.name.value){
+        this.message.warning('请补全信息');
+        resolve(false)
+        return;
+      }
       if (this.consumptionType === 0) {
         if (this.timesCountGroup.invalid) {
           for (let i in this.timesCountGroup.controls) {

@@ -220,6 +220,11 @@ export const MenuConfig = [
         title : '社区管理',
         key   : '/home/configuration/community',
         isLeaf: true
+      },
+      {
+        title : '客户来源',
+        key   : '/home/configuration/csource',
+        isLeaf: true
       }
     ]
   },

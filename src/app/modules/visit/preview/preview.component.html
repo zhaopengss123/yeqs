@@ -220,9 +220,9 @@
                 <ng-container *ngIf="item.status > 0; else elseTemplate">
                   <nz-tag nzColor="#2db7f5" *ngIf="followStageId != 4">已预约到店-{{ item.status == 1 ? '体验' : item.status == 2 ? '未体验' : '未到店' }}</nz-tag>
                 </ng-container>
-                <ng-template #elseTemplate>
+                <!-- <ng-template #elseTemplate>
                   <nz-tag nzColor="#ccc" *ngIf="followStageId != 4">未预约到店</nz-tag>
-                </ng-template>
+                </ng-template> -->
               </div>
               <div *ngIf="item.reserveDate">
                 <label>预约时间：</label><span>{{ item.reserveDate + ' ' + item.reserveHour + ':' + item.reserveMinute }}</span>
@@ -289,13 +289,13 @@
           </nz-form-control>
         </nz-form-item>
       </div>
-      <div nz-col nzSpan="8" *ngIf="followStageId != 4">
+      <!-- <div nz-col nzSpan="8" *ngIf="followStageId != 4">
         <nz-form-item>
           <nz-form-control>
             <nz-switch formControlName="status" nzCheckedChildren="已预约到店" nzUnCheckedChildren="未预约到店"></nz-switch>
           </nz-form-control>
         </nz-form-item>
-      </div>
+      </div> -->
       <div nz-col nzSpan="8" *ngIf="followRecordGroup.get('status').value">
         <nz-form-item>
           <nz-form-control>

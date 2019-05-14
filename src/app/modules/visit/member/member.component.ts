@@ -1,8 +1,8 @@
 import { NzDrawerService } from 'ng-zorro-antd';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { PreviewComponent } from '../preview/preview.component';
 import { DatePipe } from '@angular/common';
-
+import { HttpService } from 'src/app/ng-relax/services/http.service';
 @Component({
   selector: 'app-member',
   templateUrl: './member.component.html',
@@ -11,7 +11,8 @@ import { DatePipe } from '@angular/common';
 export class MemberComponent implements OnInit {
   
   @ViewChild('EaTable') table;
-
+  yhfTable: any = [];
+  isLoadingHf: boolean = false;
   queryNode = [
     {
       label       : '宝宝昵称',
@@ -20,9 +21,11 @@ export class MemberComponent implements OnInit {
     },
     {
       label       : '来源',
-      key         : 'sourceId',
+      key         : 'customerSourceId',
+      optionKey: { label: 'sourceName', value: 'sourceId' },
       type        : 'select',
-      optionsUrl  : '/common/sourceList',
+      optionsUrl  : '/management/selectSource',
+      isHide      : true
     },
     {
       label       : '家长姓名',
@@ -72,7 +75,7 @@ export class MemberComponent implements OnInit {
       label       : '收集者',
       key         : 'collectorId',
       type        : 'select',
-      optionsUrl  : '/common/collectorList',
+      optionsUrl  : '/retrunVisit/getEmployeeList',
       isHide      : true
     },
     {
@@ -153,7 +156,8 @@ export class MemberComponent implements OnInit {
 
   constructor(
     private drawer: NzDrawerService,
-    private format: DatePipe
+    private format: DatePipe,
+    private http: HttpService
   ) { }
   ngOnInit() {
   }
@@ -165,7 +169,22 @@ export class MemberComponent implements OnInit {
       nzClosable: false,
       nzContentParams: { id, followStageId: 4 }
     });
-    drawer.afterClose.subscribe(res => res && this.table._request());
+    drawer.afterClose.subscribe(res => this.table._request());
   }
+
+  @ViewChild('drawerTemplate') drawerTemplate: TemplateRef<any>;
+  gethf(){
+    this.isLoadingHf = true;
+    this.http.post('/retrunVisit/todayReturnVisit', { status: 2 },false).then(res => {
+      this.isLoadingHf = false;
+      this.yhfTable = res.result;
+      this.drawer.create({
+        nzTitle: '已回访列表'+ '('+ this.yhfTable.length +'条)',
+        nzWidth: 900,
+        nzContent: this.drawerTemplate
+      });
+    })
+  }  
+
 
 }

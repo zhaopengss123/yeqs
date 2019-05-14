@@ -23,9 +23,11 @@ export class NointentionComponent {
     },
     {
       label       : '来源',
-      key         : 'sourceId',
+      key         : 'customerSourceId',
+      optionKey: { label: 'sourceName', value: 'sourceId' },
       type        : 'select',
-      optionsUrl  : '/common/sourceList',
+      optionsUrl  : '/management/selectSource',
+      isHide      : true
     },
     {
       label       : '家长姓名',

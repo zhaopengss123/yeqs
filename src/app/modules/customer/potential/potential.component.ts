@@ -20,7 +20,7 @@ export class PotentialComponent implements OnInit {
     },
     {
       label       : '来源',
-      key         : 'sourceId',
+      key         : 'customerSourceId',
       type        : 'select',
       optionsUrl  : '/common/sourceList',
       placeholder : '请选择客户来源'

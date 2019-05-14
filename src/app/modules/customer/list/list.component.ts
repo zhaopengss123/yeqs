@@ -99,6 +99,14 @@ export class ListComponent implements OnInit {
       valueKey    : ['startBirthday', 'endBirthday'],
       type        : 'rangepicker',
       isHide      : true
+    },
+    {
+      label       : '来源',
+      key         : 'customerSourceId',
+      optionKey: { label: 'sourceName', value: 'sourceId' },
+      type        : 'select',
+      optionsUrl  : '/management/selectSource',
+      isHide      : true
     }
   ]
 
@@ -218,7 +226,7 @@ export class ListComponent implements OnInit {
     } else if (type === 'album') {
       this.listPage.eaTable.dataSet.map(res => {
         if (res.id === this.checkedItems[0]) {
-          if (res.havaCard) {
+          if (res.haveCard) {
             this.showDrawer = true;
             this.drawerTitle = this.operationComponents[type].title;
             this.createComponent(this.operationComponents[type]);

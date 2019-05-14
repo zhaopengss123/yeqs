@@ -165,10 +165,10 @@
         <nz-form-item>
           <nz-form-label [nzRequired]="true" [nzSpan]="6">来源</nz-form-label>
           <nz-form-control [nzSpan]="18">
-            <nz-select formControlName="sourceId" nzPlaceHolder="请选择来源" nzShowSearch nzAllowClear>
-              <nz-option *ngFor="let item of sourceList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+            <nz-select formControlName="customerSourceId" nzPlaceHolder="请选择来源" nzShowSearch nzAllowClear>
+              <nz-option *ngFor="let item of sourceList" [nzLabel]="item.sourceName" [nzValue]="item.sourceId"></nz-option>
             </nz-select>
-            <nz-form-explain *ngIf="getFormControl('sourceId').dirty && getFormControl('sourceId').hasError('required')">请选择来源</nz-form-explain>
+            <nz-form-explain *ngIf="getFormControl('customerSourceId').dirty && getFormControl('customerSourceId').hasError('required')">请选择来源</nz-form-explain>
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -197,7 +197,7 @@
   
     <div class="form-footer">
       <button nz-button nzType="primary" nzSize="large" [nzLoading]="_submitLoading" (click)="_submit()">{{ _submitLoading ? '提交中...' : '提交' }}</button>
-      <button nz-button nzType="default" nzSize="large" routerLink="/home/customer/potential">取消</button>
+      <button nz-button nzType="default" nzSize="large" routerLink="/home/visit/clue">取消</button>
     </div>
   
   

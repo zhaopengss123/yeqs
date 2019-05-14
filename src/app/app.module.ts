@@ -23,7 +23,6 @@ import { ConsumptionComponent } from './base/home/appoint-detail/consumption/con
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +37,7 @@ import { ConsumptionComponent } from './base/home/appoint-detail/consumption/con
 
     AddapointComponent,
     AppointDetailComponent,
-    ConsumptionComponent
+    ConsumptionComponent,
   ],
   entryComponents: [AddapointComponent, AppointDetailComponent, ConsumptionComponent],
   imports: [

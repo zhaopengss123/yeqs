@@ -7,7 +7,9 @@
     url="/management/selectSource" 
     [thead]="['客户来源','操 作']"
     [isParamJson]="false"
-    [EaTableTbodyTr]="EaTableTbodyTr">
+    [EaTableTbodyTr]="EaTableTbodyTr"
+    [showPage]="false"
+    >
     <ng-template let-data #EaTableTbodyTr>
       <td>{{ data.sourceName }}</td>
       <td>

@@ -15,7 +15,7 @@ export class UpdateComponent implements OnInit {
   formGroup: FormGroup;
 
   communityList: any = [];
-
+  sourceList: any = [];
   constructor(
     private http: HttpService,
     private fb: FormBuilder = new FormBuilder()
@@ -24,6 +24,10 @@ export class UpdateComponent implements OnInit {
     this.http.post('/member/communityList', {}, false).then(res => {
       this.communityList = res.result;
     });
+    this.http.post('/management/selectSource', {}, false).then(res => {
+      this.sourceList = res.result;
+      console.log(this.sourceList);
+    });  
   }
 
   ngOnInit() {
@@ -42,7 +46,7 @@ export class UpdateComponent implements OnInit {
       allergieHistory: [, [Validators.required]],
       babyType: [, [Validators.required]],
       babyNumber: [, [Validators.required]],
-      source: [],
+      customerSourceId: [],
       comment: []
     });
     /* -------------------------- 用户信息回显 -------------------------- */

@@ -90,6 +90,7 @@ export class PreviewComponent implements OnInit {
 
   update() {
     this.drawerRef.close();
+    this.drawerRef.close();
     this.router.navigate(['/home/customer/newinfo', this.id]);
   }
 
@@ -140,11 +141,14 @@ export class PreviewComponent implements OnInit {
     this.showUpdateRecord = true;
     let recordInfo = JSON.parse(JSON.stringify(info));
     recordInfo.status = recordInfo.status == 1;
-    recordInfo.reserveHour = new Date(`${recordInfo.reserveDate} ${recordInfo.reserveHour}:${recordInfo.reserveMinute}`);
-    recordInfo.reserveDate = new Date(recordInfo.reserveDate);
+    //recordInfo.reserveHour = recordInfo.reserveHour.replace(/-/g,"/");
+    console.log(recordInfo.reserveHour);
+    recordInfo.reserveHour = recordInfo.reserveHour ? new Date(`${recordInfo.reserveDate} ${recordInfo.reserveHour}:${recordInfo.reserveMinute}`) : '';
+    recordInfo.reserveDate = new Date(recordInfo.reserveDate ? recordInfo.reserveDate : new Date());
+    console.log(recordInfo);
     this.updateRecordInfo = recordInfo;
     this.followRecordGroup.patchValue(recordInfo);
-  }
+  } 
 
   close() {
     this.showUpdateRecord = false; 

@@ -104,7 +104,7 @@ export class LoginComponent implements OnInit {
         if (params.remember && !authCode) {
           window.localStorage.setItem('username', JSON.stringify(this.loginForm.value));
         }
-        this.router.navigateByUrl(this.baseRouter.loginSource || '/home');
+        this.router.navigateByUrl('/home');
       } else {
         this.loginError = res.info;
       }

@@ -1,5 +1,6 @@
 <div class="container">
   <ea-query [node]="queryNode" (onSubmit)="EaTable.request($event)"></ea-query>
+  <button nz-button [nzType]="'primary'"  style="margin-bottom: 16px;" (click)="gethf()"[(nzLoading)]="isLoadingHf"> 今日已回访列表</button>
 
   <ea-table #EaTable [thead]="tableNode" [EaTableTbodyTr]="EaTableTbodyTr" [allowSpace]="false"
     url="/retrunVisit/customerList">
@@ -32,3 +33,53 @@
 
   <router-outlet name="aux"></router-outlet>
 </div>
+
+<ng-template #drawerTemplate let-data let-drawerRef="drawerRef">
+    <nz-table #basicTable [nzData]="yhfTable" [nzShowPagination]="false">
+        <thead>
+          <tr>
+            <th>宝宝昵称</th>
+            <th>宝宝姓名</th>
+            <th>宝宝生日</th>
+            <th>性别</th>
+            <th>月龄</th>
+            <th>家长姓名</th>
+            <th>家长电话</th>
+            <th>所属小区</th>
+            <th>入库时间</th>
+            <th>下次跟进时间</th>
+            <th>最后跟进时间</th>
+            <th>来源</th>       
+            <th>客户状态</th>
+            <th>跟进阶段</th>    
+            <th>收集者</th>                                             
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of yhfTable">
+              <td>
+                  <a (click)="preview(data.id); drawerRef.close()">{{ data.nick }}</a>
+                </td>
+                <td><a (click)="preview(data.id); drawerRef.close()">{{ data.name }}</a></td>
+                <td>{{ data.birthday || '--' }}</td>
+                <td>
+                  <i class="iconfont" [title]="data.sex" [ngClass]="[ data.sex === '男' ? 'icon-nan' : 'icon-nv']"></i>
+                </td>
+                <td>{{ data.birthday | monthdiff }}</td>
+                <td>{{ data.parentName }}</td>
+                <td>
+                  <a href="javascript:;" [getMobile]="data.id">查看</a>
+                </td>
+                <td>{{ data.communityName || '--' }}</td>
+                <td>{{ data.createDate }}</td>
+                <td>{{ data.nextFollowTime | date: 'yyyy-MM-dd' || '--' }}</td>
+                <td>{{ data.lastFollowTime || '--' }}</td>
+                <td>{{ data.sourceName || '--' }}</td>
+                <td>{{ data.memberStatus || '--' }}</td>
+                <td>{{ data.followStage + (data.followNum ? '('+ data.followNum +')' : '') }}</td>
+                <td>{{ data.contributors || '--' }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+
+  </ng-template>

@@ -4,7 +4,7 @@
     url="/member/list"
     [allowSpace]="false"
     [queryNode]="queryNode"
-    [tableThead]="['卡号', '姓名', '小名', '性别', '多胞', '月龄', '家长姓名', '手机号', '社区', '儿童类型', '积分', '有效期', '测量', '拍照', '登录次数', '建档时间', '备注']"
+    [tableThead]="['卡号', '姓名', '小名', '性别', '多胞', '月龄', '家长姓名', '手机号', '社区', '儿童类型', '积分', '有效期', '测量', '拍照', '登录次数', '建档时间', '备注' , '来源']"
     [checked]="true"
     [isRadio]="true"
     [checkedItems]="checkedItems"
@@ -33,6 +33,7 @@
       <!-- <td>{{ data.comment.length>30 ? data.comment.substr(0,30)+ '…' : data.comment }}</td> -->
       <!-- <td>{{ data.comment.length > 30 ? data.comment.substr(0, 30) + '...' : data.comment }}</td> -->
       <td><span *ngIf="data.comment" nz-tooltip [nzTitle]="data.comment">{{ data.comment.length > 10 ? data.comment.substr(0, 10) + '...' : data.comment }}</span></td>
+      <td>{{ data.sourceName }}</td>
     </ng-template>
 
     <ng-template #EaBtns>

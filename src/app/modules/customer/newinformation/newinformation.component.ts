@@ -52,7 +52,7 @@ export class NewinformationComponent implements OnInit {
       this._customerFormInit();
       if (this._id != '0') {
         this._selectLoading = true;
-        this.http.post('/customer/showCustomerInfo', { paramJson: JSON.stringify({ id: this._id }) }, false).then(res => {
+        this.http.post('/customer/showCustomerInfo', {  id: this._id  }, false).then(res => {
           this._selectLoading = false;
           if (res.code == 1000) {
             res.result.member.birthday = res.result.member.birthday ? new Date(res.result.member.birthday) : '';
@@ -73,12 +73,12 @@ export class NewinformationComponent implements OnInit {
     });
 
 
-    this.cache.get('/common/collectorList').subscribe(res => this.collectorList = res);
+
+    this.cache.get('/retrunVisit/getEmployeeList').subscribe(res => this.collectorList = res);
     this.cache.get('/common/recommenderList').subscribe(res => this.recommenderList = res);
-    this.cache.get('/common/sourceList').subscribe(res => this.sourceList = res);
+    this.cache.get('/management/selectSource').subscribe(res => this.sourceList = res);
     this.cache.get('/common/parentIdentityList').subscribe(res => this.parentIdentityList = res);
-    this.cache.get('/common/followStageList').subscribe(res => this.followStageList = res);
-    this.cache.get('/common/showCommunityList').subscribe(res => this.showCommunityList = res);
+    this.cache.get('/member/communityList').subscribe(res => this.showCommunityList = res);
   }
 
   _customerFormInit(obj: any = {}) {
@@ -98,7 +98,7 @@ export class NewinformationComponent implements OnInit {
       parentRelationShipId: ['', [Validators.required]],                                                        // 家长身份
       parentWeChat: ['', [Validators.pattern(/^[A-Za-z0-9]{6,30}/)]],                                   // 家长QQ或者微信
 
-      sourceId: ['', [Validators.required]],                                                        // 来源
+      customerSourceId: ['', [Validators.required]],                                                        // 来源
       recommendedId: [''],                                                                               // 推荐人
       collectorId: [''],                                                                               // 收集人
     });
@@ -141,7 +141,7 @@ export class NewinformationComponent implements OnInit {
       this.http.post('/customer/modifyUserInfo', { paramJson: JSON.stringify(params) }, false).then(res => {
         this.message.create(res.code == 1000 ? 'success' : 'warning', res.info);
         if (res.code == 1000) {
-          this.router.navigateByUrl('/home/customer/potential');
+          this.router.navigateByUrl('/home/visit/clue');
         } else {
           this._submitLoading = false;
         }
