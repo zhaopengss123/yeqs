@@ -604,4 +604,19 @@
 
   </div>
 
+      <nz-modal
+      [(nzVisible)]="modal_visit"
+      nzTitle="提示"
+      nzOkText="确定"
+      nzCancelText="取消"
+      (nzOnOk)="visitOk()"
+      (nzOnCancel)="modal_visit = false"
+    >
+        <div *ngIf="insetStatus == 1">该学员卡次已约满，继续预约将删除最后一次预约记录</div>
+         <div *ngIf="insetStatus == 0" style="text-align:center">
+              <h2>临时约课成功</h2>
+              <div>{{ setNum }}S  后自动关闭页面</div>
+         </div>   
+    </nz-modal>
+
 </div>

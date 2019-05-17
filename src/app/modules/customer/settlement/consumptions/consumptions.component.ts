@@ -48,7 +48,8 @@ export class ConsumptionsComponents implements OnInit {
       cardId: [, [Validators.required]],
       swimTeacherId: [, [Validators.required]],
       assisTeacherId: [, [Validators.required]],
-      showerTeacherId: [, [Validators.required]],
+      showerTeacherId: [],
+      fitnessTeacherId:[],
       commodityId: [, [Validators.required]],
       consumption: [, [Validators.required]],
       pulmonary: [],
@@ -64,7 +65,8 @@ export class ConsumptionsComponents implements OnInit {
       consumption: [],
       swimTeacherId: [, [Validators.required]],
       assisTeacherId: [, [Validators.required]],
-      showerTeacherId: [, [Validators.required]],
+      showerTeacherId: [],
+      fitnessTeacherId:[],
       satisfaction: ['满意'],
       consumeDate: []
     });

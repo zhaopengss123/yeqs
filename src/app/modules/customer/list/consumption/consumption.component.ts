@@ -50,7 +50,8 @@ export class ConsumptionComponent implements OnInit, OnDestroy {
       cardId: [, [Validators.required]],
       swimTeacherId: [, [Validators.required]],
       assisTeacherId: [, [Validators.required]],
-      showerTeacherId: [, [Validators.required]],
+      showerTeacherId: [],
+      fitnessTeacherId: [],
       commodityId: [, [Validators.required]],
       consumption: [, [Validators.required]],
       pulmonary: [],
@@ -66,7 +67,8 @@ export class ConsumptionComponent implements OnInit, OnDestroy {
       consumption: [, [Validators.required]],
       swimTeacherId: [, [Validators.required]],
       assisTeacherId: [, [Validators.required]],
-      showerTeacherId: [, [Validators.required]],
+      showerTeacherId: [],
+      fitnessTeacherId: [],
       satisfaction: ['满意', [Validators.required]],
       consumeDate: [{ value: null, disabled: true }]
     });

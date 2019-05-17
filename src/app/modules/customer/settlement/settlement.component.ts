@@ -21,10 +21,11 @@ import { debounceTime, filter } from 'rxjs/operators';
 })
 export class SettlementComponent implements OnInit {
   @ViewChild('listPage') listPage: ListPageComponent;
-
+  setNum:number = 3;
+  insetStatus: Number;
   searchSubject = new Subject();
-
   isBtnDisVled = true;
+  modal_visit: boolean;
   checked1:any = false;
   checked2: any = false;
   checked3: any = false;
@@ -254,10 +255,10 @@ selectquery(){
     this.searchSubject.pipe(debounceTime(500), filter((txt: string) => txt.length >= 1)).subscribe(res => {
 
     if ((isNaN(this.mobilePhone) && this.mobilePhone!="" || (!isNaN(this.mobilePhone) && this.mobilePhone.length > 3)) ){
-      // 
-      //http://tsms.beibeiyue.com/sms/erp/query
+      // http://es.haochengzhang.com/es/erp/query
+      //http://tsms.haochengzhang.com/sms/erp/query
       this.loading_b = true; 
-      this.http.get('http://es.beibeiyue.com/es/erp/query', { index: 'qs', storeId: this.storeId, type: 'member', condition: this.mobilePhone, pageNo:this.pageIndex_b, pageSize:10 }, false).then(res => {
+      this.http.get('http://es.haochengzhang.com/es/erp/query', { index: 'qs', storeId: this.storeId, type: 'member', condition: this.mobilePhone, pageNo:this.pageIndex_b, pageSize:10 }, false).then(res => {
       this.loading_b = false;
       if (res.returnCode == 'SUCCESS') {
         if(res.result){
@@ -286,12 +287,42 @@ selectquery(){
     }, false).then(res => {
       this.isOkLoading = false;
       if (res.code == 1000) {
+        
         this.memberUserDetail = res.result[0];
       } else {
         this.message.create('error', res.info);
       }
     }); 
   }
+
+  //查询是不是卡次已满
+  selectCardNum(memberId){
+    let paramJson = JSON.stringify({
+      syllabusName: this.studentdata.name,
+      currentDate: this.studentdata.currentDate,
+      startTime: this.studentdata.startTime,
+      endTime: this.studentdata.endTime,
+      roomName: this.studentdata.roomName,
+      employeeId: this.studentdata.employeeId,
+      id: this.studentdata.id
+    });
+    this.http.post('/curriculum/meetCondition', {
+        paramJson,
+        memberId
+      
+    }, false).then(res => {
+      if (res.code == 1000) {
+          this.insetStatus  = 0;
+      }else if(res.code == 1012){
+          this.insetStatus = 1;
+      }else if(res.code == 1000){    
+        this.insetStatus = 3;
+      } else { 
+        this.message.create('error', res.info);
+      }
+    });    
+  }
+
   //查询弹框
   showstudents(data){
     this.studentInformation = {
@@ -313,8 +344,38 @@ selectquery(){
   closestudentsForm(){
     this.showstudentsForm = false;
     this.memberList_b = [];
+    this.total_b = 0;
+    this.pageIndex_b = 1;    
   }
   isstudentsForm(){
+    console.log(this.insetStatus);
+    if(this.insetStatus == 3){
+      this.message.create('error', '同一节课不能添加同一个学员！');
+    }else if(this.insetStatus == 0){
+      this.lsInstall();
+      this.modal_visit = true;
+      let set;
+      set = setInterval(item=>{
+        if(this.setNum > 1){
+          this.setNum --;
+        } else{
+          clearInterval(set);
+          this.modal_visit = false;
+          this.setNum = 3;
+        }
+        },1000);
+    }else if(this.insetStatus == 1){
+      this.modal_visit = true;
+    }
+
+  }
+  visitOk(){
+    if(this.insetStatus == 1){
+      this.lsInstall();
+    }
+    this.modal_visit = false;
+  }
+  lsInstall(){
     //this.showstudentsForm = false;
     let paramJson: any = JSON.stringify({
       syllabusName: this.studentdata.name,
@@ -337,21 +398,24 @@ selectquery(){
       memberName: this.studentInformation.name,
       parentName: this.studentInformation.parentName,
       mobilePhone: this.studentInformation.mobilePhone,
-      remarks: this.studentInformation.remarks
+      remarks: this.studentInformation.remarks,
+      status: this.insetStatus
     }, false).then(res => {
       this.isOkLoading = false;
       if (res.code == 1000) {
         this.message.create('success', '添加成功！');
         this.showstudentsForm = false;
         this.memberList_b  = [];
+        this.total_b = 0;
+        this.pageIndex_b = 1;
         this.selectquery();
       } else {
         this.message.create('error', res.info);
       }
     }); 
   }
-  selectMemberList(data){
 
+  selectMemberList(data){
     this.selectshowstudents(data.id);
   }
 //预约时学员信息查询
@@ -361,6 +425,7 @@ selectquery(){
         if (res.result.length){
           res.result[0].havacard = res.result[0].havacard == 0 ? '体验' : '正式'; 
           this.studentInformation = res.result[0];
+          this.selectCardNum(memberId);
         }else{
           this.studentInformation = {};
           this.message.create('error', '无会员信息');

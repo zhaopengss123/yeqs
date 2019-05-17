@@ -65,7 +65,7 @@ export class UploadPictureComponent implements OnInit {
     private http: HttpService
   ) {
     /* ----------------- 获取OSS上传凭证 ----------------- */
-    this.http.get('http://oss.beibeiyue.com/oss/getOSSToken?type=1', {}, false).then(res => {
+    this.http.get('http://oss.haochengzhang.com/oss/getOSSToken?type=1', {}, false).then(res => {
       if (res.result == 0) {
         let creds = res.data;
         this._aliOssClient = new OSS.Wrapper({

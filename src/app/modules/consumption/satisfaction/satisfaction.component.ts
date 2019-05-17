@@ -1,13 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { QueryNode } from 'src/app/ng-relax/components/query/query.component';
 
+import { QueryNode } from 'src/app/ng-relax/components/query/query.component';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { NzDrawerService } from 'ng-zorro-antd';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpService } from './../../../ng-relax/services/http.service';
+import { ListPageComponent } from './../../../ng-relax/components/list-page/list-page.component';
 @Component({
   selector: 'app-satisfaction',
   templateUrl: './satisfaction.component.html',
   styleUrls: ['./satisfaction.component.scss']
 })
 export class SatisfactionComponent implements OnInit {
-
+  baseFormGroup: FormGroup;
+  teacherList: any[];
+  @ViewChild('listPage') listPage: ListPageComponent;
   queryNode: QueryNode[] = [
     {
       label       : '会员卡号',
@@ -39,9 +45,52 @@ export class SatisfactionComponent implements OnInit {
     }
   ]
 
-  constructor() { }
-
+  constructor(
+    private drawer: NzDrawerService,
+    private fb: FormBuilder = new FormBuilder(),
+    private http: HttpService,
+  ) {
+    this.http.post('/tongka/teacherList', {}, false).then(res => this.teacherList = res.result);   
+   }
+   private getQueryParams;
   ngOnInit() {
+    this.baseFormGroup = this.fb.group({
+      consumeId: [],
+      swimTeacherId: [ ,[Validators.required]],
+      assisTeacherId: [ ,[Validators.required]],
+      showerTeacherId: [],
+      fitnessTeacherId: [],
+    });
   }
-
+  @ViewChild('drawerTemplate') drawerTemplate: TemplateRef<any>;
+  teacherDetail(data){
+    this.drawer.create({
+      nzTitle: '授课老师',
+      nzWidth: 700,
+      nzContent: this.drawerTemplate
+    });
+    this.http.post('/customer/selectTeacher', { consumeId :  data.consumeId },false).then(res => {
+      this.baseFormGroup.patchValue({consumeId:  data.consumeId});
+      this.baseFormGroup.patchValue({swimTeacherId: res.result.teacher.teacherId});
+      this.baseFormGroup.patchValue({assisTeacherId: res.result.assisTeacher.TeacherId});
+      this.baseFormGroup.patchValue({showerTeacherId: res.result.showerTeacher.teacherId});
+      this.baseFormGroup.patchValue({fitnessTeacherId: res.result.fitnessTeacher.teacherId});   
+    }).catch();
+  } 
+  saveLoadingx: boolean;
+  save(drawerRef){
+    if (this.baseFormGroup.invalid) {
+    for (let i in this.baseFormGroup.controls) {
+      this.baseFormGroup.controls[i].markAsDirty();
+      this.baseFormGroup.controls[i].updateValueAndValidity();
+    }
+  }else{
+    this.saveLoadingx = true;
+    this.http.post('/customer/updateTeacher', { paramJson: JSON.stringify(this.baseFormGroup.value) }).then(res => {
+      this.saveLoadingx = false;
+      drawerRef.close();
+      this.listPage.eaQuery._submit();
+    }).catch()
+  }
+}
 }

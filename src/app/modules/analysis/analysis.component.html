@@ -63,7 +63,7 @@
       </span>
       <span *ngFor="let item of formData.selectList; let index = index" [attr.data-index]="index" style="margin:0 15px 10px 0; display: inline-block">
         <nz-form-label>{{item.chineseName}}</nz-form-label>
-        <nz-select style="width: 200px;" [formControlName]="item.fieldName" nzPlaceHolder="请选择">
+        <nz-select style="width: 200px;" [nzAllowClear]="true" [formControlName]="item.fieldName" nzPlaceHolder="请选择">
           <nz-option *ngFor="let items of item.dataSource" [nzLabel]="items.name" [nzValue]="items.key"></nz-option>
         </nz-select>
       </span>

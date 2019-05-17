@@ -173,11 +173,14 @@ export class SendoutComponent implements OnInit {
   }
 
   _sendSms() {
+    let that = this;
     this.saveLoading = true;
     this.formGroup.patchValue({ mobilePhones: this.selectList.join(','), })
     this.http.post('/smsSend/sendSmsToConsume', {
       paramJson: JSON.stringify(this.formGroup.value)
     }).then(res => {
+      this.saveLoading = false;
+    }).catch( err=>{
       this.saveLoading = false;
     });
   }

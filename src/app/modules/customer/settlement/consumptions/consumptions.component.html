@@ -84,7 +84,7 @@
         </div>
         <div nz-col nzSpan="12">
           <nz-form-item>
-            <nz-form-label nzRequired>洗澡老师</nz-form-label>
+            <nz-form-label>洗澡老师</nz-form-label>
             <nz-form-control>
               <nz-select formControlName="showerTeacherId" nzPlaceHolder="请选择洗澡老师">
                 <nz-option *ngFor="let option of teacherList" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
@@ -95,6 +95,18 @@
         </div>
       </div>
       <div nz-row nzGutter="8">
+          <div nz-col nzSpan="12">
+              <nz-form-item>
+                <nz-form-label>体适能老师</nz-form-label>
+                <nz-form-control>
+                  <nz-select formControlName="fitnessTeacherId" nzPlaceHolder="请选择体适能老师">
+                    <nz-option *ngFor="let option of teacherList" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+                  </nz-select>
+                  <!-- <nz-form-explain *ngIf="timesCountGroup.get('assisTeacherId').dirty && timesCountGroup.get('assisTeacherId').hasError('required')">请选择助教老师！</nz-form-explain> -->
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
         <div nz-col nzSpan="12">
           <nz-form-item>
             <nz-form-label nzRequired>消费服务</nz-form-label>
@@ -106,17 +118,18 @@
             </nz-form-control>
           </nz-form-item>
         </div>
-        <div nz-col nzSpan="12">
-          <nz-form-item>
-            <nz-form-label nzRequired>消费金额</nz-form-label>
-            <nz-form-control>
-              <input nz-input formControlName="consumption" placeholder="请选择消费服务">
-              <nz-form-explain *ngIf="timesCountGroup.get('consumption').dirty && timesCountGroup.get('consumption').hasError('required')">请输入消费金额！</nz-form-explain>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
+
       </div>
       <div nz-row nzGutter="8">
+          <div nz-col nzSpan="12">
+              <nz-form-item>
+                <nz-form-label nzRequired>消费金额</nz-form-label>
+                <nz-form-control>
+                  <input nz-input formControlName="consumption" placeholder="请选择消费服务">
+                  <nz-form-explain *ngIf="timesCountGroup.get('consumption').dirty && timesCountGroup.get('consumption').hasError('required')">请输入消费金额！</nz-form-explain>
+                </nz-form-control>
+              </nz-form-item>
+            </div>        
     <div nz-col nzSpan="12">
       <nz-form-item>
         <nz-form-label>肺活量</nz-form-label>
@@ -130,18 +143,18 @@
         </nz-form-control>
       </nz-form-item>
     </div>
-        <div nz-col nzSpan="12">
-          <nz-form-item>
-            <nz-form-label>游泳时长</nz-form-label>
-            <nz-form-control>
-              <nz-input-group nzAddOnAfter="分钟">
-                <input nz-input formControlName="swimDuration" placeholder="请输入游泳时长">
-              </nz-input-group>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
       </div>
       <div nz-row nzGutter="8">
+          <div nz-col nzSpan="12">
+              <nz-form-item>
+                <nz-form-label>游泳时长</nz-form-label>
+                <nz-form-control>
+                  <nz-input-group nzAddOnAfter="分钟">
+                    <input nz-input formControlName="swimDuration" placeholder="请输入游泳时长">
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
         <div nz-col nzSpan="12">
           <nz-form-item>
             <nz-form-label>身高</nz-form-label>
@@ -152,18 +165,19 @@
             </nz-form-control>
           </nz-form-item>
         </div>
-        <div nz-col nzSpan="12">
-          <nz-form-item>
-            <nz-form-label>体重</nz-form-label>
-            <nz-form-control>
-              <nz-input-group nzAddOnAfter="公斤">
-                <input nz-input formControlName="weight" placeholder="请输入体重">
-              </nz-input-group>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
+
       </div>
       <div nz-row nzGutter="8">
+          <div nz-col nzSpan="12">
+              <nz-form-item>
+                <nz-form-label>体重</nz-form-label>
+                <nz-form-control>
+                  <nz-input-group nzAddOnAfter="公斤">
+                    <input nz-input formControlName="weight" placeholder="请输入体重">
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+            </div>        
         <div nz-col nzSpan="12">
           <nz-form-item>
             <nz-form-label>体温</nz-form-label>
@@ -174,19 +188,20 @@
             </nz-form-control>
           </nz-form-item>
         </div>
-        <div nz-col nzSpan="12">
-          <nz-form-item>
-            <nz-form-label>顾客满意度</nz-form-label>
-            <nz-form-control>
-              <nz-select formControlName="satisfaction" nzPlaceHolder="请选择顾客满意度">
-              <nz-option nzLabel="满意" nzValue="满意"></nz-option>
-              <nz-option nzLabel="不满意" nzValue="不满意"></nz-option>
-              </nz-select>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
+
       </div>
       <div nz-row nzGutter="8">
+          <div nz-col nzSpan="12">
+              <nz-form-item>
+                <nz-form-label>顾客满意度</nz-form-label>
+                <nz-form-control>
+                  <nz-select formControlName="satisfaction" nzPlaceHolder="请选择顾客满意度">
+                  <nz-option nzLabel="满意" nzValue="满意"></nz-option>
+                  <nz-option nzLabel="不满意" nzValue="不满意"></nz-option>
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </div>        
         <div nz-col nzSpan="12">
           <nz-form-item>
             <nz-form-label nzRequired>消费时间</nz-form-label>
@@ -260,7 +275,7 @@
         </div>
         <div nz-col nzSpan="12">
           <nz-form-item>
-            <nz-form-label nzRequired>洗澡老师</nz-form-label>
+            <nz-form-label>洗澡老师</nz-form-label>
             <nz-form-control>
               <nz-select formControlName="showerTeacherId" nzPlaceHolder="请选择洗澡老师">
                 <nz-option *ngFor="let option of teacherList" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
@@ -272,6 +287,18 @@
       </div>
 
       <div nz-row nzGutter="8">
+          <div nz-col nzSpan="12">
+              <nz-form-item>
+                <nz-form-label>体适能老师</nz-form-label>
+                <nz-form-control>
+                  <nz-select formControlName="fitnessTeacherId" nzPlaceHolder="请选择体适能老师">
+                    <nz-option *ngFor="let option of teacherList" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+                  </nz-select>
+                  <!-- <nz-form-explain *ngIf="timesCountGroup.get('assisTeacherId').dirty && timesCountGroup.get('assisTeacherId').hasError('required')">请选择助教老师！</nz-form-explain> -->
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
         <div nz-col nzSpan="12">
           <nz-form-item>
             <nz-form-label nzRequired>消费时间</nz-form-label>

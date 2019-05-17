@@ -8,7 +8,7 @@ import { AppState } from '../../core/reducers/reducers-config';
 @Injectable()
 export class AutographService {
 
-  domain = 'http://tpay.beibeiyue.com/pay';
+  domain = 'http://pay.haochengzhang.com/pay';
 
   getAutograph(): Promise<object> {
     return new Promise((resolve, reject) => {

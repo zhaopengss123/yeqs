@@ -84,17 +84,29 @@
         </div>
         <div nz-col nzSpan="12">
           <nz-form-item>
-            <nz-form-label nzRequired>洗澡老师</nz-form-label>
+            <nz-form-label>洗澡老师</nz-form-label>
             <nz-form-control>
               <nz-select formControlName="showerTeacherId" nzPlaceHolder="请选择洗澡老师">
                 <nz-option *ngFor="let option of teacherList" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
               </nz-select>
-              <nz-form-explain *ngIf="timesCountGroup.get('showerTeacherId').dirty && timesCountGroup.get('showerTeacherId').hasError('required')">请选择洗澡老师！</nz-form-explain>
+              <!-- <nz-form-explain *ngIf="timesCountGroup.get('showerTeacherId').dirty && timesCountGroup.get('showerTeacherId').hasError('required')">请选择洗澡老师！</nz-form-explain> -->
             </nz-form-control>
           </nz-form-item>
         </div>
       </div>
+      
       <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12">
+          <nz-form-item>
+            <nz-form-label>体适能老师</nz-form-label>
+            <nz-form-control>
+              <nz-select formControlName="fitnessTeacherId" nzPlaceHolder="请选择体适能老师">
+                <nz-option *ngFor="let option of teacherList" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+              </nz-select>
+              <!-- <nz-form-explain *ngIf="timesCountGroup.get('assisTeacherId').dirty && timesCountGroup.get('assisTeacherId').hasError('required')">请选择助教老师！</nz-form-explain> -->
+            </nz-form-control>
+          </nz-form-item>
+        </div>
         <div nz-col nzSpan="12">
           <nz-form-item>
             <nz-form-label nzRequired>消费服务</nz-form-label>
@@ -106,6 +118,10 @@
             </nz-form-control>
           </nz-form-item>
         </div>
+      </div>
+
+      <div nz-row nzGutter="8">
+
         <div nz-col nzSpan="12">
           <nz-form-item>
             <nz-form-label nzRequired>消费金额</nz-form-label>
@@ -115,8 +131,6 @@
             </nz-form-control>
           </nz-form-item>
         </div>
-      </div>
-      <div nz-row nzGutter="8">
         <div nz-col nzSpan="12">
           <nz-form-item>
             <nz-form-label>肺活量</nz-form-label>
@@ -130,6 +144,8 @@
             </nz-form-control>
           </nz-form-item>
         </div>
+      </div>
+      <div nz-row nzGutter="8">
         <div nz-col nzSpan="12">
           <nz-form-item>
             <nz-form-label>游泳时长</nz-form-label>
@@ -140,8 +156,6 @@
             </nz-form-control>
           </nz-form-item>
         </div>
-      </div>
-      <div nz-row nzGutter="8">
         <div nz-col nzSpan="12">
           <nz-form-item>
             <nz-form-label>身高</nz-form-label>
@@ -151,7 +165,9 @@
               </nz-input-group>
             </nz-form-control>
           </nz-form-item>
-        </div>
+        </div>        
+      </div>
+      <div nz-row nzGutter="8">
         <div nz-col nzSpan="12">
           <nz-form-item>
             <nz-form-label>体重</nz-form-label>
@@ -162,8 +178,6 @@
             </nz-form-control>
           </nz-form-item>
         </div>
-      </div>
-      <div nz-row nzGutter="8">
         <div nz-col nzSpan="12">
           <nz-form-item>
             <nz-form-label>体温</nz-form-label>
@@ -173,7 +187,10 @@
               </nz-input-group>
             </nz-form-control>
           </nz-form-item>
-        </div>
+        </div>        
+      </div>
+      <div nz-row nzGutter="8">
+
         <div nz-col nzSpan="12">
           <nz-form-item>
             <nz-form-label nzRequired>顾客满意度</nz-form-label>
@@ -185,8 +202,6 @@
             </nz-form-control>
           </nz-form-item>
         </div>
-      </div>
-      <div nz-row nzGutter="8">
         <div nz-col nzSpan="12">
           <nz-form-item>
             <nz-form-label nzRequired>消费时间</nz-form-label>
@@ -195,7 +210,9 @@
             </nz-form-control>
           </nz-form-item>
         </div>
+
       </div>
+
     </form>
   </nz-tab>
   <nz-tab nzTitle="单次消费">
@@ -238,7 +255,7 @@
         </div>
         <div nz-col nzSpan="12">
           <nz-form-item>
-            <nz-form-label nzRequired>洗澡老师</nz-form-label>
+            <nz-form-label>洗澡老师</nz-form-label>
             <nz-form-control>
               <nz-select formControlName="showerTeacherId" nzPlaceHolder="请选择洗澡老师">
                 <nz-option *ngFor="let option of teacherList" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
@@ -248,8 +265,19 @@
           </nz-form-item>
         </div>
       </div>
-
       <div nz-row nzGutter="8">
+          <div nz-col nzSpan="12">
+              <nz-form-item>
+                <nz-form-label>体适能老师</nz-form-label>
+                <nz-form-control>
+                  <nz-select formControlName="fitnessTeacherId" nzPlaceHolder="请选择体适能老师">
+                    <nz-option *ngFor="let option of teacherList" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+                  </nz-select>
+                  <!-- <nz-form-explain *ngIf="timesCountGroup.get('assisTeacherId').dirty && timesCountGroup.get('assisTeacherId').hasError('required')">请选择助教老师！</nz-form-explain> -->
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
         <div nz-col nzSpan="12">
           <nz-form-item>
             <nz-form-label nzRequired>消费金额</nz-form-label>
@@ -259,19 +287,20 @@
             </nz-form-control>
           </nz-form-item>
         </div>
-        <div nz-col nzSpan="12">
-          <nz-form-item>
-            <nz-form-label nzRequired>顾客满意度</nz-form-label>
-            <nz-form-control>
-              <nz-select formControlName="satisfaction" nzPlaceHolder="请选择顾客满意度">
-                <nz-option nzLabel="满意" nzValue="满意"></nz-option>
-                <nz-option nzLabel="不满意" nzValue="不满意"></nz-option>
-              </nz-select>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
+
       </div>
       <div nz-row nzGutter="8">
+          <div nz-col nzSpan="12">
+              <nz-form-item>
+                <nz-form-label nzRequired>顾客满意度</nz-form-label>
+                <nz-form-control>
+                  <nz-select formControlName="satisfaction" nzPlaceHolder="请选择顾客满意度">
+                    <nz-option nzLabel="满意" nzValue="满意"></nz-option>
+                    <nz-option nzLabel="不满意" nzValue="不满意"></nz-option>
+                  </nz-select>
+                </nz-form-control>
+              </nz-form-item>
+            </div>        
         <div nz-col nzSpan="12">
           <nz-form-item>
             <nz-form-label nzRequired>消费时间</nz-form-label>

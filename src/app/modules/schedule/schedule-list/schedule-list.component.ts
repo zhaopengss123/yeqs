@@ -29,7 +29,7 @@ export class ScheduleListComponent implements OnInit {
   tablecurr:any = 0;
   currformList: any = "";
   member:any = {};
-
+  tabv: boolean = false;
   dateList:any = [];
   startDateList: any = '';
   endDateList: any = '';
@@ -47,8 +47,9 @@ export class ScheduleListComponent implements OnInit {
   ThursdayLists: any = '';
   FridayLists: any = '';
   SaturdayLists: any = '';
-
-
+  listMap: any[] = [];
+  showPageNum: number = 1;
+  showTotal:number;
   constructor(
     private http: HttpService,
     private message: NzMessageService,
@@ -259,6 +260,49 @@ export class ScheduleListComponent implements OnInit {
     }
     window.open(`${this.domain}/curriculum/poiExcel?paramJson=${paramJson}`);
   }
+  //列表展示
+  listshow (){
+    let that = this;
+    this.listMap = [];
+    let isMobile = /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;
+    if (!isMobile.test(that.mobilePhone) && !that.memberName) {
+      this.message.create('error', '请输入正确的手机号或学员姓名');
+      return false; 
+    }
+    let paramJson: any = JSON.stringify({
+      mobilePhone: that.mobilePhone,
+      memberName: that.memberName
+    });
+    that.http.post('/curriculum/memberReserveList', { paramJson ,    pageSize:50,   pageNum: this.showPageNum }, false).then(res => {
+      if (res.code == 1000) {
+        res.result.list.map(item=>{
+          item.week = this.getWeek(item.currentDate);
+        })
+        this.showTotal = res.result.count;
+        this.listMap = res.result.list;
+      }
+    });
+  }
+  //获取今天星期几
+  getWeek(dateString){
+    let date;
+    if(this.isNull(dateString)){
+        date = new Date();
+    }else{
+        let dateArray : any = dateString.split("-");
+        let dates: any = dateArray[1];
+        date = new Date(dateArray[0], dates - 1, dateArray[2]);
+    }
+    //var weeks = new Array("日", "一", "二", "三", "四", "五", "六");
+    //return "星期" + weeks[date.getDay()];
+    return "星期" + "日一二三四五六".charAt(date.getDay());
+  } 
+  isNull(object){ 
+    if(object == null || typeof object == "undefined"){ 
+        return true; 
+    } 
+    return false; 
+};
 
   ngOnInit() {
   }

@@ -23,7 +23,7 @@
       <td>{{ data.deductionTimes }}</td>
       <td>{{ data.type == 0 ? '正价' : data.type == 1 ? '赠送' : '--' }}</td>
       <td>{{ data.commodityName }}</td>
-      <td>{{ data.swimTeacher }}</td>
+      <td> <button nz-button nzType="primary" nzSize="small"  (click)="teacherDetail(data)"><i class="anticon anticon-eye-o"></i>认领</button></td>
       <td>{{ data.satisfaction }}</td>
       <td>{{ data.weight }}</td>
       <td>{{ data.pulmonary }}</td>
@@ -55,10 +55,73 @@
   [nzVisible]="showDrawer" 
   [nzTitle]="drawerTitle" 
   (nzOnClose)="showDrawer = false">
-  <ng-template #drawerContainer></ng-template>
+  <ng-template #drawerContainer></ng-template> 
   <div class="footer">
     <button nz-button (click)="showDrawer = false">取消</button>
     <button nz-button nzType="primary" (click)="saveDrawer()">保存</button>
   </div>
 </nz-drawer>
 
+<ng-template #drawerTemplate let-data let-drawerRef="drawerRef">
+    <form nz-form [formGroup]="baseFormGroup">
+        <div nz-row nzGutter="8">
+            <div nz-col nzSpan="12">
+                <nz-form-item>
+                  <nz-form-label nzRequired>授课老师</nz-form-label>
+                  <nz-form-control>
+                    <nz-select formControlName="swimTeacherId"  nzPlaceHolder="请选择授课老师">
+                      <nz-option *ngFor="let option of teacherList" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+                    </nz-select>
+                    <nz-form-explain *ngIf="baseFormGroup.get('swimTeacherId').dirty && baseFormGroup.get('swimTeacherId').hasError('required')">请选择授课老师！</nz-form-explain>
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+
+              <div nz-col nzSpan="12">
+                  <nz-form-item>
+                    <nz-form-label nzRequired>助教老师</nz-form-label>
+                    <nz-form-control>
+                      <nz-select formControlName="assisTeacherId"  nzPlaceHolder="请选择助教老师">
+                        <nz-option *ngFor="let option of teacherList" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+                      </nz-select>
+                      <nz-form-explain *ngIf="baseFormGroup.get('assisTeacherId').dirty && baseFormGroup.get('assisTeacherId').hasError('required')">请选择助教老师！</nz-form-explain>
+                    </nz-form-control>
+                  </nz-form-item>
+                </div>
+        </div>
+        
+        
+        <div nz-row nzGutter="8">
+
+            <div nz-col nzSpan="12">
+              <nz-form-item>
+                <nz-form-label>洗澡老师</nz-form-label>
+                <nz-form-control>
+                  <nz-select formControlName="showerTeacherId" [nzAllowClear]="true" nzPlaceHolder="请选择洗澡老师">
+                    <nz-option *ngFor="let option of teacherList" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+                  </nz-select>
+                  <!-- <nz-form-explain *ngIf="timesCountGroup.get('showerTeacherId').dirty && timesCountGroup.get('showerTeacherId').hasError('required')">请选择洗澡老师！</nz-form-explain> -->
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+            <div nz-col nzSpan="12">
+                <nz-form-item>
+                  <nz-form-label>体适能老师</nz-form-label>
+                  <nz-form-control>
+                    <nz-select formControlName="fitnessTeacherId"  [nzAllowClear]="true" nzPlaceHolder="请选择体适能老师">
+                      <nz-option *ngFor="let option of teacherList" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
+                    </nz-select>
+                    <!-- <nz-form-explain *ngIf="timesCountGroup.get('assisTeacherId').dirty && timesCountGroup.get('assisTeacherId').hasError('required')">请选择助教老师！</nz-form-explain> -->
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+
+          </div> 
+          <div class="footer">
+              <button nz-button (click)="drawerRef.close()">取消</button>
+              <button nz-button nzType="primary" [nzLoading]="saveLoading" (click)="save(drawerRef)">保存</button>
+            </div>
+        </form>
+
+</ng-template>
