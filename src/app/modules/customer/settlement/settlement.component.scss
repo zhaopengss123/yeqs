@@ -99,3 +99,25 @@ img{
   color: red !important;
   font-style: normal;
 }
+.listTable{
+  width: 100%;
+  overflow-x: scroll; 
+}
+.tableMain{
+  width: 2000rpx;
+}
+.listHeader{
+  width: 100%;
+}
+.headerDate{
+  width: 200px;
+  background: #fff;
+  box-shadow: 0px 0px 1px #ccc;
+  height: 100px;
+  line-height: 100px;
+  border-radius: 5px;
+  text-align: center;
+}
+.headerDate{
+  font-size: 26px;
+}
