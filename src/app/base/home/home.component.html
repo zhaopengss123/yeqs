@@ -107,7 +107,7 @@
                   <td>{{item.startTime}}-{{item.endTime}}</td>
                   <td>
                     <ng-container *ngFor="let data of startDateList">
-                      <div class="dataList" [style.background]="'#'+ data.colour " *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
+                      <div class="dataList" [style.background]="data.typefaceColour" [style.color]="data.colour&&data.colour.indexOf('#')!=-1? data.colour : '#'+ data.colour" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
                         <div>课程名称：{{ data.name }}</div>
                         <div>教室：{{ data.roomName }}</div>
                         <p > 主教老师：{{ data.employeeName }}</p>
@@ -116,8 +116,8 @@
                   </td>
                   <td>
                     <ng-container *ngFor="let data of TuesdayList">
-                      <div class="dataList" [style.background]="'#'+ data.colour " *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
-                        <div>课程名称：{{ data.name }}</div>
+                        <div class="dataList" [style.background]="data.typefaceColour" [style.color]="data.colour&&data.colour.indexOf('#')!=-1? data.colour : '#'+ data.colour" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
+                            <div>课程名称：{{ data.name }}</div>
                         <div>教室：{{ data.roomName }}</div>
                         <p > 主教老师：{{ data.employeeName }}</p>
                       </div>
@@ -125,8 +125,8 @@
                   </td>
                   <td>
                     <ng-container *ngFor="let data of WednesdayList">
-                      <div class="dataList" [style.background]="'#'+ data.colour " *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
-                        <div>课程名称：{{ data.name }}</div>
+                        <div class="dataList" [style.background]="data.typefaceColour" [style.color]="data.colour&&data.colour.indexOf('#')!=-1? data.colour : '#'+ data.colour" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
+                            <div>课程名称：{{ data.name }}</div>
                         <div>教室：{{ data.roomName }}</div>
                         <p> 主教老师：{{ data.employeeName }}</p>
                       </div>
@@ -134,8 +134,8 @@
                   </td>
                   <td>
                     <ng-container *ngFor="let data of ThursdayList">
-                      <div class="dataList" [style.background]="'#'+ data.colour " *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
-                        <div>课程名称：{{ data.name }}</div>
+                        <div class="dataList" [style.background]="data.typefaceColour" [style.color]="data.colour&&data.colour.indexOf('#')!=-1? data.colour : '#'+ data.colour" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
+                            <div>课程名称：{{ data.name }}</div>
                         <div>教室：{{ data.roomName }}</div>
                         <p> 主教老师：{{ data.employeeName }}</p>
                       </div>
@@ -143,8 +143,8 @@
                   </td>
                   <td>
                     <ng-container *ngFor="let data of FridayList">
-                      <div class="dataList" [style.background]="'#'+ data.colour " *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
-                        <div>课程名称：{{ data.name }}</div>
+                        <div class="dataList" [style.background]="data.typefaceColour" [style.color]="data.colour&&data.colour.indexOf('#')!=-1? data.colour : '#'+ data.colour" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
+                            <div>课程名称：{{ data.name }}</div>
                         <div>教室：{{ data.roomName }}</div>
                         <p > 主教老师：{{ data.employeeName }}</p>
                       </div>
@@ -152,17 +152,17 @@
                   </td>
                   <td>
                     <ng-container *ngFor="let data of SaturdayList">
-                      <div class="dataList" [style.background]="'#'+ data.colour " *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
-                        <div>课程名称：{{ data.name }}</div>
-                        <div>教室：{{ data.roomName }}</div>
-                        <p> 主教老师：{{ data.employeeName }}</p>
+                        <div class="dataList" [style.background]="data.typefaceColour" [style.color]="data.colour&&data.colour.indexOf('#')!=-1? data.colour : '#'+ data.colour" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
+                          <div>课程名称：{{ data.name }}</div>
+                          <div>教室：{{ data.roomName }}</div>
+                          <p> 主教老师：{{ data.employeeName }}</p>
                       </div>
                     </ng-container>
                   </td>
                   <td>
                     <ng-container *ngFor="let data of endDateList">
-                      <div class="dataList" [style.background]="'#'+ data.colour " *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
-                        <div>课程名称：{{ data.name }}</div>
+                        <div class="dataList" [style.background]="data.typefaceColour" [style.color]="data.colour&&data.colour.indexOf('#')!=-1? data.colour : '#'+ data.colour" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
+                            <div>课程名称：{{ data.name }}</div>
                         <div>教室：{{ data.roomName }}</div>
                         <p> 主教老师：{{ data.employeeName }}</p>
                       </div>

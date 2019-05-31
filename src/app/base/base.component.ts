@@ -44,7 +44,7 @@ export class BaseComponent implements OnInit {
     });
     this.userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
     this.store.dispatch({ type: 'setUserInfo', payload: this.userInfo });
-    window.document.title = `${this.userInfo.store['shopName']}-亲水ERP管理系统`;
+    window.document.title = `亲水ERP管理系统`;
   }
 
   showDrawer: boolean;

@@ -102,9 +102,11 @@ export class NewinformationComponent implements OnInit {
     });
     this.customerFormInitValue = this.customerForm.value;
     this.customerForm.get('birthday').valueChanges.subscribe(res => {
+      let yl = this.monthDiff.transform(this.format.transform(res, 'yyyy-MM-dd'));
+      let babyType = !res ? '' : yl>=0&&yl<=36 ? '0-3岁' :( yl >36&& yl<=72 ? '3-6岁' :( yl >72 ? '6-12岁': ''  ));
       this.customerForm.patchValue({
         constellation: res ? this._getAstro(this.format.transform(res, 'yyyy-MM-dd').split('-')[1], this.format.transform(res, 'yyyy-MM-dd').split('-')[2]) : '',
-        babyType: !res ? '' : this.monthDiff.transform(this.format.transform(res, 'yyyy-MM-dd')) > 10 ? '幼儿' : '婴儿'
+        babyType: babyType
       });
     });
 

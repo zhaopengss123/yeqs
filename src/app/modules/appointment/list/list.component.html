@@ -26,7 +26,7 @@
       <td>{{ data.monthAge }}</td>
       <td>{{ data.currentDate }}&nbsp;{{ data.startTime }}</td>
       <td>{{ data.consumeDate }}</td>
-      <td><nz-tag [nzColor]="data.reserveStatus == 0 ? '#87d068' : data.reserveStatus == 1 ? '#f50' : '#2db7f5'">{{ data.reserveStatus == 0 ? '预约中' : data.reserveStatus == 1 ? '已撤销' : '已完成' }}</nz-tag></td>
+      <td><nz-tag [nzColor]="data.reserveStatus == 0 ? '#87d068' : data.reserveStatus == 1 ? '#f50' : '#2db7f5'">{{ data.reserveStatus == 0 ? '预约中' : data.reserveStatus == 1 ? '已撤销' : data.reserveStatus == 4 ? '补课预约' : '已完成' }}</nz-tag></td>
       <td>{{ data.teacherName }}</td>
       <td>{{ data.updateTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
       <!-- <td>{{ data.isCrossed == 1 ? '是' : '否' }}</td> -->
@@ -35,8 +35,8 @@
       <td *ngIf="routingPath == 'list'">
         <a (click)="preview(data)">查看</a>
         <nz-divider nzType="vertical" ></nz-divider>
-        <a (click)="reserveCancel(data.id)" *ngIf="data.reserveStatus==0" >撤销</a>
-        <a  *ngIf="data.reserveStatus!=0" reserveStatus style="color: #ccc;">撤销</a>
+        <a (click)="reserveCancel(data.id)" *ngIf="data.reserveStatus==0||data.reserveStatus == 4" >撤销</a>
+        <a  *ngIf="data.reserveStatus!=0&&data.reserveStatus != 4" reserveStatus style="color: #ccc;">撤销</a>
       </td>
        <td *ngIf="routingPath != 'list'"></td>
     </ng-template>

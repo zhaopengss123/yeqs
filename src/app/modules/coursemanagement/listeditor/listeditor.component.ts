@@ -1,6 +1,6 @@
 import { FormControl, FormGroup } from '@angular/forms';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { NzMessageService } from 'ng-zorro-antd';
 
@@ -10,6 +10,9 @@ import { NzMessageService } from 'ng-zorro-antd';
   styleUrls: ['./listeditor.component.scss']
 })
 export class ListeditorComponent implements OnInit {
+  @Input() color: string = "#59407F";
+  // 选择颜色以后调用父组件中的方法，将数据传递出去，方法
+  @Output() sentColor = new EventEmitter();
   courseList:any = [];
   iscourse:any = '';
   editor:any = '新增课程';
@@ -22,11 +25,32 @@ export class ListeditorComponent implements OnInit {
   addlessonTypeId:any = '';
   courseId:any = '';
   removeclassContent:any = false;
+  typefaceColour: string;
   modeList:any = [
     {
       name:'按课时收费'
     }
   ];
+  colorList:any = [{
+    color: '#59407F',
+    bgcolor: 'rgba(102,0,255,.2)'
+  },{
+    color: '#496A39',
+    bgcolor: 'rgba(75,229,0,.2)'
+  },{
+    color:'#2C6799',
+    bgcolor: 'rgba(0,142,255,.2)'
+  },{
+    color:'#9D5900',
+    bgcolor: 'rgba(255,156,0,.2)'
+  },{
+    color: '#993C3D',
+    bgcolor: 'rgba(246,0,0,.2)'
+  },{
+    color:'#3A6848',
+    bgcolor: 'rgba(0,231,103,.2)'
+
+  }];
   openType:any = 0;
   courseIdblon = false;
   CoursecategoryList:any = [];
@@ -124,6 +148,7 @@ export class ListeditorComponent implements OnInit {
     this.addnumber = "";
     this.addcharging = "";
     this.courseId = '';
+    this.color = null;
   }
   isaddcourse(){
     if (!this.addcourseTypeId) {
@@ -146,6 +171,15 @@ export class ListeditorComponent implements OnInit {
       this.message.create('error', '请选择收费模式！');
       return false;
     }
+    if (!this.color) {
+      this.message.create('error', '请选择课程颜色');
+      return false;
+    }    
+    this.colorList.map(item=>{
+      if(this.color == item.color){
+        this.typefaceColour = item.bgcolor;
+      }
+    })
     if(!this.courseId){
         let paramJson: any = JSON.stringify({
           name: this.addname,
@@ -154,6 +188,8 @@ export class ListeditorComponent implements OnInit {
           courseStatus: this.addcourseStatus,
           number: this.addnumber,
           charging: this.addcharging,
+          colour:  this.color,
+          typefaceColour: this.typefaceColour
         });  
         this.http.post('/scheduling/insertSyllabus', { paramJson }, false).then(res => {
           if (res.code == 1000) {
@@ -168,6 +204,7 @@ export class ListeditorComponent implements OnInit {
             this.addnumber = "";
             this.addcharging = "";
             this.courseId = '';
+            this.color = null;
           } else {
             this.message.create('error', res.info);
            
@@ -178,7 +215,9 @@ export class ListeditorComponent implements OnInit {
         lessonTypeId: this.addlessonTypeId,
         courseStatus: this.addcourseStatus,
         number: this.addnumber,
-        id: this.courseId
+        id: this.courseId,
+        colour:  this.color,
+        typefaceColour: this.typefaceColour
       });
       this.http.post('/scheduling/updateSyllabus', { paramJson }, false).then(res => {
         if (res.code == 1000) {
@@ -193,6 +232,7 @@ export class ListeditorComponent implements OnInit {
           this.addnumber = "";
           this.addcharging = "";
           this.courseId = '';
+          this.color = null;
         } else {
           this.message.create('error', res.info);
          
@@ -213,6 +253,7 @@ export class ListeditorComponent implements OnInit {
         this.addcourseStatus = res.result.list.courseStatus;
         this.addnumber = res.result.list.number;
         this.addcharging = res.result.list.charging;
+        this.color = res.result.list.colour;
       } else {
         this.message.create('error', res.info);
         this.addcourse = false;
@@ -293,12 +334,13 @@ export class ListeditorComponent implements OnInit {
       this.message.create('error', '上课内容不能为空');
       return false;
     }
+
     if ( !this.modifyId ){
       let paramJson: any = JSON.stringify({
         period: this.period,
         curriculum: this.curriculum,
         content: this.content,
-        syllabusId: this.ListmainId
+        syllabusId: this.ListmainId,
       });
       this.http.post('/scheduling/insertContents', { paramJson }, false).then(res => {
         if (res.code == 1000) {
@@ -309,6 +351,7 @@ export class ListeditorComponent implements OnInit {
           this.content = "";
           this.addclassContent = false;
           this.modifyId = '';
+          this.color = null;
         } else {
           this.message.create('error', res.info);
         }
@@ -318,7 +361,7 @@ export class ListeditorComponent implements OnInit {
         period: this.period,
         curriculum: this.curriculum,
         content: this.content,
-        id: this.modifyId
+        id: this.modifyId,
       });
       this.http.post('/scheduling/updateContents', { paramJson }, false).then(res => {
         if (res.code == 1000) {
@@ -363,12 +406,17 @@ export class ListeditorComponent implements OnInit {
         this.curriculum = res.result.list.curriculum;
         this.content = res.result.list.content;
         this.modifyId = id;
+        
       } else {
         this.message.create('error', res.info);
       }
     });       
   }
-  
+  selectColor(data){
+    this.color = data;
+
+  }
+
   ngOnInit() {
   }
 

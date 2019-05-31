@@ -24,7 +24,7 @@ export class UpdateRevokeComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    console.log(this.recordInfo);
     this.formGroup = this.fb.group({
       memberName: [{ value: this.recordInfo.memberName, disabled: true }],
       memberNick: [{ value: this.recordInfo.memberNick, disabled: true }],
@@ -48,6 +48,7 @@ export class UpdateRevokeComponent implements OnInit {
       assisTeacherId: [ this.recordInfo.assisTeacherId],
       showerTeacherId: [ this.recordInfo.showerTeacherId],
       fitnessTeacherId: [this.recordInfo.fitnessTeacherId],
+      leaveStatus: [this.recordInfo.leaveStatus],
 
     });
 

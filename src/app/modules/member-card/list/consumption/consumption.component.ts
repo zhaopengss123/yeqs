@@ -57,7 +57,8 @@ export class ConsumptionComponent implements OnInit, OnDestroy {
       weight: [],
       temperature: [],
       satisfaction: ['满意', [Validators.required]],
-      consumeDate: [{ value: null, disabled: true }]
+      consumeDate: [{ value: null, disabled: true }],
+      reserveStatus:[0]
     });
     this.singleTimeGroup = this.fb.group({
       commodityId: [, [Validators.required]],
@@ -67,7 +68,8 @@ export class ConsumptionComponent implements OnInit, OnDestroy {
       showerTeacherId: [],
       fitnessTeacherId: [],
       satisfaction: ['满意', [Validators.required]],
-      consumeDate: [{ value: null, disabled: true }]
+      consumeDate: [{ value: null, disabled: true }],
+      reserveStatus:[0]
     });
 
     /* ------------------------- 消费服务、商品改变自动填写消费金额 ------------------------- */
@@ -135,7 +137,7 @@ export class ConsumptionComponent implements OnInit, OnDestroy {
           resolve(false)
         } else {
           this.saveLoading = true;
-          this.http.post('/customer/create', { paramJson: JSON.stringify(Object.assign(baseValue, this.timesCountGroup.value)) }).then(res => {
+          this.http.post('/customer/create', { paramJson: JSON.stringify(Object.assign(baseValue, this.timesCountGroup.value)), settleStatus: 0 }).then(res => {
             resolve(true)
           }).catch(err => resolve(false))
         }
@@ -148,7 +150,7 @@ export class ConsumptionComponent implements OnInit, OnDestroy {
           resolve(false)
         } else {
           this.saveLoading = true;
-          this.http.post('/customer/create', { paramJson: JSON.stringify(Object.assign(baseValue, this.singleTimeGroup.value)) }).then(res => {
+          this.http.post('/customer/create', { paramJson: JSON.stringify(Object.assign(baseValue, this.singleTimeGroup.value)), settleStatus: 0 }).then(res => {
             resolve(true)
           }).catch(err => resolve(false))
         }

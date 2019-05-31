@@ -58,7 +58,9 @@ export class ConsumptionsComponents implements OnInit {
       weight: [],
       temperature: [],
       satisfaction: ['满意'],
-      consumeDate: []
+      consumeDate: [],
+      settleStatus: [0],
+      reserveStatus: [ this.appointmentInfo.reserveStatus ]
     });
     this.singleTimeGroup = this.fb.group({
       commodityId: [, [Validators.required]],
@@ -68,7 +70,9 @@ export class ConsumptionsComponents implements OnInit {
       showerTeacherId: [],
       fitnessTeacherId:[],
       satisfaction: ['满意'],
-      consumeDate: []
+      consumeDate: [],
+      settleStatus: [0],
+      reserveStatus: [ this.appointmentInfo.reserveStatus ]
     });
 
     this.timesCountGroup.get('commodityId').valueChanges.subscribe(id => {
@@ -105,7 +109,7 @@ export class ConsumptionsComponents implements OnInit {
       baseValue[key] = this.baseFormGroup.controls[key].value;
     })
     if (this.consumptionType === 0) {
-      console.log(this.baseFormGroup, this.baseFormGroup.value)
+      
       if (this.timesCountGroup.invalid) {
         for (let i in this.timesCountGroup.controls) {
           this.timesCountGroup.controls[i].markAsDirty();
@@ -113,7 +117,7 @@ export class ConsumptionsComponents implements OnInit {
         }
       } else {
         this.saveLoading = true;
-        this.http.post('/customer/create', { paramJson: JSON.stringify(Object.assign(baseValue, this.timesCountGroup.value)) }).then(res => {
+        this.http.post('/customer/create', { paramJson: JSON.stringify(Object.assign(baseValue, this.timesCountGroup.value)), settleStatus: this.timesCountGroup.value.settleStatus }).then(res => {
           this.drawerRef.close(true);
         }).catch(error => this.saveLoading = false);
       }
@@ -125,7 +129,7 @@ export class ConsumptionsComponents implements OnInit {
         }
       } else {
         this.saveLoading = true;
-        this.http.post('/customer/create', { paramJson: JSON.stringify(Object.assign(baseValue, this.singleTimeGroup.value)) }).then(res => {
+        this.http.post('/customer/create', { paramJson: JSON.stringify(Object.assign(baseValue, this.singleTimeGroup.value)), settleStatus: this.singleTimeGroup.value.settleStatus }).then(res => {
           this.drawerRef.close(true);
         }).catch( error=>  this.saveLoading = false);
       }

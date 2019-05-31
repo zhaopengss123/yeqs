@@ -23,284 +23,248 @@
       <button nz-button nzType="default" (click)="nextDate()">下周</button>
     </div>
   </nz-form-item>
-  <div class="table">
-    <nz-table #basicTable [nzData]="dateList" nzShowPagination='false'>
-      <thead>
-        <tr>
-          <th>时间</th>
-          <th>星期一<br>
-            {{startDate}}
-          </th>
-          <th>星期二<br>{{Tuesday}}</th>
-          <th>星期三<br>{{Wednesday}}</th>
-          <th>星期四<br>{{Thursday}}</th>
-          <th>星期五<br>{{Friday}}</th>
-          <th>星期六<br>{{Saturday}}</th>
-          <th>星期日
-            <br>{{endDate}}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let data of dateList">
-            <td style="width: 150px;"><b>{{data.startTime}} - {{data.endTime}}</b></td>
-            <!-- 星期一 -->
-            <td valign="top">
-              <ng-container *ngFor="let item of startDateList">
-                <div class="dataList"  *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime" [style.background]="'#'+ item.colour" >
-                     {{item.name}} <a (click)="details(item)" class="databtn" >【详情】</a>
-                     <div>教室：{{item.roomName}}</div>
-                      <div>主教老师：{{item.employeeName}}</div>
-                      <div> 学员：{{!item.member.length?'暂无':''}}
-                         <ng-container *ngIf="item.member.length">   
-                          <span *ngFor="let items of item.member; let i = index" style="margin: 0;">
-                            {{items.memberName}}{{ i == item.member.length-1 ? '' : '，'}}
-                          </span>
-                          </ng-container>
-                      </div>
-                      <div *ngIf="(item.galleryful-item.member.length) != 0" > 
-                        添加学员：
-                          <img *ngIf="item.galleryful-item.member.length>0" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                            alt="">
-                          <img *ngIf="item.galleryful-item.member.length>1" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                            alt="">
-                          <img *ngIf="item.galleryful-item.member.length>2" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                            alt="">
-                          <img *ngIf="item.galleryful-item.member.length>3" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                            alt="">
-                      </div>  
-                        
-                </div>
-              </ng-container>
-            </td>
-            <!-- 星期二 -->
-            <td valign="top">
-                <ng-container *ngFor="let item of TuesdayList">
-                  <div class="dataList" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime" [style.background]="'#'+ item.colour ">
-                    {{item.name}}
-                    <a (click)="details(item)" class="databtn">【详情】</a>
-                    <div>教室：{{item.roomName}}</div>
-                    <div>主教老师：{{item.employeeName}}</div>
-                    <div> 学员：{{!item.member.length?'暂无':''}}
-                      <ng-container *ngIf="item.member.length">
-                        <span *ngFor="let items of item.member; let i = index" style="margin: 0;">
-                          {{items.memberName}}{{ i == item.member.length-1 ? '' :
-                          '，'}}
-                        </span>
-                      </ng-container>
-                    </div>
-                    <div *ngIf="(item.galleryful-item.member.length) !=0 ">
-                      添加学员：
-                      <img *ngIf="item.galleryful-item.member.length>0" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                      <img *ngIf="item.galleryful-item.member.length>1" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                      <img *ngIf="item.galleryful-item.member.length>2" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                      <img *ngIf="item.galleryful-item.member.length>3" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                    </div>
-                
-                  </div>
-                </ng-container>
-            </td>
-            <!-- 星期三 -->
-            <td valign="top">
-                <ng-container *ngFor="let item of WednesdayList">
-                  <div class="dataList" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime"  [style.background]="'#'+ item.colour ">
-                    {{item.name}}
-                    <a (click)="details(item)" class="databtn">【详情】</a>
-                    <div>教室：{{item.roomName}}</div>
-                    <div>主教老师：{{item.employeeName}}</div>
-                    <div> 学员：{{!item.member.length?'暂无':''}}
-                      <ng-container *ngIf="item.member.length">
-                        <span *ngFor="let items of item.member; let i = index" style="margin: 0;">
-                          {{items.memberName}}{{ i == item.member.length-1 ? '' :
-                          '，'}}
-                        </span>
-                      </ng-container>
-                    </div>
-                    <div *ngIf="(item.galleryful-item.member.length) !=0 ">
-                      添加学员：
-                      <img *ngIf="item.galleryful-item.member.length>0" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                      <img *ngIf="item.galleryful-item.member.length>1" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                      <img *ngIf="item.galleryful-item.member.length>2" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                      <img *ngIf="item.galleryful-item.member.length>3" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                    </div>
-                
-                  </div>
-                </ng-container>
-            </td>
-            <!-- 星期四 -->
-            <td valign="top">
-                <ng-container *ngFor="let item of ThursdayList">
-                  <div class="dataList" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime" [style.background]="'#'+ item.colour ">
-                    {{item.name}}
-                    <a (click)="details(item)" class="databtn">【详情】</a>
-                    <div>教室：{{item.roomName}}</div>
-                    <div>主教老师：{{item.employeeName}}</div>
-                    <div> 学员：{{!item.member.length?'暂无':''}}
-                      <ng-container *ngIf="item.member.length">
-                        <span *ngFor="let items of item.member; let i = index" style="margin: 0;">
-                          {{items.memberName}}{{ i == item.member.length-1 ? '' :
-                          '，'}}
-                        </span>
-                      </ng-container>
-                    </div>
-                    <div *ngIf="(item.galleryful-item.member.length) !=0 ">
-                      添加学员：
-                      <img *ngIf="item.galleryful-item.member.length>0" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                      <img *ngIf="item.galleryful-item.member.length>1" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                      <img *ngIf="item.galleryful-item.member.length>2" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                      <img *ngIf="item.galleryful-item.member.length>3" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                    </div>
-                
-                  </div>
-                </ng-container>
-            </td>
-            <!-- 星期五 -->
-            <td valign="top">
-                <ng-container *ngFor="let item of FridayList">
-                  <div class="dataList" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime" [style.background]="'#'+ item.colour ">
-                    {{item.name}}
-                    <a (click)="details(item)" class="databtn">【详情】</a>
-                    <div>教室：{{item.roomName}}</div>
-                    <div>主教老师：{{item.employeeName}}</div>
-                    <div> 学员：{{!item.member.length?'暂无':''}}
-                      <ng-container *ngIf="item.member.length">
-                        <span *ngFor="let items of item.member; let i = index" style="margin: 0;">
-                          {{items.memberName}}{{ i == item.member.length-1 ? '' :
-                          '，'}}
-                        </span>
-                      </ng-container>
-                    </div>
-                    <div *ngIf="(item.galleryful-item.member.length) !=0 ">
-                      添加学员：
-                      <img *ngIf="item.galleryful-item.member.length>0" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                      <img *ngIf="item.galleryful-item.member.length>1" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                      <img *ngIf="item.galleryful-item.member.length>2" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                      <img *ngIf="item.galleryful-item.member.length>3" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                    </div>
-                
-                  </div>
-                </ng-container>
-            </td>
-            <!-- 星期六 -->
-            <td valign="top">
-                <ng-container *ngFor="let item of SaturdayList">
-                  <div class="dataList" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime" [style.background]="'#'+ item.colour ">
-                    {{item.name}}
-                    <a (click)="details(item)" class="databtn">【详情】</a>
-                    <div>教室：{{item.roomName}}</div>
-                    <div>主教老师：{{item.employeeName}}</div>
-                    <div> 学员：{{!item.member.length?'暂无':''}}
-                      <ng-container *ngIf="item.member.length">
-                        <span *ngFor="let items of item.member; let i = index" style="margin: 0;">
-                          {{items.memberName}}{{ i == item.member.length-1 ? '' :
-                          '，'}}
-                        </span>
-                      </ng-container>
-                    </div>
-                    <div *ngIf="(item.galleryful-item.member.length) !=0 ">
-                      添加学员：
-                      <img *ngIf="item.galleryful-item.member.length>0" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                      <img *ngIf="item.galleryful-item.member.length>1" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                      <img *ngIf="item.galleryful-item.member.length>2" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                      <img *ngIf="item.galleryful-item.member.length>3" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                    </div>
-                
-                  </div>
-                </ng-container>
-            </td>
-            <!-- 星期日 -->
-            <td valign="top">
-                <ng-container *ngFor="let item of endDateList">
-                  <div class="dataList" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime" [style.background]="'#'+ item.colour ">
-                    {{item.name}}
-                    <a (click)="details(item)" class="databtn">【详情】</a>
-                    <div>教室：{{item.roomName}}</div>
-                    <div>主教老师：{{item.employeeName}}</div>
-                    <div> 学员：{{!item.member.length?'暂无':''}}
-                      <ng-container *ngIf="item.member.length">
-                        <span *ngFor="let items of item.member; let i = index" style="margin: 0;">
-                          {{items.memberName}}{{ i == item.member.length-1 ? '' :
-                          '，'}}
-                        </span>
-                      </ng-container>
-                    </div>
-                    <div *ngIf="(item.galleryful-item.member.length) !=0 ">
-                      添加学员：
-                      <img *ngIf="item.galleryful-item.member.length>0" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                      <img *ngIf="item.galleryful-item.member.length>1" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                      <img *ngIf="item.galleryful-item.member.length>2" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                      <img *ngIf="item.galleryful-item.member.length>3" (click)="showstudents(item)" src="https://ylbb-erp.oss-cn-beijing.aliyuncs.com/adds.png"
-                        alt="">
-                    </div>
-                
-                  </div>
-                </ng-container>
-            </td>
-        </tr>
-      </tbody>
-    </nz-table>
-  </div>
+ 
 
-  <!-- <div class="listTable">
+  <div class="listTable">
     <div class="tableMain">
         <div class="listHeader">
               <div class="headerDate">
-                    时间/日期
+                    <div class="header_line"></div>
+                    <span>日期</span>
+                    <span>时间</span>
               </div>
               <div class="navList">
                 <div>星期一</div>
-                <div>2019-05-01</div>
+                <div> {{startDate}}</div>
               </div>
               <div class="navList">
                 <div>星期二</div>
-                <div>2019-05-01</div>
+                <div>{{Tuesday}}</div>
               </div>
               <div class="navList">
                 <div>星期三</div>
-                <div>2019-05-01</div>
+                <div>{{Wednesday}}</div>
               </div>
               <div class="navList">
                 <div>星期四</div>
-                <div>2019-05-01</div>
+                <div>{{Thursday}}</div>
               </div>
               <div class="navList">
                 <div>星期五</div>
-                <div>2019-05-01</div>
+                <div>{{Friday}}</div>
               </div>
               <div class="navList">
                 <div>星期六</div>
-                <div>2019-05-01</div>
+                <div>{{Saturday}}</div>
               </div>                                                        
               <div class="navList">
                 <div>星期日</div>
-                <div>2019-05-01</div>
+                <div>{{endDate}}</div>
               </div> 
         </div>
+
+        <div class="table_smain">
+          <div class="list_sy"  id="slist" *ngFor="let data of dateList">
+            <div class="stime">{{data.startTime}} - {{data.endTime}}</div>
+            <!-- 星期一 -->
+            <div class="slist">
+              <ng-container *ngFor="let item of startDateList">
+              <div class="slistMain" id="slist" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime"  [style.background]="item.typefaceColour ? item.typefaceColour : '#3aeaff'">
+                <div class="slistContent" [style.color]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour">
+                  <div class="sname">{{item.name}}</div>
+                  <div class="sname">教室：{{item.roomName}}</div>
+                  <div class="sname">主教：{{item.employeeName}}</div>
+                  <div class="sxy"><div>学员：</div>
+                  <div>
+                  <ng-container *ngIf="item.member.length" >
+                      <ng-container *ngFor="let items of item.member; let i = index" >
+                      <span  class="fspan"   [style.color]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" >
+                          {{ items.reserveStatus==4 ? '(补)' : '' }}{{items.memberName}}
+                      </span>
+                    </ng-container>
+                    </ng-container>
+                    <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>0" (click)="showstudents(item)">+</span>
+                    <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>1" (click)="showstudents(item)">+</span>
+                    <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>2" (click)="showstudents(item)">+</span>
+                    <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>3" (click)="showstudents(item)">+</span>
+                  </div></div>
+                  <div class="sczt"><div class="scz" (click)="details(item)">操作</div></div>
+              </div>
+            </div>
+             </ng-container> 
+            </div>
+            <!-- 星期二-->
+            <div class="slist">
+              <ng-container *ngFor="let item of TuesdayList">
+              <div class="slistMain" id="slist" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime"  [style.background]="item.typefaceColour ? item.typefaceColour : '#3aeaff'">
+                <div class="slistContent" [style.color]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour">
+                  <div class="sname">{{item.name}}</div>
+                  <div class="sname">教室：{{item.roomName}}</div>
+                  <div class="sname">主教：{{item.employeeName}}</div>
+                  <div class="sxy"><div>学员：</div>
+                  <div>
+                      <ng-container *ngIf="item.member.length" >
+                          <ng-container *ngFor="let items of item.member; let i = index" >
+                          <span  class="fspan"   [style.color]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" >
+                              {{ items.reserveStatus==4 ? '(补)' : '' }}{{items.memberName}} 
+                          </span>
+                        </ng-container>
+                        </ng-container>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>0" (click)="showstudents(item)">+</span>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>1" (click)="showstudents(item)">+</span>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>2" (click)="showstudents(item)">+</span>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>3" (click)="showstudents(item)">+</span>
+                      </div></div>
+                      <div class="sczt"><div class="scz" (click)="details(item)">操作</div></div>
+              </div>
+            </div>
+             </ng-container> 
+            </div>   
+            <!-- 星期三 -->
+            <div class="slist">
+              <ng-container *ngFor="let item of WednesdayList">
+              <div class="slistMain" id="slist" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime" [style.background]="item.typefaceColour ? item.typefaceColour : '#3aeaff'">
+                <div class="slistContent" [style.color]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour">
+                  <div class="sname">{{item.name}}</div>
+                  <div class="sname">教室：{{item.roomName}}</div>
+                  <div class="sname">主教：{{item.employeeName}}</div>
+                  <div class="sxy"><div>学员：</div>
+                  <div>
+                      <ng-container *ngIf="item.member.length" >
+                          <ng-container *ngFor="let items of item.member; let i = index" >
+                          <span  class="fspan"   [style.color]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" >
+                              {{ items.reserveStatus==4 ? '(补)' : '' }}{{items.memberName}} 
+                          </span>
+                        </ng-container>
+                        </ng-container>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>0" (click)="showstudents(item)">+</span>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>1" (click)="showstudents(item)">+</span>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>2" (click)="showstudents(item)">+</span>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>3" (click)="showstudents(item)">+</span>
+                      </div></div>
+                      <div class="sczt"><div class="scz" (click)="details(item)">操作</div></div>
+              </div>
+            </div>
+             </ng-container> 
+            </div> 
+            <!-- 星期四 -->
+            <div class="slist">
+              <ng-container *ngFor="let item of ThursdayList">
+              <div class="slistMain" id="slist" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime" [style.background]="item.typefaceColour ? item.typefaceColour : '#3aeaff'">
+                  <div class="slistContent" [style.color]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour">
+                  <div class="sname">{{item.name}}</div>
+                  <div class="sname">教室：{{item.roomName}}</div>
+                  <div class="sname">主教：{{item.employeeName}}</div>
+                  <div class="sxy"><div>学员：</div>
+                  <div>
+                      <ng-container *ngIf="item.member.length" >
+                          <ng-container *ngFor="let items of item.member; let i = index" >
+                          <span  class="fspan"    [style.color]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" >
+                              {{ items.reserveStatus==4 ? '(补)' : '' }}{{items.memberName}} 
+                          </span>
+                        </ng-container>
+                        </ng-container>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>0" (click)="showstudents(item)">+</span>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>1" (click)="showstudents(item)">+</span>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>2" (click)="showstudents(item)">+</span>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>3" (click)="showstudents(item)">+</span>
+                      </div></div>
+                      <div class="sczt"><div class="scz" (click)="details(item)">操作</div></div>
+              </div>
+            </div>
+            </ng-container> 
+            </div> 
+            <!-- 星期五 -->
+            <div class="slist">
+              <ng-container *ngFor="let item of FridayList">
+              <div class="slistMain" id="slist" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime" [style.background]="item.typefaceColour ? item.typefaceColour : '#3aeaff'">
+                <div class="slistContent" [style.color]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour">
+                  <div class="sname">{{item.name}}</div>
+                  <div class="sname">教室：{{item.roomName}}</div>
+                  <div class="sname">主教：{{item.employeeName}}</div>
+                  <div class="sxy"><div>学员：</div>
+                  <div>
+                      <ng-container *ngIf="item.member.length" >
+                          <ng-container *ngFor="let items of item.member; let i = index" >
+                          <span  class="fspan"   [style.color]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" >
+                              {{ items.reserveStatus==4 ? '(补)' : '' }}{{items.memberName}} 
+                          </span>
+                        </ng-container>
+                        </ng-container>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>0" (click)="showstudents(item)">+</span>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>1" (click)="showstudents(item)">+</span>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>2" (click)="showstudents(item)">+</span>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>3" (click)="showstudents(item)">+</span>
+                      </div></div>
+                      <div class="sczt"><div class="scz" (click)="details(item)">操作</div></div>
+              </div>
+            </div>
+            </ng-container> 
+            </div> 
+            <!-- 星期六 -->
+            <div class="slist">
+              <ng-container *ngFor="let item of SaturdayList">
+              <div class="slistMain" id="slist" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime" [style.background]="item.typefaceColour ? item.typefaceColour : '#3aeaff'">
+                <div class="slistContent" [style.color]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour">
+                  <div class="sname">{{item.name}}</div>
+                  <div class="sname">教室：{{item.roomName}}</div>
+                  <div class="sname">主教：{{item.employeeName}}</div>
+                  <div class="sxy"><div>学员：</div>
+                  <div>
+                      <ng-container *ngIf="item.member.length" >
+                          <ng-container *ngFor="let items of item.member; let i = index" >
+                          <span  class="fspan"    [style.color]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" >
+                              {{ items.reserveStatus==4 ? '(补)' : '' }}{{items.memberName}} 
+                          </span>
+                        </ng-container>
+                        </ng-container>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>0" (click)="showstudents(item)">+</span>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>1" (click)="showstudents(item)">+</span>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>2" (click)="showstudents(item)">+</span>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>3" (click)="showstudents(item)">+</span>
+                      </div></div>
+                      <div class="sczt"><div class="scz" (click)="details(item)">操作</div></div>
+              </div>
+            </div>
+            </ng-container> 
+            </div> 
+            <!-- 星期日 -->
+            <div class="slist">
+              <ng-container *ngFor="let item of endDateList">
+              <div class="slistMain" id="slist" *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime" [style.background]="item.typefaceColour ? item.typefaceColour : '#3aeaff'">
+                <div class="slistContent" [style.color]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour">
+                  <div class="sname">{{item.name}}</div>
+                  <div class="sname">教室：{{item.roomName}}</div>
+                  <div class="sname">主教：{{item.employeeName}}</div>
+                  <div class="sxy"><div>学员：</div>
+                  <div>
+                      <ng-container *ngIf="item.member.length" >
+                          <ng-container *ngFor="let items of item.member; let i = index" >
+                          <span  class="fspan"    [style.color]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" >
+                              {{ items.reserveStatus==4 ? '(补)' : '' }}{{items.memberName}} 
+                          </span>
+                        </ng-container>
+                        </ng-container>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>0" (click)="showstudents(item)">+</span>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>1" (click)="showstudents(item)">+</span>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>2" (click)="showstudents(item)">+</span>
+                        <span [style.background]="item.colour&&item.colour.indexOf('#')!=-1? item.colour : '#'+ item.colour" *ngIf="item.galleryful-item.sbnum>3" (click)="showstudents(item)">+</span>
+                      </div></div>
+                      <div class="sczt"><div class="scz" (click)="details(item)">操作</div></div>
+              </div>
+            </div>
+            </ng-container> 
+            </div> 
+
+
+          </div>  
+
+
+        </div>
+
+
       </div>
-  </div> -->
+  </div>
 
 
 
@@ -373,6 +337,13 @@
         </p>
         <p>
           <span>
+            <nz-form-label>是否补课</nz-form-label>
+            <nz-switch [(ngModel)]="buttonStatus" ></nz-switch>
+            
+          </span>
+        </p>
+        <p>
+          <span>
             <nz-form-label>备注</nz-form-label>
             <textarea rows="4" nz-input [(ngModel)]="studentInformation.remarks"></textarea>
           </span>
@@ -399,9 +370,9 @@
         <div style="margin-top: 10px;" *ngFor="let item of studentdata.member">
           <span  *ngIf="item.memberId == memberUserDetail.memberId"  class="users activitys"  (click)="memberUserDetails(item.memberId)" >{{item.memberName}}:</span>
           <span  *ngIf="item.memberId != memberUserDetail.memberId"   class="users"  (click)="memberUserDetails(item.memberId)" >{{item.memberName}}:</span>
-          <button nz-button nzType="primary" nzSize="small" [disabled]="!item.id" (click)="Adjust(item.memberId,item.memberName,item,studentdata)">调课</button>
-          <button nz-button nzType="primary" nzSize="small" (click)="settlement(item)" [disabled]="item.reserveStatus!=0">{{ item.reserveStatus==0?'结算':'已结算' }}</button>
-          <button nz-button nzType="primary" nzSize="small" [disabled]="!item.id" (click)="memberStopcard(item.memberId)">停卡</button>
+          <button nz-button nzType="primary" nzSize="small" [disabled]="!item.id" (click)="Adjust(item.memberId,item.memberName,item,studentdata)" [disabled]="item.reserveStatus==4">调课</button>
+          <button nz-button nzType="primary" nzSize="small" (click)="settlement(item)" [disabled]="item.reserveStatus!=0&&item.reserveStatus!=4">{{ item.reserveStatus==0?'结算': item.reserveStatus==4 ? '补课' : '已结算' }}</button>
+          <button nz-button nzType="primary" nzSize="small" [disabled]="!item.id" (click)="memberStopcard(item.memberId)" [disabled]="item.reserveStatus==4">停卡</button>
           <!-- <button nz-button nzType="primary" nzSize="small" [disabled]="!item.id" (click)="memberRecord(item.memberId,studentdata)">延期</button> -->
           <!-- <button nz-button nzType="primary" nzSize="small"  (click)="removeRecord(item.memberId,studentdata.id)">取消</button> -->
         </div>

@@ -194,6 +194,7 @@ export class ListComponent implements OnInit {
     this.baseFormGroup.patchValue({assisTeacherId: data.assisTeacherId});
     this.baseFormGroup.patchValue({showerTeacherId: data.showerTeacherId});
     this.baseFormGroup.patchValue({fitnessTeacherId: data.fitnessTeacherId});   
+    this.baseFormGroup.patchValue({leaveStatus: data.leaveStatus});  
     this.drawer.create({
         nzTitle: '授课老师',
         nzWidth: 700,

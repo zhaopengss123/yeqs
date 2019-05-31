@@ -105,6 +105,22 @@
           <label nz-radio *ngFor="let items of StateCourseList" [nzValue]="items.value">{{ items.name }}</label>
         </nz-radio-group>
       </p>
+      <p>
+          <nz-form-label style="float:left;">课程颜色</nz-form-label>
+          <!-- <input nz-input readonly="readonly" style="width: 50px;"   [(colorPicker)]="color" [style.background]="color" > -->
+          <span class="colorList">
+            <span *ngFor="let data of colorList; let i = index" class="{{ color == data.color ? 'cli' : '' }}" [ngStyle]="{'background-color':data.color}" (click)="selectColor(data.color)">
+            </span>
+
+            <!-- <span style="background:#496A39"></span>
+            <span style="background:#2C6799"></span>
+            <span style="background:#9D5900"></span>
+            <span style="background:#993C3D"></span>
+            <span style="background:#A04647"></span>
+            <span style="background:#3A6848"></span>
+            <span style="background:#9e9a5b"></span> -->
+          </span>
+        </p>     
     </nz-modal>
 <!-- 删除弹框 -->
     <nz-modal [(nzVisible)]="removeanddisable" [nzTitle]="removeanddisableTit" (nzOnCancel)="closeremoveanddisable()" (nzOnOk)="isremoveanddisable()">

@@ -72,8 +72,9 @@
           <nz-form-label [nzSpan]="6">宝宝类型</nz-form-label>
           <nz-form-control [nzSpan]="18">
             <nz-select formControlName="babyType" nzPlaceHolder="请选择宝宝类型" nzDisabled>
-              <nz-option nzLabel="婴儿" nzValue="婴儿"></nz-option>
-              <nz-option nzLabel="幼儿" nzValue="幼儿"></nz-option>
+                <nz-option nzLabel="0-3岁" nzValue="0-3岁"></nz-option>
+                <nz-option nzLabel="3-6岁" nzValue="3-6岁"></nz-option>
+                <nz-option nzLabel="6-12岁" nzValue="6-12岁"></nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>
@@ -133,12 +134,11 @@
       </div>
       <div nz-col [nzSpan]="24" [nzXXl]="6" [nzXl]="8" [nzLg]="12">
         <nz-form-item>
-          <nz-form-label [nzRequired]="true" [nzSpan]="6">家长身份</nz-form-label>
+          <nz-form-label  [nzSpan]="6">家长身份</nz-form-label>
           <nz-form-control [nzSpan]="18">
             <nz-select formControlName="parentRelationShipId" nzPlaceHolder="请选择家长身份" nzShowSearch nzAllowClear>
               <nz-option *ngFor="let item of parentIdentityList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
             </nz-select>
-            <nz-form-explain *ngIf="getFormControl('parentRelationShipId').dirty && getFormControl('parentRelationShipId').hasError('required')">请选择家长身份</nz-form-explain>
           </nz-form-control>
         </nz-form-item>
       </div>

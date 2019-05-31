@@ -38,11 +38,10 @@ export class UpdateSatisfactionComponent implements OnInit {
       satisfaction: [this.recordInfo.satisfaction],
       assisTeacherId: [this.recordInfo.assisTeacherId],
       showerTeacherId: [this.recordInfo.showerTeacherId],
-      teacherId: [this.recordInfo.teacherId]
+      teacherId: [this.recordInfo.teacherId],
+      leaveStatus: [this.recordInfo.leaveStatus]
     });
-    setTimeout(() => {
-      console.log(this.formGroup.value) 
-    });
+
   }
 
   @DrawerSave('/customer/modifySat') save: () => Promise<boolean>;

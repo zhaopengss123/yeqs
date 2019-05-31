@@ -13,7 +13,7 @@ export const MenuConfig = [
     children : [
       {
         title : '客户列表',
-        key   : '/home/customer/ ',
+        key   : '/home/customer/list',
         isLeaf: true
       },
       // {

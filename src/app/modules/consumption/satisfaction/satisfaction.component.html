@@ -4,7 +4,7 @@
     url="/consumeSatisfaction/getSatisfactionRecordList"
     [allowSpace]="false"
     [queryNode]="queryNode"
-    [tableThead]="[ '消费ID', '会员卡号', '会员姓名', '消费金额', '消费时间', '消费商品', '主教老师', '操作人', '第几次', '修改时间', '改前', '改后', '修改原因' ]"
+    [tableThead]="[ '消费ID', '会员卡号', '会员姓名', '消费金额', '消费时间', '消费商品','结算方式' ,'主教老师', '操作人', '第几次', '修改时间', '改前', '改后', '修改原因' ]"
     [EaTableTbodyTr]="EaTableTbodyTr">
     <ng-template let-data #EaTableTbodyTr>
       <td>{{ data.consumeId }}</td>
@@ -13,6 +13,7 @@
       <td>{{ data.consumption }}</td>
       <td>{{ data.consumeDate }}</td>
       <td>{{ data.commodityName }}</td>
+      <td>{{ data.leaveStatus == 0 ? '正常结算' : data.leaveStatus == 1 ? '缺课结算' :  data.leaveStatus == 2 ? '补课结算' : data.leaveStatus == 3 ? '补课缺课' : ''}}</td>
       <td><button nz-button nzType="primary" nzSize="small" (click)="teacherDetail(data)"><i
         class="anticon anticon-eye-o"></i>认领</button></td>
       <td>{{ data.operatorName }}</td>

@@ -60,7 +60,7 @@ export class SettlementComponent implements OnInit {
   FridayList: any = '';
   SaturdayList: any = '';
 
-
+  buttonStatus: boolean  = false;
   isrepeat:any = false;
   nowtime: any = '';
   cardNumber:any = '';
@@ -112,7 +112,8 @@ export class SettlementComponent implements OnInit {
     sex:'',
     havacard:'',
     mobilePhone:'',
-    remarks:''
+    remarks:'',
+    status: 0
   }
   storeId:any = "";
   loading_b:any = false;
@@ -163,13 +164,18 @@ selectquery(){
   this.http.post('/curriculum/selectCondition', { paramJson }, false).then(res => {
     this.tableList = res.result;
     this.tableList.map( (item,index)=>{
+      item.sbnum = 0;
       item.member.map( (items,indexs)=>{
         if (items.expireDate){
         let expireDatearr = items.expireDate.split('-');
         let expireDatestr = expireDatearr[0] + expireDatearr[1] + expireDatearr[2];
         this.tableList[index].member[indexs].expireDate = expireDatestr;
         }
+        if(items.reserveStatus != 2){
+          item.sbnum ++;
+        }
       })
+      
     })
     let startDateList = [],
     endDateList = [],
@@ -256,7 +262,7 @@ selectquery(){
 
     if ((isNaN(this.mobilePhone) && this.mobilePhone!="" || (!isNaN(this.mobilePhone) && this.mobilePhone.length > 3)) ){
       // http://es.haochengzhang.com/es/erp/query
-      //http://tsms.haochengzhang.com/sms/erp/query
+      //http://testes.haochengzhang.com/es
       this.loading_b = true; 
       this.http.get('http://es.haochengzhang.com/es/erp/query', { index: 'qs', storeId: this.storeId, type: 'member', condition: this.mobilePhone, pageNo:this.pageIndex_b, pageSize:10 }, false).then(res => {
       this.loading_b = false;
@@ -332,7 +338,8 @@ selectquery(){
       sex: '',
       havacard: '',
       mobilePhone: '',
-      remarks:''
+      remarks:'',
+      status: 0
     };
     this.mobilePhone = '';
     this.showstudentsForm = true;
@@ -343,12 +350,13 @@ selectquery(){
   }
   closestudentsForm(){
     this.showstudentsForm = false;
+    this.buttonStatus = false;
     this.memberList_b = [];
     this.total_b = 0;
     this.pageIndex_b = 1;    
   }
   isstudentsForm(){
-    console.log(this.insetStatus);
+    if(!this.studentdata.status){
     if(this.insetStatus == 3){
       this.message.create('error', '同一节课不能添加同一个学员！');
     }else if(this.insetStatus == 0){
@@ -367,7 +375,9 @@ selectquery(){
     }else if(this.insetStatus == 1){
       this.modal_visit = true;
     }
-
+  }else{
+    this.lsInstall();
+  }
   }
   visitOk(){
     if(this.insetStatus == 1){
@@ -384,7 +394,8 @@ selectquery(){
       endTime: this.studentdata.endTime,
       roomName: this.studentdata.roomName,
       employeeId: this.studentdata.employeeId,
-      id: this.studentdata.id
+      id: this.studentdata.id,
+      status: this.buttonStatus ? 2 :0
     });
     
     if (!this.studentInformation.name){
@@ -399,12 +410,13 @@ selectquery(){
       parentName: this.studentInformation.parentName,
       mobilePhone: this.studentInformation.mobilePhone,
       remarks: this.studentInformation.remarks,
-      status: this.insetStatus
+      status: this.buttonStatus ? 2 : this.insetStatus
     }, false).then(res => {
       this.isOkLoading = false;
       if (res.code == 1000) {
         this.message.create('success', '添加成功！');
         this.showstudentsForm = false;
+        this.buttonStatus = false;
         this.memberList_b  = [];
         this.total_b = 0;
         this.pageIndex_b = 1;
@@ -729,7 +741,8 @@ selectquery(){
       sex:'',
       monthAge:'',
       cardCode:'',
-      cardId:''
+      cardId:'',
+      reserveStatus:''
     };
     this.http.post('/curriculum/selectMsg', { memberId: item.memberId }, false).then(res => {
       if (res.code == 1000) {
@@ -740,6 +753,7 @@ selectquery(){
         appointmentInfo.sex = item.sex;
         appointmentInfo.monthAge = item.monthAge;
         appointmentInfo.cardId = item.id?item.id:'';
+        appointmentInfo.reserveStatus = item.reserveStatus;
         this.consumption(appointmentInfo);
       } else if(res.code == 1011){
         appointmentInfo.id = item.reserveId;
@@ -749,6 +763,7 @@ selectquery(){
         appointmentInfo.sex = item.sex;
         appointmentInfo.monthAge = item.monthAge;
         appointmentInfo.cardId = item.id ? item.id : '';
+        appointmentInfo.reserveStatus = item.reserveStatus;
         this.consumption(appointmentInfo);
       } else {
         this.message.create('error', res.info);

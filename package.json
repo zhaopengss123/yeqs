@@ -25,6 +25,7 @@
     "angular-baidu-maps": "2.0.1",
     "core-js": "2.5.4",
     "ng-zorro-antd": "1.7.0",
+    "ngx-color-picker": "^7.5.0",
     "qrcode": "1.2.0",
     "rxjs": "6.0.0",
     "ts-md5": "1.2.4",

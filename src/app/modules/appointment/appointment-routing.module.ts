@@ -19,6 +19,7 @@ const routes: Routes = [
     component: ListComponent,
     canActivate: [AuthGuardService]
   },  
+ 
   {
     path: 'setting',
     data: { title: '预约设置', hideTitle: true },

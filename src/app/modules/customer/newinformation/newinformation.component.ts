@@ -55,6 +55,7 @@ export class NewinformationComponent implements OnInit {
         this.http.post('/customer/showCustomerInfo', {  id: this._id  }, false).then(res => {
           this._selectLoading = false;
           if (res.code == 1000) {
+            console.log(res);
             res.result.member.birthday = res.result.member.birthday ? new Date(res.result.member.birthday) : '';
             this.customerForm.patchValue(res.result.member);
             this.customerFormInitValue = this.customerForm.value;
@@ -95,7 +96,7 @@ export class NewinformationComponent implements OnInit {
 
       parentName: ['', [Validators.required, Validators.maxLength(20), Validators.minLength(2)]],     // 家长姓名
       mobilePhone: ['', [Validators.required, Validators.pattern(/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/)], [this._parentPhoneAsyncValidator]],
-      parentRelationShipId: ['', [Validators.required]],                                                        // 家长身份
+      parentRelationShipId: [''],                                                        // 家长身份
       parentWeChat: ['', [Validators.pattern(/^[A-Za-z0-9]{6,30}/)]],                                   // 家长QQ或者微信
 
       customerSourceId: ['', [Validators.required]],                                                        // 来源
@@ -104,9 +105,11 @@ export class NewinformationComponent implements OnInit {
     });
     this.customerFormInitValue = this.customerForm.value;
     this.customerForm.get('birthday').valueChanges.subscribe(res => {
+      let yl = this.monthDiff.transform(this.format.transform(res, 'yyyy-MM-dd'));
+      let babyType = !res ? '' : yl>=0&&yl<=36 ? '0-3岁' :( yl >36&& yl<=72 ? '3-6岁' :( yl >72 ? '6-12岁': ''  ));
       this.customerForm.patchValue({
         constellation: res ? this._getAstro(this.format.transform(res, 'yyyy-MM-dd').split('-')[1], this.format.transform(res, 'yyyy-MM-dd').split('-')[2]) : '',
-        babyType: !res ? '' : this.monthDiff.transform(this.format.transform(res, 'yyyy-MM-dd')) > 10 ? '幼儿' : '婴儿'
+        babyType: babyType
       });
     });
 
