@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { SupplementComponent } from './supplement/supplement.component';
 import { StopComponent } from './stop/stop.component';
 import { ListPageComponent } from './../../../ng-relax/components/list-page/list-page.component';
@@ -14,6 +14,7 @@ import { AppointComponent } from './appoint/appoint.component';
 import { ConsumptionComponent } from './consumption/consumption.component';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { WithdrawComponent } from './withdraw/withdraw.component';
+import { concat } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -26,7 +27,7 @@ export class ListComponent implements OnInit {
   ItemsMemberId:any = "";
   showAdjust: boolean = false;
   memberdetailTk: any = '';
-  radioValue: any = '';
+  radioValue: any = [];
   isrepeat: any = false;
   SyllabusAllList: any = [];  
      RecordList:any = [];
@@ -37,6 +38,7 @@ export class ListComponent implements OnInit {
   RecordList5: any = [];
   RecordList6: any = [];
   RecordList7: any = []; 
+  radioName: any = [];
   dateList:any = [];
   memberData:any = {};
   operationComponents = {
@@ -141,6 +143,7 @@ export class ListComponent implements OnInit {
   drawerTitle: string;
 
   constructor(
+    private router: Router,
     private http: HttpService,
     private reoute: ActivatedRoute,
     private message: NzMessageService,
@@ -282,7 +285,7 @@ export class ListComponent implements OnInit {
         this.RecordList6 = [];
         this.RecordList7 = [];      
         this.showAdjust = true;
-        this.radioValue = '';
+        this.radioValue = [];
         this.RecordList = [];
         this.datalabelList = [];
 
@@ -345,7 +348,7 @@ export class ListComponent implements OnInit {
         this.message.create('success', '排课成功！');
         if (status == 0 && !this.isrepeat) {
           this.isrepeat = true;
-          this.radioValue = '';
+          this.radioValue = [];
           this.RecordList = [];
           this.datalabelList = [];
         } else {
@@ -372,39 +375,59 @@ export class ListComponent implements OnInit {
   }
 
   //办卡选课中课表展示
-  selectlabel() {
-    this.http.post('/curriculum/selectIdRecord', { syllabusName: this.radioValue }, false).then(res => {
-      if (res.code == 1000) {
-        this.datalabelList = [];
-        this.RecordList = res.result.list;
-        this.RecordList1 = [];
-        this.RecordList2 = [];
-        this.RecordList3 = [];
-        this.RecordList4 = [];
-        this.RecordList5 = [];
-        this.RecordList6 = [];
-        this.RecordList7 = [];
-        this.RecordList.map( item=>{
-          if(item.week=='星期一'){
-            this.RecordList1.push(item);
-          } else if (item.week == '星期二'){
-            this.RecordList2.push(item);
-          } else if (item.week == '星期三') {
-            this.RecordList3.push(item);
-          } else if (item.week == '星期四') {
-            this.RecordList4.push(item);
-          } else if (item.week == '星期五') {
-            this.RecordList5.push(item);
-          } else if (item.week == '星期六') {
-            this.RecordList6.push(item);
-          } else if (item.week == '星期日') {
-            this.RecordList7.push(item);
-          }
-        })
-      } else {
-        this.message.create('error', res.info);
-      }
-    });
+  selectlabel(data) {
+  
+    if(data.checked){
+      this.http.post('/curriculum/selectIdRecord', { syllabusName: data.name }, false).then(res => {
+        if (res.code == 1000) {
+          let arr = this.RecordList.concat(res.result.list);
+          this.RecordList = arr;
+          this.datalabelList = [];
+          this.RecordList1 = [];
+          this.RecordList2 = [];
+          this.RecordList3 = [];
+          this.RecordList4 = [];
+          this.RecordList5 = [];
+          this.RecordList6 = [];
+          this.RecordList7 = [];
+          this.RecordList.map( item=>{
+            if(item.week=='星期一'){
+              this.RecordList1.push(item);
+            } else if (item.week == '星期二'){
+              this.RecordList2.push(item);
+            } else if (item.week == '星期三') {
+              this.RecordList3.push(item);
+            } else if (item.week == '星期四') {
+              this.RecordList4.push(item);
+            } else if (item.week == '星期五') {
+              this.RecordList5.push(item);
+            } else if (item.week == '星期六') {
+              this.RecordList6.push(item);
+            } else if (item.week == '星期日') {
+              this.RecordList7.push(item);
+            }
+          })
+        } else {
+          this.message.create('error', res.info);
+        }
+      });
+    }else{
+      // let arr = this.RecordList.concat(res.result.list);
+      // let arr = JSON.parse(JSON.stringify(this.RecordList));
+      // arr.map((item,index)=>{
+      //   if(item.name == data.name){
+      //       arr.splice(index,1);
+      //   }
+      // })
+      let arrs = ['aa','bb','ccc','dd'];
+      console.log(arrs.slice(0,1));
+    }
+  }
+  adjusting(){
+    if (!this.checkedItems.length) {
+      this.message.warning('请选择一条数据进行操作');
+    } 
+    this.router.navigateByUrl('/home/customer/newinfo/'+'1111');
   }
   //选择课程
   datalabelChange(data) {

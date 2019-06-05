@@ -262,9 +262,9 @@ selectquery(){
 
     if ((isNaN(this.mobilePhone) && this.mobilePhone!="" || (!isNaN(this.mobilePhone) && this.mobilePhone.length > 3)) ){
       // http://es.haochengzhang.com/es/erp/query
-      //http://testes.haochengzhang.com/es
+      // http://testes.haochengzhang.com/es/erp/query
       this.loading_b = true; 
-      this.http.get('http://es.haochengzhang.com/es/erp/query', { index: 'qs', storeId: this.storeId, type: 'member', condition: this.mobilePhone, pageNo:this.pageIndex_b, pageSize:10 }, false).then(res => {
+      this.http.get('http://testes.haochengzhang.com/es/erp/query', { index: 'qs', storeId: this.storeId, type: 'member', condition: this.mobilePhone, pageNo:this.pageIndex_b, pageSize:10 }, false).then(res => {
       this.loading_b = false;
       if (res.returnCode == 'SUCCESS') {
         if(res.result){
