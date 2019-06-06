@@ -225,8 +225,6 @@ selectquery(){
     this.Thursday = this.showWeekFirstDay(4 - nowDayOfWeek + index);;
     this.Friday = this.showWeekFirstDay(5 - nowDayOfWeek + index);;
     this.Saturday = this.showWeekFirstDay(6 - nowDayOfWeek + index);;
-
-
     this.endDate = this.showWeekFirstDay(7 - nowDayOfWeek + index);
     this.selectquery();
     if (!this.nowstartDate){

@@ -1,5 +1,6 @@
 import { CardBusinessComponent } from './card-business/card-business.component';
 import { CardTypeComponent } from './card-type/card-type.component';
+import { AdjustingComponent } from './list/adjusting/adjusting.component';
 import { PatchLogComponent } from './patch-log/patch-log.component';
 import { ChangeLogComponent } from './change-log/change-log.component';
 import { AuthGuardService } from 'src/app/ng-relax/services/auth-guard.service';
@@ -36,6 +37,12 @@ const routes: Routes = [
     path: 'cardbusiness',
     data: { title: '卡业务管理' },
     component: CardBusinessComponent,
+    canActivate: [ AuthGuardService ]
+  },
+  {
+    path: 'adjusting/:id',
+    data: { title: '会员调班' },
+    component: AdjustingComponent,
     canActivate: [ AuthGuardService ]
   }
 ];

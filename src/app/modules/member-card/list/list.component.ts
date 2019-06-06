@@ -41,6 +41,7 @@ export class ListComponent implements OnInit {
   radioName: any = [];
   dateList:any = [];
   memberData:any = {};
+  memberIds :number;
   operationComponents = {
     adjustment: {
       title: '通卡调整',
@@ -426,8 +427,15 @@ export class ListComponent implements OnInit {
   adjusting(){
     if (!this.checkedItems.length) {
       this.message.warning('请选择一条数据进行操作');
+      return false;
     } 
-    this.router.navigateByUrl('/home/customer/newinfo/'+'1111');
+    let memberId: number;
+    this.listPage.eaTable.dataSet.map(res => {
+      if (res.id == this.checkedItems[0]) {
+        memberId = res.memberId;
+      }
+    })
+    this.router.navigateByUrl(`/home/membercard/adjusting/${ memberId }`);
   }
   //选择课程
   datalabelChange(data) {
