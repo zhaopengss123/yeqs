@@ -22,6 +22,7 @@ import { ImportComponent } from './list/import/import.component';
 import { SettlementComponent } from './settlement/settlement.component';
 import { AlbumComponent } from './list/album/album.component';
 import { ViserModule } from 'viser-ng';
+import { UpclassComponent } from './settlement/upclass/upclass.component';
 
 @NgModule({
   imports: [
@@ -30,7 +31,7 @@ import { ViserModule } from 'viser-ng';
     NgRelaxModule,
     ViserModule
   ],
-  declarations: [PotentialComponent, NewinformationComponent, NointentionComponent, ConsumptionsComponents, PreviewCustomerComponent, GetMobileDirective, ListComponent, PaycardComponent, AlbumComponent, AppointComponent, ConsumptionComponent, ConstructionComponent, AddIntegralComponent, ExchangeComponent, ImportComponent, SettlementComponent, UpdateComponent],
+  declarations: [PotentialComponent, NewinformationComponent, NointentionComponent, ConsumptionsComponents, PreviewCustomerComponent, GetMobileDirective, ListComponent, PaycardComponent, AlbumComponent, AppointComponent, ConsumptionComponent, ConstructionComponent, AddIntegralComponent, ExchangeComponent, ImportComponent, SettlementComponent, UpdateComponent, UpclassComponent],
   providers: [NewinformationCanDeactivate],
   exports: [ PreviewCustomerComponent, GetMobileDirective ],
   entryComponents: [AppointComponent, ConstructionComponent, ConsumptionComponent, ConsumptionsComponents,  UpdateComponent, AddIntegralComponent, ExchangeComponent, ImportComponent, AlbumComponent]

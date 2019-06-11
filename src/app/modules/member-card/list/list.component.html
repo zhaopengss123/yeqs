@@ -94,6 +94,7 @@
             <th>课程类型</th>
             <th>课程类别</th>
             <th>课程状态</th>
+            <th>排课次数</th>
           </tr>
         </thead>
         <tbody>
@@ -106,12 +107,18 @@
             <td>{{data.lessonName}}</td>
             <td>{{data.courseName}}</td>
             <td>{{data.courseStatus==0?'启用':'停用'}}</td>
+            <td><nz-input-number [(ngModel)]="data.arranging" [nzMin]="1" [nzMax]="10000" [nzStep]="1" nzPlaceHolder="请输入"></nz-input-number></td>
           </tr>
         </tbody>
       </nz-table>
       </nz-radio-group>
     </div>
   <div>
+  <div class="weekBtn">
+      <button nz-button nzType="default" [disabled]="isBtnDisVled" (click)="prveDate()">上周</button>
+      <button nz-button nzType="primary" (click)="nowDate()">本周</button>
+      <button nz-button nzType="default" (click)="nextDate()">下周</button>
+    </div>
     <h3 style="margin-top: 20px;">课程排期</h3>
     <nz-radio-group style="width: 100%;" [(ngModel)]="radioValue">
       <nz-table #basicTable [nzData]="RecordList" nzShowPagination='false'>
@@ -237,8 +244,9 @@
   </div>
   <ng-template #tplFooter>
     <button nz-button (click)="closeAdjust()">取消</button>
-    <button *ngIf="!isrepeat" nz-popconfirm nzType="primary" nzTitle="是否继续排课?" nzCancelText="否" nzOkText="是" (nzOnConfirm)="isAdjust(0)"
+    <!-- <button *ngIf="!isrepeat" nz-popconfirm nzType="primary" nzTitle="是否继续排课?" nzCancelText="否" nzOkText="是" (nzOnConfirm)="isAdjust(0)"
       (nzOnCancel)="isAdjust(1)" nzPlacement="top" nz-button>确定</button>
-    <button *ngIf="isrepeat" (click)="isAdjust(0)" nzType="primary" nz-button>确定</button>
+    <button *ngIf="isrepeat" (click)="isAdjust(0)" nzType="primary" nz-button>确定</button> -->
+    <button *ngIf="!isrepeat"  nzType="primary" nz-button (click)="isAdjust()">确定</button>
   </ng-template>
 </nz-modal>

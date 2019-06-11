@@ -9,7 +9,7 @@ import { PreviewCustomerComponent } from './preview/preview.component';
 import { NewinformationCanDeactivate } from './newinformation/newinfomation.guard';
 import { ListComponent } from './list/list.component';
 import { SettlementComponent } from './settlement/settlement.component';
-
+import { UpclassComponent } from './settlement/upclass/upclass.component';
 const routes: Routes = [
   {
     path: 'list',
@@ -50,9 +50,14 @@ const routes: Routes = [
     canActivate: [ AuthGuardService ]
   },
   {
+    path: 'upclass/:id',
+    data: { title: '升班' },
+    component: UpclassComponent,
+  },
+  {
     path: 'settlement',
     data: { title: '上课结算' },
-    component: SettlementComponent
+    component: SettlementComponent,
   }
 ];
 

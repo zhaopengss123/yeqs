@@ -42,6 +42,21 @@ export class ListComponent implements OnInit {
   dateList:any = [];
   memberData:any = {};
   memberIds :number;
+  listArr: any[] = [];
+  selectData:any;
+  kcName:any[] = [];
+  startDate: any = '';
+  Tuesday: any = '';
+  Wednesday: any = '';
+  Thursday: any = '';
+  Friday: any = '';
+  Saturday: any = '';
+  endDate: any = '';
+  dateIndex: number;
+  isBtnDisVled: boolean = true;
+  nowstartDate: any;
+  nowendDate: any;
+  isLoadingOne:boolean = false;
   operationComponents = {
     adjustment: {
       title: '通卡调整',
@@ -151,6 +166,7 @@ export class ListComponent implements OnInit {
     private resolver: ComponentFactoryResolver,
     private activatedRoute: ActivatedRoute
   ) { 
+    this.nowDate();
     this.selectSyllabusAll();
     this.activatedRoute.queryParamMap.subscribe((res: any) => {
       if (res.params.type) {
@@ -325,43 +341,92 @@ export class ListComponent implements OnInit {
   closeAdjust() {
     //this.message.create('error', '如果关闭弹窗，将不能继续排课！');
     this.showAdjust = false;
+    this.isrepeat = false;
+    this.showAdjust = false;
+    this.listArr = [];
+    this.kcName = [];
   }
-  isAdjust(status) {
-    if (!this.datalabelList.length) {
-      this.message.create('error', '请选择课程');
-      return false;
-    }
+  isAdjust() {
+    // if (!this.datalabelList.length) {
+    //   this.message.create('error', '请选择课程');
+    //   return false;
+    // }
    
+    // let paramJson: any = JSON.stringify({
+    //   babyNumber: this.memberdetailTk.babyNumber,
+    //   status: status,
+    //   name: this.memberData.name,
+    //   parentName: this.memberData.parentName,
+    //   cardNumber: this.memberdetailTk.cardNumber,
+    //   memberId: this.memberData.memberId,
+    //   cardCode: this.memberdetailTk.cardCode,
+    //   mobilePhone: this.memberdetailTk.mobilePhone,
+    //   list: this.datalabelList
+    // });
+    // //排课
+    // this.http.post('/curriculum/insertMemberRecord', { paramJson }, false).then(res => {
+    //   if (res.code == 1000) {
+    //     this.message.create('success', '排课成功！');
+    //     if (status == 0 && !this.isrepeat) {
+    //       this.isrepeat = true;
+    //       this.radioValue = [];
+    //       this.RecordList = [];
+    //       this.datalabelList = [];
+    //     } else {
+    //       this.isrepeat = false;
+    //       this.showAdjust = false;
+    //     }
+    //   } else if (res.code == 1001){
+    //     this.message.create('error', '该用户已经排过课了！');
+    //   } else {
+    //     this.message.create('error', res.info);
+    //   }
+    // });
+    let cardNum = 0;
+    let list = [];
+    this.kcName.map(item=>{
+      if(!item.arranging){
+        this.message.create('error', '请输入排课次数');
+        return false;         
+      }else{
+        cardNum += item.arranging;
+        item.reserveList=[];
+        list.push(item);
+      }
+    })
+
+    if( cardNum > this.memberdetailTk.cardNumber ){
+      this.message.create('error', '剩余卡次不足');
+      return false; 
+    }
+    list.map(item=>{
+      this.listArr.map(data=>{
+        if(item.name == data.name){
+            item.reserveList.push(data);
+        }
+      })
+    })
     let paramJson: any = JSON.stringify({
       babyNumber: this.memberdetailTk.babyNumber,
-      status: status,
-      name: this.memberData.name,
-      parentName: this.memberData.parentName,
-      cardNumber: this.memberdetailTk.cardNumber,
-      memberId: this.memberData.memberId,
+      name: this.memberdetailTk.name,
+      parentName: this.memberdetailTk.parentName,
       cardCode: this.memberdetailTk.cardCode,
       mobilePhone: this.memberdetailTk.mobilePhone,
-      list: this.datalabelList
+      list
     });
-    //排课
-    this.http.post('/curriculum/insertMemberRecord', { paramJson }, false).then(res => {
+    this.isLoadingOne = true;
+    this.http.post('/curriculum/insertMemberRecord', { paramJson, flag:true }, false).then(res => {
+      this.isLoadingOne = false;
       if (res.code == 1000) {
         this.message.create('success', '排课成功！');
-        if (status == 0 && !this.isrepeat) {
-          this.isrepeat = true;
-          this.radioValue = [];
-          this.RecordList = [];
-          this.datalabelList = [];
-        } else {
-          this.isrepeat = false;
-          this.showAdjust = false;
-        }
-      } else if (res.code == 1001){
-        this.message.create('error', '该用户已经排过课了！');
+        this.isrepeat = false;
+        this.showAdjust = false;
+        this.listArr = [];
+        this.kcName = [];
       } else {
-        this.message.create('error', res.info);
+        this.message.warning(res.info);
       }
-    });
+    }); 
 
   }
   //查询课程类别
@@ -375,14 +440,16 @@ export class ListComponent implements OnInit {
     });
   }
 
-  //办卡选课中课表展示
+  // 查询课程
   selectlabel(data) {
-  
-    if(data.checked){
-      this.http.post('/curriculum/selectIdRecord', { syllabusName: data.name }, false).then(res => {
+    if(data){
+    if (data.checked) {
+      this.selectData = data;
+      this.kcName.push(data);
+      this.http.post('/curriculum/selectIdRecord', { syllabusName: data.name, startDate: this.startDate, endDate: this.endDate }, false).then(res => {
         if (res.code == 1000) {
-          let arr = this.RecordList.concat(res.result.list);
-          this.RecordList = arr;
+          //let arr = this.RecordList.concat(res.result.list);
+          this.RecordList = res.result.list;
           this.datalabelList = [];
           this.RecordList1 = [];
           this.RecordList2 = [];
@@ -391,10 +458,10 @@ export class ListComponent implements OnInit {
           this.RecordList5 = [];
           this.RecordList6 = [];
           this.RecordList7 = [];
-          this.RecordList.map( item=>{
-            if(item.week=='星期一'){
+          this.RecordList.map(item => {
+            if (item.week == '星期一') {
               this.RecordList1.push(item);
-            } else if (item.week == '星期二'){
+            } else if (item.week == '星期二') {
               this.RecordList2.push(item);
             } else if (item.week == '星期三') {
               this.RecordList3.push(item);
@@ -412,18 +479,32 @@ export class ListComponent implements OnInit {
           this.message.create('error', res.info);
         }
       });
-    }else{
-      // let arr = this.RecordList.concat(res.result.list);
-      // let arr = JSON.parse(JSON.stringify(this.RecordList));
-      // arr.map((item,index)=>{
-      //   if(item.name == data.name){
-      //       arr.splice(index,1);
-      //   }
-      // })
-      let arrs = ['aa','bb','ccc','dd'];
-      console.log(arrs.slice(0,1));
+    } else {
+      this.selectData = {};
+      this.RecordList = [];
+      this.datalabelList = [];
+      this.RecordList1 = [];
+      this.RecordList2 = [];
+      this.RecordList3 = [];
+      this.RecordList4 = [];
+      this.RecordList5 = [];
+      this.RecordList6 = [];
+      this.RecordList7 = [];
+      let listArr = JSON.parse(JSON.stringify(this.listArr));
+      let kcName = JSON.parse(JSON.stringify(this.kcName));
+      this.listArr.map((item,index)=>{
+          if(item.name == data.name){
+            this.listArr.splice(index, 1);
+          }
+      })
+      this.kcName.map((item,index)=>{
+        if(item.name == data.name){
+          this.kcName.splice(index, 1);
+        }
+      })
     }
   }
+}
   adjusting(){
     if (!this.checkedItems.length) {
       this.message.warning('请选择一条数据进行操作');
@@ -442,10 +523,16 @@ export class ListComponent implements OnInit {
     //data.syllabusName = data.name;
     if (data.checked) {
       this.datalabelList.push(data);
+      this.listArr.push(data);
     } else {
       this.datalabelList.map((item, index) => {
         if (item.id == data.id) {
           this.datalabelList.splice(index, 1);
+        }
+      })
+      this.listArr.map((item, index) => {
+        if (item.id == data.id) {
+          this.listArr.splice(index, 1);
         }
       })
     }
@@ -479,9 +566,54 @@ export class ListComponent implements OnInit {
           this.ItemsMemberId = res.memberId;  
         }
       })
-    }
-
-    
+    } 
   }
+
+  nowDate() {
+    this.dateIndex = 0;
+    this.datefun(0);
+  };
+  nextDate() {
+    this.dateIndex++;
+    this.datefun(this.dateIndex * 7);
+  };
+  prveDate() {
+    if (this.dateIndex > 0) {
+      this.dateIndex--;
+      this.datefun(this.dateIndex * 7);
+    }
+  };
+  datefun(index) {
+    if (this.dateIndex == 0) {
+      this.isBtnDisVled = true;
+    } else {
+      this.isBtnDisVled = false;
+    }
+    let now: any = new Date();
+    let nowDayOfWeek = now.getDay();
+    nowDayOfWeek = nowDayOfWeek == 0 ? 7 : nowDayOfWeek;
+    this.startDate = this.showWeekFirstDay(1 - nowDayOfWeek + index);
+    this.Tuesday = this.showWeekFirstDay(2 - nowDayOfWeek + index);;
+    this.Wednesday = this.showWeekFirstDay(3 - nowDayOfWeek + index);;
+    this.Thursday = this.showWeekFirstDay(4 - nowDayOfWeek + index);;
+    this.Friday = this.showWeekFirstDay(5 - nowDayOfWeek + index);;
+    this.Saturday = this.showWeekFirstDay(6 - nowDayOfWeek + index);;
+    this.endDate = this.showWeekFirstDay(7 - nowDayOfWeek + index);
+    if (!this.nowstartDate) {
+      this.nowstartDate = this.startDate;
+      this.nowendDate = this.endDate
+    }
+    this.selectlabel(this.selectData);
+  };
+  showWeekFirstDay(i) {
+    let that = this;
+    var day3 = new Date();
+    day3.setTime(day3.getTime() + i * 24 * 60 * 60 * 1000);
+    let Month = (day3.getMonth() + 1) < 10 ? '0' + (day3.getMonth() + 1) : (day3.getMonth() + 1);
+    let dayDate = (day3.getDate()) < 10 ? '0' + (day3.getDate()) : (day3.getDate());
+    var s3 = day3.getFullYear() + "-" + Month + "-" + dayDate;
+    return s3;
+  }
+
 
 }

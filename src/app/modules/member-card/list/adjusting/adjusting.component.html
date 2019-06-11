@@ -13,8 +13,7 @@
               <div nz-col nzSpan="8">
                   <nz-form-item>
                     <nz-form-control>
-                    <nz-form-label >会员姓名</nz-form-label>
-                    
+                    <nz-form-label >会员姓名</nz-form-label>  
                       <input style="width:200px" disabled nz-input placeholder="请输入宝宝姓名" formControlName="memberName">
                     </nz-form-control>
                   </nz-form-item>
@@ -23,9 +22,10 @@
                     <nz-form-item>
                       <nz-form-control>
                       <nz-form-label >课程名称</nz-form-label>
-                          <nz-select style="width:200px" formControlName="syllabusName" nzPlaceHolder="请选择婴儿类型">
+                          <nz-select style="width:200px" formControlName="syllabusName" nzPlaceHolder="请选择课程名称">
                               <nz-option  *ngFor="let item of conditionList" [nzLabel]="item.name" [nzValue]="item.name"></nz-option>
                             </nz-select>
+                            <nz-form-explain style="margin-left:70px;" *ngIf="followRecordGroup.get('syllabusName').dirty && followRecordGroup.get('syllabusName').hasError('required')">请选择课程名称</nz-form-explain>
                       </nz-form-control>
                     </nz-form-item>
                   </div>
@@ -42,6 +42,7 @@
                                 <nz-option nzLabel="星期六" nzValue="星期六"></nz-option>
                                 <nz-option nzLabel="星期日" nzValue="星期日"></nz-option>
                               </nz-select>
+                              <nz-form-explain style="margin-left:70px;" *ngIf="followRecordGroup.get('week').dirty && followRecordGroup.get('week').hasError('required')">请选择星期</nz-form-explain>      
                         </nz-form-control>
                       </nz-form-item>
                     </div>   
@@ -49,9 +50,10 @@
                         <nz-form-item>
                             <nz-form-control>
                           <nz-form-label >时间段</nz-form-label>                         
-                              <nz-select style="width:200px" formControlName="scourId" nzPlaceHolder="请选择星期">
+                              <nz-select style="width:200px" formControlName="scourId" nzPlaceHolder="请选择时间段">
                                   <nz-option  *ngFor="let item of scourList" [nzLabel]="item.label"  [nzValue]="item.id">{{ item.startDate }}</nz-option>
                                 </nz-select>
+                                <nz-form-explain style="margin-left:70px;" *ngIf="followRecordGroup.get('scourId').dirty && followRecordGroup.get('scourId').hasError('required')">请选择时间段</nz-form-explain>       
                           </nz-form-control>
                         </nz-form-item>
                       </div>                    
@@ -60,13 +62,14 @@
                         <nz-form-control>  
                         <nz-form-label >上课日期</nz-form-label>
                             <nz-range-picker style="width:300px" [(ngModel)]="dateRange" formControlName="date" (ngModelChange)="dateChange($event)" [nzFormat]="dateFormat"></nz-range-picker>
+                            <nz-form-explain style="margin-left:70px;" *ngIf="followRecordGroup.get('date').dirty && followRecordGroup.get('date').hasError('required')">请选择上课日期</nz-form-explain>       
                         </nz-form-control>
                       </nz-form-item>
                     </div>
 
           </form>
         </div>
-          <div ><button class="nextBtn" nz-button  nzType="primary" (click)="firstNext()" [nzLoading]="isLoadingOne">下一步</button></div> 
+          <div class="btn"><button class="nextBtn" nz-button  nzType="primary" (click)="firstNext()" [nzLoading]="isLoadingOne">下一步</button></div> 
 
       </div>
 
@@ -84,6 +87,7 @@
                   <th>课程类型</th>
                   <th>课程类别</th>
                   <th>课程状态</th>
+                  <th>排课次数</th>
                 </tr>
               </thead>
               <tbody>
@@ -96,6 +100,7 @@
                   <td>{{data.lessonName}}</td>
                   <td>{{data.courseName}}</td>
                   <td>{{data.courseStatus==0?'启用':'停用'}}</td>
+                  <td><nz-input-number [(ngModel)]="data.arranging" [nzMin]="1" [nzMax]="10000" [nzStep]="1" nzPlaceHolder="请输入"></nz-input-number></td>
                 </tr>
               </tbody>
             </nz-table>
@@ -109,7 +114,7 @@
           </div>
           <h3 style="margin-top: 20px;">课程排期</h3>
           <nz-radio-group style="width: 100%;" [(ngModel)]="radioValue">
-            <nz-table #basicTable [nzData]="RecordList" nzShowPagination='false'>
+            <nz-table #basicTable [nzData]="dateList" nzShowPagination='false'>
               <thead>
                 <tr>
                   <th>时段</th>
@@ -235,8 +240,21 @@
               <span *ngFor="let data of listArr">{{ data.name }} {{ data.currentDate }} ({{ data.startTime }}—{{ data.endTime }})</span>
           </div>
         </div>
+        <div class="btn" >
+          <button class="nextBtn" nz-button  nzType="primary" (click)="twoNext()" [nzLoading]="isLoadingOne">下一步并检测</button>
+          <button class="nextBtn" nz-button   (click)="prve()" [nzLoading]="isLoadingOne">返回上一步</button>
+        </div> 
 
       </div>
+
+      <div class="form" *ngIf="current == 2"> 
+          <div class="success_icon"><img src="https://hcz-czg-image.oss-cn-beijing.aliyuncs.com/success201512251221.png" alt=""></div>
+          <div class="success_text">操作成功</div>
+          <div class="btn" >
+              <button class="nextBtn" nz-button  nzType="primary" routerLink="/home/membercard/list">再次调课</button>
+            </div> 
+        </div>
+
     
     </div>
 </div>

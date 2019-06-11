@@ -45,6 +45,8 @@ export class AdjustingComponent implements OnInit {
   nowstartDate: any;
   nowendDate: any;
   listArr: any[] = [];
+  selectData:any;
+  kcName:any[] = [];
   constructor(
     private activatedRoute: ActivatedRoute,
     private message: NzMessageService,
@@ -69,13 +71,13 @@ export class AdjustingComponent implements OnInit {
   }
   ngOnInit() {
     this.followRecordGroup = this.fb.group({
-      memberName: [],
-      syllabusName: [],
-      startDate: [],
-      endDate: [],
-      week: [],
-      scourId: [],
-      date: [],
+      memberName: [, [Validators.required]],
+      syllabusName: [, [Validators.required]],
+      startDate: [, [Validators.required]],
+      endDate: [, [Validators.required]],
+      week: [, [Validators.required]],
+      scourId: [, [Validators.required]],
+      date: [, [Validators.required]],
       flag: [false]
       // followType: [, [Validators.required]],
       // staffId: [, [Validators.required]],
@@ -90,15 +92,76 @@ export class AdjustingComponent implements OnInit {
     this.followRecordGroup.patchValue({ endDate });
   }
   firstNext() {
+    if (this.followRecordGroup.invalid) {
+      for (let i in this.followRecordGroup.controls) {
+        this.followRecordGroup.controls[i].markAsDirty();
+        this.followRecordGroup.controls[i].updateValueAndValidity();
+      }
+    } else {
+      this.isLoadingOne = true;
+      this.http.post('/curriculum/readyClass', { paramJson: JSON.stringify(this.followRecordGroup.value) }, false).then(res => {
+        this.isLoadingOne = false;
+        if (res.code == 1000) {
+            this.current = 1;
+        } else {
+          this.message.warning(res.info);
+        }
+      });
+    }
+  }
+  prve(){
+    this.current = 0;
+  }
+  twoNext(){
+    // if (!this.datalabelList.length) {
+    //   this.message.create('error', '请选择课程');
+    //   return false;
+    // }
+    if(!this.listArr.length){
+      this.message.create('error', '请至少选择一个课程');
+      return false;
+    }
+    let cardNum = 0;
+    let list = [];
+    this.kcName.map(item=>{
+      if(!item.arranging){
+        this.message.create('error', '请输入排课次数');
+        return false;         
+      }else{
+        cardNum += item.arranging;
+        item.reserveList=[];
+        list.push(item);
+      }
+    })
+
+    if( cardNum > this.memberdetailTk.cardNumber ){
+      this.message.create('error', '剩余卡次不足');
+      return false; 
+    }
+    list.map(item=>{
+      this.listArr.map(data=>{
+        if(item.name == data.name){
+            item.reserveList.push(data);
+        }
+      })
+    })
+    let paramJson: any = JSON.stringify({
+      babyNumber: this.memberdetailTk.babyNumber,
+      name: this.memberdetailTk.name,
+      parentName: this.memberdetailTk.parentName,
+      cardCode: this.memberdetailTk.cardCode,
+      mobilePhone: this.memberdetailTk.mobilePhone,
+      list
+    });
     this.isLoadingOne = true;
-    this.http.post('/curriculum/readyClass', { paramJson: JSON.stringify(this.followRecordGroup.value) }, false).then(res => {
+    this.http.post('/curriculum/insertMemberRecord', { paramJson, flag:false }, false).then(res => {
       this.isLoadingOne = false;
       if (res.code == 1000) {
-
+        this.current = 2;
       } else {
         this.message.warning(res.info);
       }
-    });
+    }); 
   }
   nowDate() {
     this.dateIndex = 0;
@@ -134,6 +197,7 @@ export class AdjustingComponent implements OnInit {
       this.nowstartDate = this.startDate;
       this.nowendDate = this.endDate
     }
+    this.selectlabel(this.selectData);
   };
   showWeekFirstDay(i) {
     let that = this;
@@ -165,15 +229,16 @@ export class AdjustingComponent implements OnInit {
         }
       })
     }
-    console.log(this.listArr);
   }
   // 查询课程
   selectlabel(data) {
-    console.log(1111);
+    if(data){
     if (data.checked) {
+      this.selectData = data;
+      this.kcName.push(data);
       this.http.post('/curriculum/selectIdRecord', { syllabusName: data.name, startDate: this.startDate, endDate: this.endDate }, false).then(res => {
         if (res.code == 1000) {
-          let arr = this.RecordList.concat(res.result.list);
+          //let arr = this.RecordList.concat(res.result.list);
           this.RecordList = res.result.list;
           this.datalabelList = [];
           this.RecordList1 = [];
@@ -205,22 +270,32 @@ export class AdjustingComponent implements OnInit {
         }
       });
     } else {
-      // let arr = this.RecordList.concat(res.result.list);
-      // let arr = JSON.parse(JSON.stringify(this.RecordList));
-      // arr.map((item,index)=>{
-      //   if(item.name == data.name){
-      //       arr.splice(index,1);
-      //   }
-      // })
+      this.selectData = {};
+      this.RecordList = [];
+      this.datalabelList = [];
+      this.RecordList1 = [];
+      this.RecordList2 = [];
+      this.RecordList3 = [];
+      this.RecordList4 = [];
+      this.RecordList5 = [];
+      this.RecordList6 = [];
+      this.RecordList7 = [];
+      let listArr = JSON.parse(JSON.stringify(this.listArr));
+      let kcName = JSON.parse(JSON.stringify(this.kcName));
       this.listArr.map((item,index)=>{
-        console.log(index);
           if(item.name == data.name){
             this.listArr.splice(index, 1);
           }
-
+      })
+      this.kcName.map((item,index)=>{
+        if(item.name == data.name){
+          this.kcName.splice(index, 1);
+        }
       })
     }
   }
+  console.log(this.kcName);
+}
 
 }
 

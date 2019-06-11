@@ -8,6 +8,7 @@ form{
 .nextBtn{
     display: block;
     margin: 0 auto;
+    margin-top: 10px;
 }
 .weekBtn{
     margin-top: 30px;
@@ -25,4 +26,22 @@ form{
     margin-bottom: 5px;
     color: #fff;
     font-size: 12px;
+}
+.btn{
+    display: block;
+    clear: both;
+}
+.success_icon{
+    width: 100px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+.success_icon img{
+    width: 100%;
+    height: auto;
+}
+.success_text{
+    text-align: center;
+    font-size: 30px;
+    margin-top: 20px;
 }
