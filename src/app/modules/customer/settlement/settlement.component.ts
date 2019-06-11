@@ -127,7 +127,8 @@ export class SettlementComponent implements OnInit {
     private message: NzMessageService,
     private store: Store<AppState>,
     private format: DatePipe,
-    private drawer: NzDrawerService
+    private drawer: NzDrawerService,
+    private router: Router
 
   ) {
     this.store.select('userInfoState').subscribe(res => { this.storeId = res.store['id']; }); 
@@ -816,9 +817,15 @@ selectquery(){
     });
   }
   modelChange(){
-    
     this.searchSubject.next(this.mobilePhone);
-
+  }
+  upclass(){
+    let Json =  JSON.stringify({
+        name: this.studentdata.name,
+        roomName: this.studentdata.roomName,
+        employeeName: this.studentdata.employeeName,
+    });
+    this.router.navigateByUrl(`/home/customer/upclass/${ Json }`);
   }
 
 }
