@@ -38,7 +38,7 @@
                       <nz-form-item>
                           <nz-form-control>
                         <nz-form-label >星期</nz-form-label>                         
-                            <nz-select style="width:200px" [(ngModel)]="details.week" nzPlaceHolder="请选择星期">
+                            <nz-select style="width:200px" disabled [(ngModel)]="details.week" nzPlaceHolder="请选择星期">
                                 <nz-option nzLabel="星期一" nzValue="星期一"></nz-option>
                                 <nz-option nzLabel="星期二" nzValue="星期二"></nz-option>
                                 <nz-option nzLabel="星期三" nzValue="星期三"></nz-option>
@@ -54,8 +54,8 @@
                         <nz-form-item>
                             <nz-form-control>
                           <nz-form-label >时间段</nz-form-label>                         
-                              <nz-select style="width:200px"  [(ngModel)]="details.scourId" nzPlaceHolder="请选择时间段">
-                                  <nz-option  *ngFor="let item of scourList" [nzLabel]="item.label"  [nzValue]="item.id">{{ item.startDate }}</nz-option>
+                              <nz-select style="width:200px" disabled [(ngModel)]="details.scourId" nzPlaceHolder="请选择时间段">
+                                  <nz-option  *ngFor="let item of scourList" [nzLabel]="item.label"  [(nzValue)]="item.id"></nz-option>
                                 </nz-select>
                           </nz-form-control>
                         </nz-form-item>
@@ -64,7 +64,7 @@
                       <nz-form-item>
                         <nz-form-control>  
                         <nz-form-label >上课日期</nz-form-label>
-                            <nz-range-picker style="width:300px" [(ngModel)]="dateRange"  (ngModelChange)="dateChange($event)" [nzFormat]="dateFormat"></nz-range-picker>
+                            <nz-range-picker style="width:300px" [(ngModel)]="dateRange"  [nzDisabledDate]="disabledDate"  (ngModelChange)="dateChange($event)" [nzFormat]="dateFormat"></nz-range-picker>
                         </nz-form-control>
                       </nz-form-item>
                     </div>

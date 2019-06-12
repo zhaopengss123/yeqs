@@ -442,7 +442,7 @@
         <p>确认取消排课？</p>
     </nz-modal>
     <!-- 调课弹框 -->
-    <nz-modal nzWidth="95%" [(nzVisible)]="showAdjust" nzTitle="调课" [nzFooter]="tplFooter"  (nzOnCancel)="closeAdjust()">
+    <nz-modal nzWidth="95%" [(nzVisible)]="showAdjust" nzTitle="单次调课" [nzFooter]="tplFooter"  (nzOnCancel)="closeAdjust()">
       <p>学员姓名：{{memberdetailTk.name}}</p>
       <p>剩余卡次：{{memberdetailTk.cardNumber}}</p>
       <div>

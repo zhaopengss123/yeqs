@@ -56,7 +56,10 @@ export class ListComponent implements OnInit {
   isBtnDisVled: boolean = true;
   nowstartDate: any;
   nowendDate: any;
-  isLoadingOne:boolean = false;
+  isLoading:boolean = false;
+  successOpen: boolean;
+  reserveList: any[] = [];
+  copywriting: string;
   operationComponents = {
     adjustment: {
       title: '通卡调整',
@@ -167,7 +170,6 @@ export class ListComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) { 
     this.nowDate();
-    this.selectSyllabusAll();
     this.activatedRoute.queryParamMap.subscribe((res: any) => {
       if (res.params.type) {
         this.type = res.params.type;
@@ -293,6 +295,7 @@ export class ListComponent implements OnInit {
     if (!this.checkedItems.length) {
       this.message.warning('请选择一条数据进行操作');
     } else {
+        this.selectSyllabusAll();
         this.RecordList = [];
         this.RecordList1 = [];
         this.RecordList2 = [];
@@ -382,19 +385,28 @@ export class ListComponent implements OnInit {
     //     this.message.create('error', res.info);
     //   }
     // });
+    if(!this.listArr.length){
+      this.message.create('error', '请至少选择一个课程');
+      return false;
+    }
+
     let cardNum = 0;
     let list = [];
+    let sbs = false;
+    
     this.kcName.map(item=>{
-      if(!item.arranging){
-        this.message.create('error', '请输入排课次数');
-        return false;         
+      if(!item.arranging||!(item.arranging>0)){
+        sbs = true;    
       }else{
         cardNum += item.arranging;
         item.reserveList=[];
         list.push(item);
       }
     })
-
+    if(sbs){
+      this.message.create('error', '请输入正确的排课次数');
+      return false;
+    }
     if( cardNum > this.memberdetailTk.cardNumber ){
       this.message.create('error', '剩余卡次不足');
       return false; 
@@ -406,19 +418,23 @@ export class ListComponent implements OnInit {
         }
       })
     })
+    this.isLoading = true;
     let paramJson: any = JSON.stringify({
       babyNumber: this.memberdetailTk.babyNumber,
       name: this.memberdetailTk.name,
       parentName: this.memberdetailTk.parentName,
       cardCode: this.memberdetailTk.cardCode,
       mobilePhone: this.memberdetailTk.mobilePhone,
+      memberId : this.memberdetailTk.memberId,
       list
     });
-    this.isLoadingOne = true;
     this.http.post('/curriculum/insertMemberRecord', { paramJson, flag:true }, false).then(res => {
-      this.isLoadingOne = false;
+      this.isLoading = false;
       if (res.code == 1000) {
         this.message.create('success', '排课成功！');
+        this.reserveList = res.result.reserveList;
+        this.copywriting = res.result.copywriting;
+        this.successOpen = true;
         this.isrepeat = false;
         this.showAdjust = false;
         this.listArr = [];

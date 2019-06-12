@@ -12,7 +12,7 @@ import { DatePipe } from '@angular/common';
 })
 export class AdjustingComponent implements OnInit {
   id: number;
-  current: number = 1;
+  current: number = 0;
   followRecordGroup: FormGroup;
   conditionList: any[] = [];
   dateRange: any = [];
@@ -47,6 +47,8 @@ export class AdjustingComponent implements OnInit {
   listArr: any[] = [];
   selectData:any;
   kcName:any[] = [];
+  reserveList:any[] = [];
+  copywriting: string;
   constructor(
     private activatedRoute: ActivatedRoute,
     private message: NzMessageService,
@@ -60,13 +62,13 @@ export class AdjustingComponent implements OnInit {
     this.http.post('/curriculum/selectMsg', { memberId: this.id }, false).then(res => { this.memberdetailTk = res.result.list; });
     this.http.post('/scheduling/selectSyllabusAll', {}, false).then(res => { this.SyllabusAllList = res.result.list; });
     this.http.post('/intelligent/selectScour', {}, false).then(res => { this.dateList = res.result.list; });
-    this.http.post('/intelligent/selectScour', {}, false).then(res => {
-      res.result.list.map(item => {
-        item.label = item.startTime + '-' + item.endTime;
-      })
+    // this.http.post('/intelligent/selectScour', {}, false).then(res => {
+    //   res.result.list.map(item => {
+    //     item.label = item.startTime + '-' + item.endTime;
+    //   })
 
-      this.scourList = res.result.list
-    });
+    //   this.scourList = res.result.list
+    // });
     this.nowDate();
   }
   ngOnInit() {
@@ -79,11 +81,6 @@ export class AdjustingComponent implements OnInit {
       scourId: [, [Validators.required]],
       date: [, [Validators.required]],
       flag: [false]
-      // followType: [, [Validators.required]],
-      // staffId: [, [Validators.required]],
-      // memberStatusId: [],
-      // nextFollowTime: [],
-      // status: []
     });
   }
   dateChange(e) {
@@ -123,9 +120,10 @@ export class AdjustingComponent implements OnInit {
     }
     let cardNum = 0;
     let list = [];
+    let sbs = false;
     this.kcName.map(item=>{
-      if(!item.arranging){
-        this.message.create('error', '请输入排课次数');
+      if(!item.arranging||!(item.arranging>0)){
+        sbs = true;
         return false;         
       }else{
         cardNum += item.arranging;
@@ -133,6 +131,11 @@ export class AdjustingComponent implements OnInit {
         list.push(item);
       }
     })
+    if(sbs){
+      this.message.create('error', '请输入正确的排课次数');
+      return false;
+    }
+
 
     if( cardNum > this.memberdetailTk.cardNumber ){
       this.message.create('error', '剩余卡次不足');
@@ -151,6 +154,7 @@ export class AdjustingComponent implements OnInit {
       parentName: this.memberdetailTk.parentName,
       cardCode: this.memberdetailTk.cardCode,
       mobilePhone: this.memberdetailTk.mobilePhone,
+      memberId : this.memberdetailTk.memberId,
       list
     });
     this.isLoadingOne = true;
@@ -158,6 +162,8 @@ export class AdjustingComponent implements OnInit {
       this.isLoadingOne = false;
       if (res.code == 1000) {
         this.current = 2;
+        this.reserveList = res.result.reserveList;
+        this.copywriting = res.result.copywriting;
       } else {
         this.message.warning(res.info);
       }
@@ -294,7 +300,17 @@ export class AdjustingComponent implements OnInit {
       })
     }
   }
-  console.log(this.kcName);
+}
+selectclass(){
+  let syllabusName = this.followRecordGroup.value.syllabusName;
+  this.http.post('/curriculum/reserveTimeInterval', { syllabusName }, false).then(res => {
+    res.result.map(item => {
+      item.label = item.startTime + '-' + item.endTime;
+    })
+    this.scourList = res.result;
+    this.followRecordGroup.patchValue({ scourId: null });
+    console.log(this.followRecordGroup);
+  }); 
 }
 
 }

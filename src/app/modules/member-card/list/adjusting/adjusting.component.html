@@ -22,7 +22,7 @@
                     <nz-form-item>
                       <nz-form-control>
                       <nz-form-label >课程名称</nz-form-label>
-                          <nz-select style="width:200px" formControlName="syllabusName" nzPlaceHolder="请选择课程名称">
+                          <nz-select style="width:200px" formControlName="syllabusName" nzPlaceHolder="请选择课程名称" (ngModelChange)="selectclass()">
                               <nz-option  *ngFor="let item of conditionList" [nzLabel]="item.name" [nzValue]="item.name"></nz-option>
                             </nz-select>
                             <nz-form-explain style="margin-left:70px;" *ngIf="followRecordGroup.get('syllabusName').dirty && followRecordGroup.get('syllabusName').hasError('required')">请选择课程名称</nz-form-explain>
@@ -50,9 +50,9 @@
                         <nz-form-item>
                             <nz-form-control>
                           <nz-form-label >时间段</nz-form-label>                         
-                              <nz-select style="width:200px" formControlName="scourId" nzPlaceHolder="请选择时间段">
-                                  <nz-option  *ngFor="let item of scourList" [nzLabel]="item.label"  [nzValue]="item.id">{{ item.startDate }}</nz-option>
-                                </nz-select>
+                             <nz-select style="width:200px"  formControlName="scourId" nzPlaceHolder="请选择时间段">
+                                  <nz-option  *ngFor="let item of scourList" [nzLabel]="item.scourId"  [nzValue]="item.scourId"></nz-option>
+                                </nz-select> 
                                 <nz-form-explain style="margin-left:70px;" *ngIf="followRecordGroup.get('scourId').dirty && followRecordGroup.get('scourId').hasError('required')">请选择时间段</nz-form-explain>       
                           </nz-form-control>
                         </nz-form-item>
@@ -250,6 +250,34 @@
       <div class="form" *ngIf="current == 2"> 
           <div class="success_icon"><img src="https://hcz-czg-image.oss-cn-beijing.aliyuncs.com/success201512251221.png" alt=""></div>
           <div class="success_text">操作成功</div>
+          <div class="copywriting">{{ copywriting }}</div>
+          <div class="insetTable">
+              <nz-table #basicTable [nzData]="reserveList"  [nzShowPagination]="false">
+                  <thead>
+                    <tr>
+                      <th>学员姓名</th>
+                      <th>课程名称</th>
+                      <th>日期</th>
+                      <th>时间段</th>
+                      <th>主教</th>
+                      <th>教室</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let data of reserveList">
+                      <td>{{data.memberName}}</td>
+                      <td>{{data.syllabusName}}</td>
+                      <td>{{data.currentDate}}</td>
+                      <td>{{data.startTime}} - {{ data.endTime }}</td>
+                      <td>{{data.employeeName}}</td>
+                      <td>{{data.roomName}}</td>
+
+                    </tr>
+                  </tbody>
+                </nz-table>
+          </div>
+
+
           <div class="btn" >
               <button class="nextBtn" nz-button  nzType="primary" routerLink="/home/membercard/list">再次调课</button>
             </div> 

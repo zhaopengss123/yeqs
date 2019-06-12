@@ -121,6 +121,9 @@ export class SettlementComponent implements OnInit {
   pageIndex_b:any = 1;
   pageSize_b:any = 10;
   remarks:any = "";
+  tkstartDate:string = null;
+  tkendDate:string = null;
+
   constructor(
 
     private http: HttpService,
@@ -227,6 +230,8 @@ selectquery(){
     this.Friday = this.showWeekFirstDay(5 - nowDayOfWeek + index);;
     this.Saturday = this.showWeekFirstDay(6 - nowDayOfWeek + index);;
     this.endDate = this.showWeekFirstDay(7 - nowDayOfWeek + index);
+    this.tkstartDate = this.tkstartDate ? this.tkstartDate : this.startDate ;
+    this.tkendDate = this.tkendDate ? this.tkendDate : this.endDate ;
     this.selectquery();
     if (!this.nowstartDate){
     this.nowstartDate = this.startDate;
@@ -245,6 +250,7 @@ selectquery(){
   nowDate() {
     this.dateIndex = 0;
     this.datefun(0);
+    
   };
   nextDate() {
     this.dateIndex++;
@@ -618,7 +624,7 @@ selectquery(){
   
 //办卡选课中课表展示
   selectlabel(){
-    this.http.post('/curriculum/selectIdRecord', { syllabusName: this.radioValue }, false).then(res => {
+    this.http.post('/curriculum/selectIdRecord', { syllabusName: this.radioValue, startDate: this.tkstartDate, endDate: this.tkendDate }, false).then(res => {
       if (res.code == 1000) {
         this.datalabelList = [];
         this.RecordList = res.result.list;
@@ -669,7 +675,6 @@ selectquery(){
   }
 //确认停卡
   isStopcard(){
-
     if (!this.stopcardMemberdetail.reopenDate){
       this.message.create('error','日期不能为空');
       return false;
@@ -824,6 +829,9 @@ selectquery(){
         name: this.studentdata.name,
         roomName: this.studentdata.roomName,
         employeeName: this.studentdata.employeeName,
+        week: this.studentdata.week,
+        startTime: this.studentdata.startTime,
+        endTime: this.studentdata.endTime
     });
     this.router.navigateByUrl(`/home/customer/upclass/${ Json }`);
   }

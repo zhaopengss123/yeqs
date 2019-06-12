@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
+import { differenceInCalendarDays } from 'date-fns';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
@@ -11,6 +12,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./upclass.component.scss']
 })
 export class UpclassComponent implements OnInit {
+  today = new Date();
   details: any = {};
   current: number = 0;
   followRecordGroup: FormGroup;
@@ -31,18 +33,6 @@ export class UpclassComponent implements OnInit {
     private fb: FormBuilder = new FormBuilder(),
     private format: DatePipe
   ) { 
-    this.details = JSON.parse(this.activatedRoute.snapshot.params.id);
-    this.http.post('/scheduling/selectCondition', {}, false).then(res => { this.classList = res.result.list; });
-    this.http.post('/intelligent/selectScour', {}, false).then(res => {
-      res.result.list.map(item => {
-        item.label = item.startTime + '-' + item.endTime;
-      })
-
-      this.scourList = res.result.list
-    });
-  }
-
-  ngOnInit() {
     this.followRecordGroup = this.fb.group({
       roomName: [],
       employeeName:[],
@@ -54,6 +44,22 @@ export class UpclassComponent implements OnInit {
       date: [],
       flag: [false]
     });
+    this.details = JSON.parse(this.activatedRoute.snapshot.params.id);
+    this.http.post('/scheduling/selectCondition', {}, false).then(res => { this.classList = res.result.list; });
+    this.http.post('/intelligent/selectScour', {}, false).then(res => {
+      res.result.list.map(item => {
+        item.label = item.startTime + '-' + item.endTime;
+        if(this.details.startTime == item.startTime&&this.details.endTime == item.endTime){
+          this.details.scourId = item.id;
+        }
+      })
+      
+      this.scourList = res.result.list
+    });
+  }
+
+  ngOnInit() {
+
   }
   dateChange(e) {
     let [startDate, endDate] = [this.format.transform(this.dateRange[0], 'yyyy-MM-dd'), this.format.transform(this.dateRange[1], 'yyyy-MM-dd')];
@@ -96,4 +102,8 @@ export class UpclassComponent implements OnInit {
   prve(){
     this.current = 0;
   }
+  disabledDate = (current: Date): boolean => {
+    // Can not select days before today and today
+    return differenceInCalendarDays(current, this.today) < 0;
+  };
 }
