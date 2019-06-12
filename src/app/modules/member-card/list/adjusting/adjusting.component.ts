@@ -4,6 +4,8 @@ import { NzMessageService } from 'ng-zorro-antd';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { differenceInCalendarDays } from 'date-fns';
+
 
 @Component({
   selector: 'app-adjusting',
@@ -11,6 +13,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./adjusting.component.scss']
 })
 export class AdjustingComponent implements OnInit {
+  today = new Date();
   id: number;
   current: number = 0;
   followRecordGroup: FormGroup;
@@ -80,9 +83,13 @@ export class AdjustingComponent implements OnInit {
       week: [, [Validators.required]],
       scourId: [, [Validators.required]],
       date: [, [Validators.required]],
+      memberId: [Number(this.id)],
       flag: [false]
     });
   }
+   disabledDate = (current: Date): boolean => {
+      return current && current.getTime() < Date.now();
+     };
   dateChange(e) {
     let [startDate, endDate] = [this.format.transform(this.dateRange[0], 'yyyy-MM-dd'), this.format.transform(this.dateRange[1], 'yyyy-MM-dd')];
     this.followRecordGroup.patchValue({ startDate });
@@ -312,6 +319,7 @@ selectclass(){
     console.log(this.followRecordGroup);
   }); 
 }
+
 
 }
 

@@ -89,8 +89,6 @@ export class UpclassComponent implements OnInit {
     let paramJson:any = this.details;
     paramJson.startDate = this.startDate;
     paramJson.endDate = this.endDate;
-    
-    console.log(paramJson);
     this.http.post('/curriculum/promotionClass', { paramJson: JSON.stringify(paramJson) }, false).then(res => {
       if (res.code == 1000) {
         this.current = 2;
@@ -103,7 +101,6 @@ export class UpclassComponent implements OnInit {
     this.current = 0;
   }
   disabledDate = (current: Date): boolean => {
-    // Can not select days before today and today
     return differenceInCalendarDays(current, this.today) < 0;
   };
 }

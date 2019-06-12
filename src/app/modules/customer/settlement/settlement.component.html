@@ -370,7 +370,7 @@
         <div style="margin-top: 10px;" *ngFor="let item of studentdata.member">
           <span  *ngIf="item.memberId == memberUserDetail.memberId"  class="users activitys"  (click)="memberUserDetails(item.memberId)" >{{item.memberName}}:</span>
           <span  *ngIf="item.memberId != memberUserDetail.memberId"   class="users"  (click)="memberUserDetails(item.memberId)" >{{item.memberName}}:</span>
-          <button nz-button nzType="primary" nzSize="small" [disabled]="!item.id" (click)="Adjust(item.memberId,item.memberName,item,studentdata)" [disabled]="item.reserveStatus==4">调课</button>
+          <button nz-button nzType="primary" nzSize="small" [disabled]="!item.id" (click)="Adjust(item.memberId,item.memberName,item,studentdata)" [disabled]="item.reserveStatus==4">单次调课</button>
           <button nz-button nzType="primary" nzSize="small" (click)="settlement(item)" [disabled]="item.reserveStatus!=0&&item.reserveStatus!=4">{{ item.reserveStatus==0?'结算': item.reserveStatus==4 ? '补课' : '已结算' }}</button>
           <button nz-button nzType="primary" nzSize="small" [disabled]="!item.id" (click)="memberStopcard(item.memberId)" [disabled]="item.reserveStatus==4">停卡</button>
           <!-- <button nz-button nzType="primary" nzSize="small" [disabled]="!item.id" (click)="memberRecord(item.memberId,studentdata)">延期</button> -->

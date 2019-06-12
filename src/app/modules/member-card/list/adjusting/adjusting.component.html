@@ -51,7 +51,7 @@
                             <nz-form-control>
                           <nz-form-label >时间段</nz-form-label>                         
                              <nz-select style="width:200px"  formControlName="scourId" nzPlaceHolder="请选择时间段">
-                                  <nz-option  *ngFor="let item of scourList" [nzLabel]="item.scourId"  [nzValue]="item.scourId"></nz-option>
+                                  <nz-option  *ngFor="let item of scourList" [nzLabel]="item.label"  [nzValue]="item.scourId"></nz-option>
                                 </nz-select> 
                                 <nz-form-explain style="margin-left:70px;" *ngIf="followRecordGroup.get('scourId').dirty && followRecordGroup.get('scourId').hasError('required')">请选择时间段</nz-form-explain>       
                           </nz-form-control>
@@ -61,7 +61,7 @@
                       <nz-form-item>
                         <nz-form-control>  
                         <nz-form-label >上课日期</nz-form-label>
-                            <nz-range-picker style="width:300px" [(ngModel)]="dateRange" formControlName="date" (ngModelChange)="dateChange($event)" [nzFormat]="dateFormat"></nz-range-picker>
+                            <nz-range-picker style="width:300px" [(ngModel)]="dateRange" [nzDisabledDate]="disabledDate"  formControlName="date" (ngModelChange)="dateChange($event)" [nzFormat]="dateFormat"></nz-range-picker>
                             <nz-form-explain style="margin-left:70px;" *ngIf="followRecordGroup.get('date').dirty && followRecordGroup.get('date').hasError('required')">请选择上课日期</nz-form-explain>       
                         </nz-form-control>
                       </nz-form-item>
@@ -276,8 +276,6 @@
                   </tbody>
                 </nz-table>
           </div>
-
-
           <div class="btn" >
               <button class="nextBtn" nz-button  nzType="primary" routerLink="/home/membercard/list">再次调课</button>
             </div> 
