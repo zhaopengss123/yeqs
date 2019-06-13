@@ -833,7 +833,8 @@ selectquery(){
         startTime: this.studentdata.startTime,
         endTime: this.studentdata.endTime
     });
-    this.router.navigateByUrl(`/home/customer/upclass/${ Json }`);
+   window.localStorage.setItem('jsons',Json);
+    this.router.navigateByUrl(`/home/customer/upclass`);
   }
 
 }

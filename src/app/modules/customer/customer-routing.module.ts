@@ -50,7 +50,7 @@ const routes: Routes = [
     canActivate: [ AuthGuardService ]
   },
   {
-    path: 'upclass/:id',
+    path: 'upclass',
     data: { title: '升班' },
     component: UpclassComponent,
   },

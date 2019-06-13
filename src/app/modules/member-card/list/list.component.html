@@ -91,11 +91,12 @@
         <thead>
           <tr>
             <th>请选择</th>
+            <th>排课次数</th>
             <th>课程名称</th>
             <th>课程类型</th>
             <th>课程类别</th>
             <th>课程状态</th>
-            <th>排课次数</th>
+            
           </tr>
         </thead>
         <tbody>
@@ -104,11 +105,11 @@
               <!-- <label nz-radio [nzDisabled]="data.courseStatus!=0" [nzValue]="data.name"></label> -->
               <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="selectlabel(data)" >{{data.name}}</label>
             </td>
+            <td><nz-input-number [(ngModel)]="data.arranging" [nzMin]="1" [nzMax]="10000" [nzStep]="1" nzPlaceHolder="请输入"></nz-input-number></td>
             <td>{{data.name}}</td>
             <td>{{data.lessonName}}</td>
             <td>{{data.courseName}}</td>
             <td>{{data.courseStatus==0?'启用':'停用'}}</td>
-            <td><nz-input-number [(ngModel)]="data.arranging" [nzMin]="1" [nzMax]="10000" [nzStep]="1" nzPlaceHolder="请输入"></nz-input-number></td>
           </tr>
         </tbody>
       </nz-table>

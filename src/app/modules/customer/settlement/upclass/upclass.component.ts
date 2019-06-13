@@ -44,7 +44,7 @@ export class UpclassComponent implements OnInit {
       date: [],
       flag: [false]
     });
-    this.details = JSON.parse(this.activatedRoute.snapshot.params.id);
+    this.details = JSON.parse( window.localStorage.getItem('jsons'));
     this.http.post('/scheduling/selectCondition', {}, false).then(res => { this.classList = res.result.list; });
     this.http.post('/intelligent/selectScour', {}, false).then(res => {
       res.result.list.map(item => {

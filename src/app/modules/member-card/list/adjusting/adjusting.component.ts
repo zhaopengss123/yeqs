@@ -25,7 +25,7 @@ export class AdjustingComponent implements OnInit {
   memberData: any = {};
   memberdetailTk: any = {};
   radioName: string;
-  SyllabusAllList: any[];
+  SyllabusAllList: any[] = [];
   RecordList: any[] = [];
   dateList: any[];
   RecordList1: any[];
@@ -106,6 +106,7 @@ export class AdjustingComponent implements OnInit {
       this.http.post('/curriculum/readyClass', { paramJson: JSON.stringify(this.followRecordGroup.value) }, false).then(res => {
         this.isLoadingOne = false;
         if (res.code == 1000) {
+            this.http.post('/curriculum/selectMsg', { memberId: this.id }, false).then(res => { this.memberdetailTk = res.result.list; });
             this.current = 1;
         } else {
           this.message.warning(res.info);
@@ -117,10 +118,6 @@ export class AdjustingComponent implements OnInit {
     this.current = 0;
   }
   twoNext(){
-    // if (!this.datalabelList.length) {
-    //   this.message.create('error', '请选择课程');
-    //   return false;
-    // }
     if(!this.listArr.length){
       this.message.create('error', '请至少选择一个课程');
       return false;
@@ -169,7 +166,11 @@ export class AdjustingComponent implements OnInit {
       this.isLoadingOne = false;
       if (res.code == 1000) {
         this.current = 2;
-        this.reserveList = res.result.reserveList;
+        let rows = res.result.reserveList;
+        rows.sort(function(a,b){
+            return Date.parse(a.currentDate) - Date.parse(b.currentDate);//时间正序
+        });        
+        this.reserveList = rows;
         this.copywriting = res.result.copywriting;
       } else {
         this.message.warning(res.info);
@@ -210,7 +211,22 @@ export class AdjustingComponent implements OnInit {
       this.nowstartDate = this.startDate;
       this.nowendDate = this.endDate
     }
-    this.selectlabel(this.selectData);
+    this.RecordList = [];
+    this.datalabelList = [];
+    this.RecordList1 = [];
+    this.RecordList2 = [];
+    this.RecordList3 = [];
+    this.RecordList4 = [];
+    this.RecordList5 = [];
+    this.RecordList6 = [];
+    this.RecordList7 = [];
+    this.kcName = [];
+    this.listArr = [];
+
+    this.SyllabusAllList.map(item=>{
+      item.checked = false;
+      item.arranging = null;
+    })
   };
   showWeekFirstDay(i) {
     let that = this;
@@ -224,89 +240,125 @@ export class AdjustingComponent implements OnInit {
 
 
 
-  //选择课程
-  datalabelChange(data) {
-    //data.syllabusName = data.name;
-    if (data.checked) {
-      this.datalabelList.push(data);
-      this.listArr.push(data);
-    } else {
-      this.datalabelList.map((item, index) => {
-        if (item.id == data.id) {
-          this.datalabelList.splice(index, 1);
-        }
-      })
-      this.listArr.map((item, index) => {
-        if (item.id == data.id) {
-          this.listArr.splice(index, 1);
-        }
-      })
-    }
+ //选择课程
+ datalabelChange(data) {
+  //data.syllabusName = data.name;
+  if (data.checked) {
+    this.datalabelList.push(data);
+    this.listArr.push(data);
+  } else {
+    for(var i = 0; i < this.datalabelList.length; ) {
+      if(this.datalabelList[i].id == data.id) {
+        this.datalabelList.splice(i, 1);
+      } else {
+         i++;  //只有在没有删除元素时才对索引 i++
+       }
+     }
+    for(var i = 0; i < this.listArr.length; ) {
+      if(this.listArr[i].id == data.id) {
+        this.listArr.splice(i, 1);
+      } else {
+         i++;  //只有在没有删除元素时才对索引 i++
+       }
+     }
+
   }
-  // 查询课程
-  selectlabel(data) {
-    if(data){
-    if (data.checked) {
-      this.selectData = data;
-      this.kcName.push(data);
-      this.http.post('/curriculum/selectIdRecord', { syllabusName: data.name, startDate: this.startDate, endDate: this.endDate }, false).then(res => {
-        if (res.code == 1000) {
-          //let arr = this.RecordList.concat(res.result.list);
-          this.RecordList = res.result.list;
-          this.datalabelList = [];
-          this.RecordList1 = [];
-          this.RecordList2 = [];
-          this.RecordList3 = [];
-          this.RecordList4 = [];
-          this.RecordList5 = [];
-          this.RecordList6 = [];
-          this.RecordList7 = [];
-          this.RecordList.map(item => {
-            if (item.week == '星期一') {
-              this.RecordList1.push(item);
-            } else if (item.week == '星期二') {
-              this.RecordList2.push(item);
-            } else if (item.week == '星期三') {
-              this.RecordList3.push(item);
-            } else if (item.week == '星期四') {
-              this.RecordList4.push(item);
-            } else if (item.week == '星期五') {
-              this.RecordList5.push(item);
-            } else if (item.week == '星期六') {
-              this.RecordList6.push(item);
-            } else if (item.week == '星期日') {
-              this.RecordList7.push(item);
-            }
-          })
-        } else {
-          this.message.create('error', res.info);
-        }
-      });
-    } else {
-      this.selectData = {};
-      this.RecordList = [];
-      this.datalabelList = [];
-      this.RecordList1 = [];
-      this.RecordList2 = [];
-      this.RecordList3 = [];
-      this.RecordList4 = [];
-      this.RecordList5 = [];
-      this.RecordList6 = [];
-      this.RecordList7 = [];
-      let listArr = JSON.parse(JSON.stringify(this.listArr));
-      let kcName = JSON.parse(JSON.stringify(this.kcName));
-      this.listArr.map((item,index)=>{
-          if(item.name == data.name){
-            this.listArr.splice(index, 1);
+}
+
+
+ // 查询课程
+ selectlabel(data) {
+  if(data){
+  if (data.checked) {
+    this.selectData = data;
+    this.kcName.push(data);
+    this.http.post('/curriculum/selectIdRecord', { syllabusName: data.name, startDate: this.startDate, endDate: this.endDate }, false).then(res => {
+      if (res.code == 1000) {
+        //let arr = this.RecordList.concat(res.result.list);
+        this.RecordList = this.RecordList.concat(res.result.list);
+        this.datalabelList = [];
+        this.RecordList1 = [];
+        this.RecordList2 = [];
+        this.RecordList3 = [];
+        this.RecordList4 = [];
+        this.RecordList5 = [];
+        this.RecordList6 = [];
+        this.RecordList7 = [];
+        this.RecordList.map(item => {
+          if (item.week == '星期一') {
+            this.RecordList1.push(item);
+          } else if (item.week == '星期二') {
+            this.RecordList2.push(item);
+          } else if (item.week == '星期三') {
+            this.RecordList3.push(item);
+          } else if (item.week == '星期四') {
+            this.RecordList4.push(item);
+          } else if (item.week == '星期五') {
+            this.RecordList5.push(item);
+          } else if (item.week == '星期六') {
+            this.RecordList6.push(item);
+          } else if (item.week == '星期日') {
+            this.RecordList7.push(item);
           }
-      })
-      this.kcName.map((item,index)=>{
-        if(item.name == data.name){
-          this.kcName.splice(index, 1);
-        }
-      })
-    }
+        })
+      } else {
+        this.message.create('error', res.info);
+      }
+    });
+  } else {
+    this.selectData = {};
+    for(var i = 0; i < this.listArr.length; ) {
+      if(this.listArr[i].name == data.name) {
+        this.listArr.splice(i, 1);
+      } else {
+         i++;  //只有在没有删除元素时才对索引 i++
+       }
+     }
+     for(var i = 0; i < this.kcName.length; ) {
+      if(this.kcName[i].name == data.name) {
+        this.kcName.splice(i, 1);
+      } else {
+         i++;  //只有在没有删除元素时才对索引 i++
+       }
+     }       
+
+    let arr = JSON.parse(JSON.stringify(this.RecordList));
+    for(var i = 0; i < arr.length; ) {
+      if(arr[i].name == data.name) {
+       arr.splice(i, 1);
+      } else {
+         i++;  //只有在没有删除元素时才对索引 i++
+       }
+     }
+     this.RecordList = arr;
+     this.datalabelList = [];
+     this.RecordList1 = [];
+     this.RecordList2 = [];
+     this.RecordList3 = [];
+     this.RecordList4 = [];
+     this.RecordList5 = [];
+     this.RecordList6 = [];
+     this.RecordList7 = [];
+     this.RecordList.map(item => {
+       if (item.week == '星期一') {
+         this.RecordList1.push(item);
+       } else if (item.week == '星期二') {
+         this.RecordList2.push(item);
+       } else if (item.week == '星期三') {
+         this.RecordList3.push(item);
+       } else if (item.week == '星期四') {
+         this.RecordList4.push(item);
+       } else if (item.week == '星期五') {
+         this.RecordList5.push(item);
+       } else if (item.week == '星期六') {
+         this.RecordList6.push(item);
+       } else if (item.week == '星期日') {
+         this.RecordList7.push(item);
+       }
+     })
+   
   }
+}
 }
 selectclass(){
   let syllabusName = this.followRecordGroup.value.syllabusName;
@@ -316,34 +368,6 @@ selectclass(){
     })
     this.scourList = res.result;
     this.followRecordGroup.patchValue({ scourId: null });
-    console.log(this.followRecordGroup);
   }); 
 }
-
-
 }
-
-
-// paramJson: {
-//   "babyNumber": 1, "name": "新客户1", "parentName": "妈妈", "memberId": 1560514, "cardCode": "18655441789", "mobilePhone": "18655441789", 
-//   "list": [{
-//     arranging: 10, //排课次数
-//     name: '海马二阶',
-//     reserveList: [{
-//       scourId: 时间      
-//       currentDate: '2018-08-08' 
-//       employeeName  上课老师 
-//       week  星期
-//     }, {
-//       scourId: 时间      currentDate: '2018-08-08' employeeName  上课老师   week  星期
-//     }]   arranging: 10, 排课次数
-//   name: '海马二阶',
-//     reserveList: [{
-//       scourId: 时间      currentDate: '2018-08-08' employeeName  上课老师   week  星期
-//     }, {
-//       scourId: 时间      currentDate: '2018-08-08' employeeName  上课老师   week  星期
-//     }]
-
-//   }, {
-//   }]
-// }
