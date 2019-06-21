@@ -43,7 +43,6 @@ const routes: Routes = [
     path: 'adjusting/:id',
     data: { title: '会员调课' },
     component: AdjustingComponent,
-    canActivate: [ AuthGuardService ]
   }
 ];
 

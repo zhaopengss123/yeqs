@@ -6,9 +6,7 @@ form{
     overflow: hidden;
 }
 .nextBtn{
-    display: block;
-    margin: 0 auto;
-    margin-top: 20px;
+    margin: 5px;
 }
 .weekBtn{
     margin-top: 30px;
@@ -30,6 +28,10 @@ form{
 .btn{
     display: block;
     clear: both;
+    width: 300px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 20px;
 }
 .success_icon{
     width: 100px;

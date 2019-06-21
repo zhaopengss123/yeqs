@@ -25,7 +25,7 @@
                           <nz-select style="width:200px" formControlName="syllabusName" nzPlaceHolder="请选择课程名称" (ngModelChange)="selectclass()">
                               <nz-option  *ngFor="let item of conditionList" [nzLabel]="item.name" [nzValue]="item.name"></nz-option>
                             </nz-select>
-                            <nz-form-explain style="margin-left:70px;" *ngIf="followRecordGroup.get('syllabusName').dirty && followRecordGroup.get('syllabusName').hasError('required')">请选择课程名称</nz-form-explain>
+                            <nz-form-explain  *ngIf="followRecordGroup.get('syllabusName').dirty && followRecordGroup.get('syllabusName').hasError('required')">请选择课程名称</nz-form-explain>
                       </nz-form-control>
                     </nz-form-item>
                   </div>
@@ -42,7 +42,7 @@
                                 <nz-option nzLabel="星期六" nzValue="星期六"></nz-option>
                                 <nz-option nzLabel="星期日" nzValue="星期日"></nz-option>
                               </nz-select>
-                              <nz-form-explain style="margin-left:70px;" *ngIf="followRecordGroup.get('week').dirty && followRecordGroup.get('week').hasError('required')">请选择星期</nz-form-explain>      
+                              <nz-form-explain  *ngIf="followRecordGroup.get('week').dirty && followRecordGroup.get('week').hasError('required')">请选择星期</nz-form-explain>      
                         </nz-form-control>
                       </nz-form-item>
                     </div>   
@@ -53,16 +53,29 @@
                              <nz-select style="width:200px"  formControlName="scourId" nzPlaceHolder="请选择时间段">
                                   <nz-option  *ngFor="let item of scourList" [nzLabel]="item.label"  [nzValue]="item.scourId"></nz-option>
                                 </nz-select> 
-                                <nz-form-explain style="margin-left:70px;" *ngIf="followRecordGroup.get('scourId').dirty && followRecordGroup.get('scourId').hasError('required')">请选择时间段</nz-form-explain>       
+                                <nz-form-explain *ngIf="followRecordGroup.get('scourId').dirty && followRecordGroup.get('scourId').hasError('required')">请选择时间段</nz-form-explain>       
                           </nz-form-control>
                         </nz-form-item>
-                      </div>                    
+                      </div>   
+                      <div nz-col nzSpan="8">
+                          <nz-form-item>
+                              <nz-form-control>
+                            <nz-form-label >老师</nz-form-label>                         
+                               <nz-select style="width:200px"  formControlName="employeeId" nzPlaceHolder="请选择老师">
+                                    <nz-option  *ngFor="let item of employeeList" [nzLabel]="item.employeeName"  [nzValue]="item.employeeId"></nz-option>
+                                  </nz-select> 
+                                  <nz-form-explain  *ngIf="followRecordGroup.get('employeeId').dirty && followRecordGroup.get('employeeId').hasError('required')">请选择老师</nz-form-explain>       
+                            </nz-form-control>
+                          </nz-form-item>
+                        </div>                       
+                      
+
                   <div nz-col nzSpan="12">
                       <nz-form-item>
                         <nz-form-control>  
                         <nz-form-label >上课日期</nz-form-label>
                             <nz-range-picker style="width:300px" [(ngModel)]="dateRange" [nzDisabledDate]="disabledDate"  formControlName="date" (ngModelChange)="dateChange($event)" [nzFormat]="dateFormat"></nz-range-picker>
-                            <nz-form-explain style="margin-left:70px;" *ngIf="followRecordGroup.get('date').dirty && followRecordGroup.get('date').hasError('required')">请选择上课日期</nz-form-explain>       
+                            <nz-form-explain  *ngIf="followRecordGroup.get('date').dirty && followRecordGroup.get('date').hasError('required')">请选择上课日期</nz-form-explain>       
                         </nz-form-control>
                       </nz-form-item>
                     </div>
@@ -75,7 +88,7 @@
 
       <div class="form" *ngIf="current == 1">
         <p>学员姓名：{{memberdetailTk.name}}</p>
-        <p>剩余卡次：{{memberdetailTk.cardNumber}}</p>
+        <p>可调课次数：{{memberdetailTk.cardNumber}}</p>
         <div>
           <h3>请选择课程</h3>
           <nz-radio-group [(ngModel)]="radioName"  style="width: 100%;">
@@ -241,8 +254,8 @@
           </div>
         </div>
         <div class="btn" >
-          <button class="nextBtn" nz-button  nzType="primary" (click)="twoNext()" [nzLoading]="isLoadingOne">下一步并检测</button>
           <button class="nextBtn" nz-button   (click)="prve()" [nzLoading]="isLoadingOne">返回上一步</button>
+          <button class="nextBtn" nz-button  nzType="primary" (click)="twoNext()" [nzLoading]="isLoadingOne">下一步并检测</button>
         </div> 
 
       </div>

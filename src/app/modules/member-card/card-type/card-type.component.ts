@@ -27,7 +27,7 @@ export class CardTypeComponent implements OnInit {
       label       : '卡类型状态',
       key         : 'feeType',
       type        : 'select',
-      options     : [ { name: '启用', id: 0}, { name: '禁用', id: -1} ]
+      options     : [ { name: '已上架', id: 0}, { name: '未上架', id: -1} ]
     },
     {
       label       : '类型名称',
@@ -70,8 +70,8 @@ export class CardTypeComponent implements OnInit {
   }
   operation(id, type, status?) {
     this.modal.confirm({
-      nzTitle: `<i>您确定要${type === 'delete' ? '删除' : status == 0 ? '禁用' : '启用'}此卡类型吗?</i>`,
-      nzContent: `<b>${type === 'delete' ? '删除' : status == 0 ? '禁用' : '启用'}此卡类型</b>`,
+      nzTitle: `<i>您确定要${type === 'delete' ? '删除' : status == 0 ? '下架' : '上架'}此卡类型吗?</i>`,
+      nzContent: `<b>${type === 'delete' ? '删除' : status == 0 ? '下架' : '上架'}此卡类型</b>`,
       nzOnOk: () => {
         let params: any = { id };
         if (type === 'disable') {

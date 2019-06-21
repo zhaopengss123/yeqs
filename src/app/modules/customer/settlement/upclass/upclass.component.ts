@@ -86,7 +86,7 @@ export class UpclassComponent implements OnInit {
       this.message.warning('请选择课程');
       return ;
     }
-    let paramJson:any = this.details;
+    let paramJson: any = this.details;
     paramJson.startDate = this.startDate;
     paramJson.endDate = this.endDate;
     this.http.post('/curriculum/promotionClass', { paramJson: JSON.stringify(paramJson) }, false).then(res => {

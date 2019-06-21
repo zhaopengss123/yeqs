@@ -269,7 +269,7 @@ selectquery(){
       // http://es.haochengzhang.com/es/erp/query
       // http://testes.haochengzhang.com/es/erp/query
       this.loading_b = true; 
-      this.http.get('http://testes.haochengzhang.com/es/erp/query', { index: 'qs', storeId: this.storeId, type: 'member', condition: this.mobilePhone, pageNo:this.pageIndex_b, pageSize:10 }, false).then(res => {
+      this.http.get('http://es.haochengzhang.com/es/erp/query', { index: 'qs', storeId: this.storeId, type: 'member', condition: this.mobilePhone, pageNo:this.pageIndex_b, pageSize:10 }, false).then(res => {
       this.loading_b = false;
       if (res.returnCode == 'SUCCESS') {
         if(res.result){
@@ -748,31 +748,15 @@ selectquery(){
       cardId:'',
       reserveStatus:''
     };
-    this.http.post('/curriculum/selectMsg', { memberId: item.memberId }, false).then(res => {
-      if (res.code == 1000) {
-        appointmentInfo.id = item.reserveId;
-        appointmentInfo.memberId = res.result.list.memberId;
-        appointmentInfo.name = res.result.list.name;
-        appointmentInfo.nick = res.result.list.nick;
-        appointmentInfo.sex = item.sex;
-        appointmentInfo.monthAge = item.monthAge;
-        appointmentInfo.cardId = item.id?item.id:'';
-        appointmentInfo.reserveStatus = item.reserveStatus;
-        this.consumption(appointmentInfo);
-      } else if(res.code == 1011){
-        appointmentInfo.id = item.reserveId;
-        appointmentInfo.memberId = item.memberId;
-        appointmentInfo.name = item.memberName;
-        appointmentInfo.nick = item.nick;
-        appointmentInfo.sex = item.sex;
-        appointmentInfo.monthAge = item.monthAge;
-        appointmentInfo.cardId = item.id ? item.id : '';
-        appointmentInfo.reserveStatus = item.reserveStatus;
-        this.consumption(appointmentInfo);
-      } else {
-        this.message.create('error', res.info);
-      }
-    });
+       appointmentInfo.id = item.reserveId;
+       appointmentInfo.sex = item.sex;
+       appointmentInfo.monthAge = item.monthAge;
+       appointmentInfo.cardId = item.id?item.id:'';
+       appointmentInfo.reserveStatus = item.reserveStatus;
+       appointmentInfo.memberId = item.memberId;
+       appointmentInfo.name = item.memberName;
+       this.consumption(appointmentInfo);  
+  
   }
   /* ------------------- 结算预约 ------------------- */
   
@@ -831,7 +815,8 @@ selectquery(){
         employeeName: this.studentdata.employeeName,
         week: this.studentdata.week,
         startTime: this.studentdata.startTime,
-        endTime: this.studentdata.endTime
+        endTime: this.studentdata.endTime,
+        employeeId: this.studentdata.employeeId
     });
    window.localStorage.setItem('jsons',Json);
     this.router.navigateByUrl(`/home/customer/upclass`);

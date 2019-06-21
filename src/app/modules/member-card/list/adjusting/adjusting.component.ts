@@ -48,10 +48,12 @@ export class AdjustingComponent implements OnInit {
   nowstartDate: any;
   nowendDate: any;
   listArr: any[] = [];
-  selectData:any;
-  kcName:any[] = [];
-  reserveList:any[] = [];
+  selectData: any;
+  kcName: any[] = [];
+  reserveList: any[] = [];
+  delectData: any[] = [];
   copywriting: string;
+  employeeList: any[] = [];
   constructor(
     private activatedRoute: ActivatedRoute,
     private message: NzMessageService,
@@ -82,14 +84,15 @@ export class AdjustingComponent implements OnInit {
       endDate: [, [Validators.required]],
       week: [, [Validators.required]],
       scourId: [, [Validators.required]],
+      employeeId: [, [Validators.required]],
       date: [, [Validators.required]],
       memberId: [Number(this.id)],
       flag: [false]
     });
   }
-   disabledDate = (current: Date): boolean => {
-      return current && current.getTime() < Date.now();
-     };
+  disabledDate = (current: Date): boolean => {
+    return current && current.getTime() < Date.now();
+  };
   dateChange(e) {
     let [startDate, endDate] = [this.format.transform(this.dateRange[0], 'yyyy-MM-dd'), this.format.transform(this.dateRange[1], 'yyyy-MM-dd')];
     this.followRecordGroup.patchValue({ startDate });
@@ -103,52 +106,56 @@ export class AdjustingComponent implements OnInit {
       }
     } else {
       this.isLoadingOne = true;
-      this.http.post('/curriculum/readyClass', { paramJson: JSON.stringify(this.followRecordGroup.value) }, false).then(res => {
+      this.http.post('/curriculum/readyClass', { paramJson: JSON.stringify(this.followRecordGroup.value) }, false).then(ress => {
         this.isLoadingOne = false;
-        if (res.code == 1000) {
-            this.http.post('/curriculum/selectMsg', { memberId: this.id }, false).then(res => { this.memberdetailTk = res.result.list; });
-            this.current = 1;
+        if (ress.code == 1000) {
+          this.delectData = ress.result;
+          this.http.post('/curriculum/selectMsg', { memberId: this.id }, false).then(res => {
+            res.result.list.cardNumber += ress.result.length;
+            this.memberdetailTk = res.result.list;
+          });
+          this.current = 1;
         } else {
-          this.message.warning(res.info);
+          this.message.warning(ress.info);
         }
       });
     }
   }
-  prve(){
+  prve() {
     this.current = 0;
   }
-  twoNext(){
-    if(!this.listArr.length){
+  twoNext() {
+    if (!this.listArr.length) {
       this.message.create('error', '请至少选择一个课程');
       return false;
     }
     let cardNum = 0;
     let list = [];
     let sbs = false;
-    this.kcName.map(item=>{
-      if(!item.arranging||!(item.arranging>0)){
+    this.kcName.map(item => {
+      if (!item.arranging || !(item.arranging > 0)) {
         sbs = true;
-        return false;         
-      }else{
+        return false;
+      } else {
         cardNum += item.arranging;
-        item.reserveList=[];
+        item.reserveList = [];
         list.push(item);
       }
     })
-    if(sbs){
+    if (sbs) {
       this.message.create('error', '请输入正确的排课次数');
       return false;
     }
 
 
-    if( cardNum > this.memberdetailTk.cardNumber ){
+    if (cardNum > this.memberdetailTk.cardNumber) {
       this.message.create('error', '剩余卡次不足');
-      return false; 
+      return false;
     }
-    list.map(item=>{
-      this.listArr.map(data=>{
-        if(item.name == data.name){
-            item.reserveList.push(data);
+    list.map(item => {
+      this.listArr.map(data => {
+        if (item.name == data.name) {
+          item.reserveList.push(data);
         }
       })
     })
@@ -158,24 +165,33 @@ export class AdjustingComponent implements OnInit {
       parentName: this.memberdetailTk.parentName,
       cardCode: this.memberdetailTk.cardCode,
       mobilePhone: this.memberdetailTk.mobilePhone,
-      memberId : this.memberdetailTk.memberId,
+      memberId: this.memberdetailTk.memberId,
       list
     });
-    this.isLoadingOne = true;
-    this.http.post('/curriculum/insertMemberRecord', { paramJson, flag:false }, false).then(res => {
-      this.isLoadingOne = false;
-      if (res.code == 1000) {
-        this.current = 2;
-        let rows = res.result.reserveList;
-        rows.sort(function(a,b){
-            return Date.parse(a.currentDate) - Date.parse(b.currentDate);//时间正序
-        });        
-        this.reserveList = rows;
-        this.copywriting = res.result.copywriting;
+    //this.isLoadingOne = true;
+
+    this.http.post('/curriculum/deleteReadyClass', { paramJson: JSON.stringify({ reserveRecords: this.delectData }) }, false).then(ress => {
+      if (ress.code == 1000) {
+        this.http.post('/curriculum/insertMemberRecord', { paramJson, flag: false }, false).then(res => {
+          this.isLoadingOne = false;
+          if (res.code == 1000) {
+            this.current = 2;
+            let rows = res.result.reserveList;
+            rows.sort(function (a, b) {
+              return Date.parse(a.currentDate) - Date.parse(b.currentDate);//时间正序
+            });
+            this.reserveList = rows;
+            this.copywriting = res.result.copywriting;
+          } else {
+            this.message.warning(res.info);
+          }
+        });
       } else {
-        this.message.warning(res.info);
+        this.message.warning(ress.info);
       }
-    }); 
+    })
+
+
   }
   nowDate() {
     this.dateIndex = 0;
@@ -223,7 +239,7 @@ export class AdjustingComponent implements OnInit {
     this.kcName = [];
     this.listArr = [];
 
-    this.SyllabusAllList.map(item=>{
+    this.SyllabusAllList.map(item => {
       item.checked = false;
       item.arranging = null;
     })
@@ -240,42 +256,97 @@ export class AdjustingComponent implements OnInit {
 
 
 
- //选择课程
- datalabelChange(data) {
-  //data.syllabusName = data.name;
-  if (data.checked) {
-    this.datalabelList.push(data);
-    this.listArr.push(data);
-  } else {
-    for(var i = 0; i < this.datalabelList.length; ) {
-      if(this.datalabelList[i].id == data.id) {
-        this.datalabelList.splice(i, 1);
-      } else {
-         i++;  //只有在没有删除元素时才对索引 i++
-       }
-     }
-    for(var i = 0; i < this.listArr.length; ) {
-      if(this.listArr[i].id == data.id) {
-        this.listArr.splice(i, 1);
-      } else {
-         i++;  //只有在没有删除元素时才对索引 i++
-       }
-     }
+  //选择课程
+  datalabelChange(data) {
+    //data.syllabusName = data.name;
+    if (data.checked) {
+      this.datalabelList.push(data);
+      this.listArr.push(data);
+    } else {
+      for (var i = 0; i < this.datalabelList.length;) {
+        if (this.datalabelList[i].id == data.id) {
+          this.datalabelList.splice(i, 1);
+        } else {
+          i++;  //只有在没有删除元素时才对索引 i++
+        }
+      }
+      for (var i = 0; i < this.listArr.length;) {
+        if (this.listArr[i].id == data.id) {
+          this.listArr.splice(i, 1);
+        } else {
+          i++;  //只有在没有删除元素时才对索引 i++
+        }
+      }
 
+    }
   }
-}
 
 
- // 查询课程
- selectlabel(data) {
-  if(data){
-  if (data.checked) {
-    this.selectData = data;
-    this.kcName.push(data);
-    this.http.post('/curriculum/selectIdRecord', { syllabusName: data.name, startDate: this.startDate, endDate: this.endDate }, false).then(res => {
-      if (res.code == 1000) {
-        //let arr = this.RecordList.concat(res.result.list);
-        this.RecordList = this.RecordList.concat(res.result.list);
+  // 查询课程
+  selectlabel(data) {
+    if (data) {
+      if (data.checked) {
+        this.selectData = data;
+        this.kcName.push(data);
+        this.http.post('/curriculum/selectIdRecord', { syllabusName: data.name, startDate: this.startDate, endDate: this.endDate }, false).then(res => {
+          if (res.code == 1000) {
+            //let arr = this.RecordList.concat(res.result.list);
+            this.RecordList = this.RecordList.concat(res.result.list);
+            this.datalabelList = [];
+            this.RecordList1 = [];
+            this.RecordList2 = [];
+            this.RecordList3 = [];
+            this.RecordList4 = [];
+            this.RecordList5 = [];
+            this.RecordList6 = [];
+            this.RecordList7 = [];
+            this.RecordList.map(item => {
+              if (item.week == '星期一') {
+                this.RecordList1.push(item);
+              } else if (item.week == '星期二') {
+                this.RecordList2.push(item);
+              } else if (item.week == '星期三') {
+                this.RecordList3.push(item);
+              } else if (item.week == '星期四') {
+                this.RecordList4.push(item);
+              } else if (item.week == '星期五') {
+                this.RecordList5.push(item);
+              } else if (item.week == '星期六') {
+                this.RecordList6.push(item);
+              } else if (item.week == '星期日') {
+                this.RecordList7.push(item);
+              }
+            })
+          } else {
+            this.message.create('error', res.info);
+          }
+        });
+      } else {
+        this.selectData = {};
+        for (var i = 0; i < this.listArr.length;) {
+          if (this.listArr[i].name == data.name) {
+            this.listArr.splice(i, 1);
+          } else {
+            i++;  //只有在没有删除元素时才对索引 i++
+          }
+        }
+        for (var i = 0; i < this.kcName.length;) {
+          if (this.kcName[i].name == data.name) {
+            this.kcName.splice(i, 1);
+          } else {
+            i++;  //只有在没有删除元素时才对索引 i++
+          }
+        }
+
+        let arr = JSON.parse(JSON.stringify(this.RecordList));
+        for (var i = 0; i < arr.length;) {
+          if (arr[i].name == data.name) {
+            arr.splice(i, 1);
+          } else {
+            i++;  //只有在没有删除元素时才对索引 i++
+          }
+        }
+        this.RecordList = arr;
         this.datalabelList = [];
         this.RecordList1 = [];
         this.RecordList2 = [];
@@ -301,73 +372,20 @@ export class AdjustingComponent implements OnInit {
             this.RecordList7.push(item);
           }
         })
-      } else {
-        this.message.create('error', res.info);
-      }
-    });
-  } else {
-    this.selectData = {};
-    for(var i = 0; i < this.listArr.length; ) {
-      if(this.listArr[i].name == data.name) {
-        this.listArr.splice(i, 1);
-      } else {
-         i++;  //只有在没有删除元素时才对索引 i++
-       }
-     }
-     for(var i = 0; i < this.kcName.length; ) {
-      if(this.kcName[i].name == data.name) {
-        this.kcName.splice(i, 1);
-      } else {
-         i++;  //只有在没有删除元素时才对索引 i++
-       }
-     }       
 
-    let arr = JSON.parse(JSON.stringify(this.RecordList));
-    for(var i = 0; i < arr.length; ) {
-      if(arr[i].name == data.name) {
-       arr.splice(i, 1);
-      } else {
-         i++;  //只有在没有删除元素时才对索引 i++
-       }
-     }
-     this.RecordList = arr;
-     this.datalabelList = [];
-     this.RecordList1 = [];
-     this.RecordList2 = [];
-     this.RecordList3 = [];
-     this.RecordList4 = [];
-     this.RecordList5 = [];
-     this.RecordList6 = [];
-     this.RecordList7 = [];
-     this.RecordList.map(item => {
-       if (item.week == '星期一') {
-         this.RecordList1.push(item);
-       } else if (item.week == '星期二') {
-         this.RecordList2.push(item);
-       } else if (item.week == '星期三') {
-         this.RecordList3.push(item);
-       } else if (item.week == '星期四') {
-         this.RecordList4.push(item);
-       } else if (item.week == '星期五') {
-         this.RecordList5.push(item);
-       } else if (item.week == '星期六') {
-         this.RecordList6.push(item);
-       } else if (item.week == '星期日') {
-         this.RecordList7.push(item);
-       }
-     })
-   
+      }
+    }
   }
-}
-}
-selectclass(){
-  let syllabusName = this.followRecordGroup.value.syllabusName;
-  this.http.post('/curriculum/reserveTimeInterval', { syllabusName }, false).then(res => {
-    res.result.map(item => {
-      item.label = item.startTime + '-' + item.endTime;
-    })
-    this.scourList = res.result;
-    this.followRecordGroup.patchValue({ scourId: null });
-  }); 
-}
+  selectclass() {
+    let syllabusName = this.followRecordGroup.value.syllabusName;
+    this.http.post('/curriculum/reserveTimeInterval', { syllabusName }, false).then(res => {
+      res.result.listTime.map(item => {
+        item.label = item.startTime + '-' + item.endTime;
+      })
+      this.scourList = res.result.listTime;
+      this.employeeList = res.result.listEmployee;
+      this.followRecordGroup.patchValue({ scourId: null });
+      this.followRecordGroup.patchValue({ employeeId: null });
+    });
+  }
 }

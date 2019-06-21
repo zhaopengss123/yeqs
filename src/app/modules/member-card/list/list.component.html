@@ -126,14 +126,14 @@
       <nz-table #basicTable [nzData]="dateList" nzShowPagination='false'>
         <thead>
           <tr>
-            <th>时段</th>
-            <th>星期一</th>
-            <th>星期二</th>
-            <th>星期三</th>
-            <th>星期四</th>
-            <th>星期五</th>
-            <th>星期六</th>
-            <th>星期日</th>
+              <th>时段</th>
+              <th>星期一<div> {{startDate}}</div></th>
+              <th>星期二<div> {{Tuesday}}</div></th>
+              <th>星期三<div> {{Wednesday}}</div></th>
+              <th>星期四<div> {{Thursday}}</div></th>
+              <th>星期五<div> {{Friday}}</div></th>
+              <th>星期六<div> {{Saturday}}</div></th>
+              <th>星期日<div> {{endDate}}</div></th>
           </tr>
         </thead>
                  <tbody>

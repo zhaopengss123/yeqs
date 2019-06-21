@@ -18,19 +18,15 @@
       <td>{{ data.freeTimes }}</td>
       <td>{{ data.balance }}</td>
       <td>{{ data.openPoints }}</td>
-      <td><nz-tag [nzColor]="data.status == 1 ? '#f50' : '#2db7f5'">{{ data.status == 1 ? '禁用' : '启用' }}</nz-tag></td>
+      <td><nz-tag [nzColor]="data.status == 1 ? '#f50' : '#2db7f5'">{{ data.status == 1 ? '未上架' : '已上架' }}</nz-tag></td>
       <td>{{ data.tong ? '是' : '否' }}</td>
       <td>{{ data.withdrawAmount }}</td>
       <td>
         <a (click)="updateCardType(data)">编辑</a>
         <nz-divider nzType="vertical"></nz-divider>
-        <nz-dropdown>
-          <a nz-dropdown>更多<i class="anticon anticon-down"></i></a>
-          <ul nz-menu>
-            <li nz-menu-item><a (click)="operation(data.id, 'delete')">删除</a></li>
-            <li nz-menu-item><a (click)="operation(data.id, 'disable', data.status)">{{ data.status == 1 ? '启用' : '禁用' }}</a></li>
-          </ul>
-        </nz-dropdown>
+        <a (click)="operation(data.id, 'disable', data.status)">{{ data.status == 1 ? '上架' : '下架' }}</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="operation(data.id, 'delete')">删除</a>
       </td>
     </ng-template>
   </ea-table>
