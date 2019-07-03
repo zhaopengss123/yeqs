@@ -1,0 +1,198 @@
+<div nz-row [nzGutter]="24">
+  <div nz-col [nzSpan]="7">
+    <nz-card [nzBordered]="false" nzTitle="今日任务" [nzBodyStyle]="{padding: '12px'}">
+      <div class="user-cell">
+        <div (click)="routerLink('/home/visit/clue')">
+          <p><i nz-icon type="customer-service" theme="outline"></i>需回访/已回访线索</p>
+          <h4>{{ todayTask?.todayTask }}<span style="font-size: 20px; font-weight: 400; color: rgba(0, 0, 0, 0.45)"> / {{
+              todayTask?.doneTodayTask }}</span></h4>
+        </div>
+        <div (click)="routerLink('/home/visit/nocard')">
+          <p><i nz-icon type="dollar" theme="outline"></i>需回访/已回访体未办</p>
+          <h4>{{ todayTask?.experienceTodayTask }}<span
+              style="font-size: 20px; font-weight: 400; color: rgba(0, 0, 0, 0.45)">
+              / {{ todayTask?.experienceDoneTodayTask }}</span></h4>
+        </div>
+        <div (click)="routerLink('/home/visit/member')">
+          <p><i nz-icon type="credit-card" theme="outline"></i>需回访/已回访30天未到店会员</p>
+          <h4>{{ todayTask?.vipTodayTask }}<span style="font-size: 20px; font-weight: 400; color: rgba(0, 0, 0, 0.45)">
+              / {{
+              todayTask?.vipDoneTodayTask }}</span></h4>
+        </div>
+      </div>
+    </nz-card>
+  </div>
+  <div nz-col [nzSpan]="8">
+    <nz-card [nzBordered]="false" nzTitle="生日提醒" [nzBodyStyle]="{padding: '12px', height: '324px'}"
+      [nzExtra]="extraTemplate" [nzLoading]="birthdayLoading">
+      <ng-template #extraTemplate>
+        <div style="position: absolute;top: 6px; right: 0;">
+          <nz-tabset nzSize="small" (nzSelectChange)="birthdayChange($event)">
+            <nz-tab nzTitle="今日"></nz-tab>
+            <nz-tab nzTitle="明日"></nz-tab>
+            <nz-tab nzTitle="未来一周"></nz-tab>
+          </nz-tabset>
+        </div>
+      </ng-template>
+      <nz-table #basicTable class="birthday-table" [nzShowPagination]="false" [nzData]="birthdayList" nzSize="small"
+        [nzScroll]="{ y: '220px' }">
+        <thead>
+          <tr>
+            <th nzWidth="60px">照片</th>
+            <th nzWidth="80px">姓名</th>
+            <th nzWidth="40px">性别</th>
+            <th nzWidth="40px">月龄</th>
+            <th nzWidth="120px">电话</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of basicTable.data">
+            <td>
+              <nz-avatar nzIcon="anticon anticon-user" nzShape="square" [nzSrc]="data.albumUrl"></nz-avatar>
+            </td>
+            <td>{{ data.name }}</td>
+            <td>{{ data.sex }}</td>
+            <td>{{ data.monthAge }}</td>
+            <td>{{ data.mobilePhone }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </div>
+
+  <div nz-col [nzSpan]="9">
+    <nz-card [nzBordered]="false" nzTitle="精彩活动" [nzBodyStyle]="{padding: '12px'}" [nzLoading]="activityLoading">
+      <nz-carousel nzEffect="scroll">
+        <div nz-carousel-content *ngFor="let item of activityList">
+          <a [href]="item.url.length ? item.url : 'javascript:void(0)'" target="_blank"><img class="activityImg"
+              [src]="item.img" [alt]="item.title"></a>
+        </div>
+      </nz-carousel>
+    </nz-card>
+  </div>
+</div>
+
+
+<nz-card [nzBordered]="false" nzTitle="课表" style="margin-top: 24px" [nzLoading]="appointmentLoading">
+  <div class="selectTab">
+    <button nz-button nzType="default" (click)="prveDate()">上周</button>
+    <button nz-button nzType="primary" (click)="nowDate()">本周</button>
+    <button nz-button nzType="default" (click)="nextDate()">下周</button>
+    <button nz-button nzType="dashed">{{startDate}} —— {{endDate}}</button>
+
+    <div class="weekList">
+
+      <nz-table [nzData]="dateList" [nzShowPagination]="false">
+        <thead>
+          <tr>
+            <th>时段</th>
+            <th>星期一
+              <br> {{startDate}}
+            </th>
+            <th>星期二
+              <br> {{Tuesday}}
+            </th>
+            <th>星期三
+              <br> {{Wednesday}}
+            </th>
+            <th>星期四
+              <br> {{Thursday}}
+            </th>
+            <th>星期五
+              <br> {{Friday}}
+            </th>
+            <th>星期六
+              <br> {{Saturday}}
+            </th>
+            <th>星期日
+              <br> {{endDate}}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of dateList">
+            <td>{{item.startTime}}-{{item.endTime}}</td>
+            <td>
+              <ng-container *ngFor="let data of startDateList">
+                <div class="dataList" [style.background]="data.typefaceColour"
+                  [style.color]="data.colour&&data.colour.indexOf('#')!=-1? data.colour : '#'+ data.colour"
+                  *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
+                  <div>课程名称：{{ data.name }}</div>
+                  <div>教室：{{ data.roomName }}</div>
+                  <p> 主教老师：{{ data.employeeName }}</p>
+                </div>
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngFor="let data of TuesdayList">
+                <div class="dataList" [style.background]="data.typefaceColour"
+                  [style.color]="data.colour&&data.colour.indexOf('#')!=-1? data.colour : '#'+ data.colour"
+                  *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
+                  <div>课程名称：{{ data.name }}</div>
+                  <div>教室：{{ data.roomName }}</div>
+                  <p> 主教老师：{{ data.employeeName }}</p>
+                </div>
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngFor="let data of WednesdayList">
+                <div class="dataList" [style.background]="data.typefaceColour"
+                  [style.color]="data.colour&&data.colour.indexOf('#')!=-1? data.colour : '#'+ data.colour"
+                  *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
+                  <div>课程名称：{{ data.name }}</div>
+                  <div>教室：{{ data.roomName }}</div>
+                  <p> 主教老师：{{ data.employeeName }}</p>
+                </div>
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngFor="let data of ThursdayList">
+                <div class="dataList" [style.background]="data.typefaceColour"
+                  [style.color]="data.colour&&data.colour.indexOf('#')!=-1? data.colour : '#'+ data.colour"
+                  *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
+                  <div>课程名称：{{ data.name }}</div>
+                  <div>教室：{{ data.roomName }}</div>
+                  <p> 主教老师：{{ data.employeeName }}</p>
+                </div>
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngFor="let data of FridayList">
+                <div class="dataList" [style.background]="data.typefaceColour"
+                  [style.color]="data.colour&&data.colour.indexOf('#')!=-1? data.colour : '#'+ data.colour"
+                  *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
+                  <div>课程名称：{{ data.name }}</div>
+                  <div>教室：{{ data.roomName }}</div>
+                  <p> 主教老师：{{ data.employeeName }}</p>
+                </div>
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngFor="let data of SaturdayList">
+                <div class="dataList" [style.background]="data.typefaceColour"
+                  [style.color]="data.colour&&data.colour.indexOf('#')!=-1? data.colour : '#'+ data.colour"
+                  *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
+                  <div>课程名称：{{ data.name }}</div>
+                  <div>教室：{{ data.roomName }}</div>
+                  <p> 主教老师：{{ data.employeeName }}</p>
+                </div>
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngFor="let data of endDateList">
+                <div class="dataList" [style.background]="data.typefaceColour"
+                  [style.color]="data.colour&&data.colour.indexOf('#')!=-1? data.colour : '#'+ data.colour"
+                  *ngIf="item.startTime == data.startTime&&item.endTime == data.endTime">
+                  <div>课程名称：{{ data.name }}</div>
+                  <div>教室：{{ data.roomName }}</div>
+                  <p> 主教老师：{{ data.employeeName }}</p>
+                </div>
+              </ng-container>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+
+  </div>
+</nz-card>
