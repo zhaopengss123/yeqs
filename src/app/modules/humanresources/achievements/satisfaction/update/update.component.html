@@ -3,26 +3,15 @@
     <nz-form-item>
       <nz-form-control>
         <nz-select formControlName="rankId" nzPlaceHolder="请选择职级">
-          <nz-option *ngFor="let option of teacherRankList" [nzLabel]="option.rankShortName" [nzValue]="option.id">
+          <nz-option *ngFor="let option of teacherRankList.bandList" [nzLabel]="option.position" [nzValue]="option.id">
           </nz-option>
         </nz-select>
-        <nz-form-explain *ngIf="formGroup.get('rankId').dirty && formGroup.get('rankId').hasError('required')">请选择职级！
+        <nz-form-explain *ngIf="formGroup.get('rankId').dirty && formGroup.get('rankId').hasError('required')">请选择职位！
         </nz-form-explain>
       </nz-form-control>
     </nz-form-item>
   </div>
-  <div nz-row nzGutter="8">
-    <nz-form-item>
-      <nz-form-label nzRequired nzFor="rank1">表扬-满意度系数</nz-form-label>
-      <nz-form-control>
-        <input nz-input placeholder="请输入表扬-满意度系数" formControlName="rank1" id="rank1">
-        <nz-form-explain *ngIf="formGroup.get('rank1').dirty && formGroup.get('rank1').hasError('required')">
-          请输入表扬-满意度系数！</nz-form-explain>
-        <nz-form-explain *ngIf="formGroup.get('rank1').dirty && formGroup.get('rank1').hasError('pattern')">请输入正确的满意度系数！
-        </nz-form-explain>
-      </nz-form-control>
-    </nz-form-item>
-  </div>
+
   <div nz-row nzGutter="8">
     <nz-form-item>
       <nz-form-label nzRequired nzFor="rank2">满意-满意度系数</nz-form-label>
@@ -35,25 +24,14 @@
       </nz-form-control>
     </nz-form-item>
   </div>
+
   <div nz-row nzGutter="8">
     <nz-form-item>
-      <nz-form-label nzRequired nzFor="rank3">一般-满意度系数</nz-form-label>
+      <nz-form-label nzRequired nzFor="rank4">不满意-满意度系数</nz-form-label>
       <nz-form-control>
-        <input nz-input placeholder="请输入一般-满意度系数" formControlName="rank3" id="rank3">
-        <nz-form-explain *ngIf="formGroup.get('rank3').dirty && formGroup.get('rank3').hasError('required')">
-          请输入一般-满意度系数！</nz-form-explain>
-        <nz-form-explain *ngIf="formGroup.get('rank3').dirty && formGroup.get('rank3').hasError('pattern')">请输入正确的满意度系数！
-        </nz-form-explain>
-      </nz-form-control>
-    </nz-form-item>
-  </div>
-  <div nz-row nzGutter="8">
-    <nz-form-item>
-      <nz-form-label nzRequired nzFor="rank4">不好-满意度系数</nz-form-label>
-      <nz-form-control>
-        <input nz-input placeholder="请输入不好-满意度系数" formControlName="rank4" id="rank4">
+        <input nz-input placeholder="请输入不满意-满意度系数" formControlName="rank4" id="rank4">
         <nz-form-explain *ngIf="formGroup.get('rank4').dirty && formGroup.get('rank4').hasError('required')">
-          请输入不好-满意度系数！</nz-form-explain>
+          请输入不满意-满意度系数！</nz-form-explain>
         <nz-form-explain *ngIf="formGroup.get('rank4').dirty && formGroup.get('rank4').hasError('pattern')">请输入正确的满意度系数！
         </nz-form-explain>
       </nz-form-control>

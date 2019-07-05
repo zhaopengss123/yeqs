@@ -7,7 +7,7 @@
     "build": "ng build --prod && say 请注意！系统打包完毕！系统打包完毕！请上线！请上线！",
     "test": "ng build --prod --configuration=test && say 请注意！系统打包完毕！系统打包完毕！请上线！请上线！",
     "push-dev": "rm -rf /Users/phuhoang/test-83/ylbb-system-qs && mv /Users/phuhoang/Desktop/ylbb-system-qs/dist/ylbb-system-qs /Users/phuhoang/test-83/ylbb-system-qs && cd /Users/phuhoang/test-83 && git pull && git add . && git commit -m '-' && git push",
-    "push-prod": "",
+    "push-prod": "cd /Users/phuhoang/repository/ylbb-yuerqinshuHtml && rm -rf *.js *.html assets *.txt *.png *.css *.ico && mv /Users/phuhoang/Desktop/ylbb-system-qs/dist/ylbb-system-qs/* /Users/phuhoang/repository/ylbb-yuerqinshuHtml && git pull && git add . && git commit -m '-' && git push",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

@@ -4,8 +4,8 @@
 
 export function DrawerClose() {
   return function (target, propertyKey) {
-    target[propertyKey] = function () {
-      this.drawerRef.close();
+    target[propertyKey] = function (b) {
+      this.drawerRef.close(b || false);
     }
   }
 }

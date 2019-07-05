@@ -83,11 +83,6 @@ export const MenuConfig = [
         isLeaf: true
       },
       {
-        title : '智能排课',
-        key   : '/home/membercard/intelligent',
-        isLeaf: true
-      },
-      {
         title : '卡变更日志',
         key   : '/home/membercard/changelog',
         isLeaf: true
@@ -217,6 +212,11 @@ export const MenuConfig = [
         isLeaf: true
       },
       {
+        title : '智能排课',
+        key   : '/home/coursemanagement/intelligent',
+        isLeaf: true
+      },
+      {
         title : '课程管理',
         key   : '/home/coursemanagement/list',
         isLeaf: true
@@ -252,6 +252,11 @@ export const MenuConfig = [
       {
         title : '员工管理',
         key   : '/home/humanresources/staff',
+        isLeaf: true
+      },
+      {
+        title : '销售提成',
+        key   : '/home/humanresources/bonussales',
         isLeaf: true
       },
       {
@@ -315,16 +320,6 @@ export const MenuConfig = [
       {
         title : '客户来源',
         key   : '/home/configuration/csource',
-        isLeaf: true
-      },
-      {
-        title : '在线充值',
-        key   : '/home/configuration/payment/pay',
-        isLeaf: true
-      },
-      {
-        title : '充值记录',
-        key   : '/home/configuration/payment/record',
         isLeaf: true
       },
       {

@@ -11,6 +11,7 @@ import { ListPageComponent } from 'src/app/ng-relax/components/list-page/list-pa
 import { AppState } from 'src/app/core/reducers/reducers-config';
 import { Subject } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -265,7 +266,7 @@ selectquery(){
 
     if ((isNaN(this.mobilePhone) && this.mobilePhone!="" || (!isNaN(this.mobilePhone) && this.mobilePhone.length > 3)) ){
       this.loading_b = true; 
-      this.http.get('http://es.haochengzhang.com/es/erp/query', { index: 'qs', storeId: this.storeId, type: 'member', condition: this.mobilePhone, pageNo:this.pageIndex_b, pageSize:10 }, false).then(res => {
+      this.http.get(environment.domainEs + '/es/erp/query', { index: 'qs', storeId: this.storeId, type: 'member', condition: this.mobilePhone, pageNo:this.pageIndex_b, pageSize:10 }, false).then(res => {
       this.loading_b = false;
         if (res['returnCode'] == 'SUCCESS') {
         if(res.result){
@@ -457,6 +458,7 @@ selectquery(){
   closeListdetail(){
     this.showListdetail = false; 
     this.memberUserDetail = { memberId:0 };   
+    this.selectquery();
   }
 
   //延期弹框

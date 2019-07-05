@@ -1,7 +1,7 @@
 import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
-import { DrawerSave } from 'src/app/ng-relax/decorators/drawer/save.decorator';
+import { DrawerSaveAsync } from 'src/app/ng-relax/decorators/drawer/save-async.decorator';
 
 @Component({
   selector: 'app-message',
@@ -43,6 +43,6 @@ export class MessageComponent implements OnInit {
     this.formGroup.patchValue({type: value});
   }
 
-  @DrawerSave('/smsSend/sendSmsToConsume') save: () => void;
+  @DrawerSaveAsync('/smsSend/sendSmsToConsume') save: () => void;
 
 }

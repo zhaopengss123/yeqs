@@ -120,12 +120,17 @@
     <form nz-form [formGroup]="followRecordGroup">
       <nz-form-item>
         <nz-form-control>
-          <textarea nz-input formControlName="content" [nzAutosize]="{ minRows: 3, maxRows: 6 }" placeholder="新建跟进记录......(必填, 限200字)"></textarea>
-          <nz-form-explain *ngIf="followRecordGroup.get('content').dirty && followRecordGroup.get('content').hasError('required')">请输入200字以下跟进记录</nz-form-explain>
+          <textarea nz-input formControlName="content" [nzAutosize]="{ minRows: 3, maxRows: 6 }"
+            placeholder="新建跟进记录......(必填, 限200字)"></textarea>
+          <nz-form-explain
+            *ngIf="followRecordGroup.get('content').dirty && followRecordGroup.get('content').hasError('required')">
+            请输入200字以下跟进记录</nz-form-explain>
         </nz-form-control>
       </nz-form-item>
       <div class="tags-content" *ngIf="labelList.length">
-        <nz-tag nzColor="blue" (click)="followRecordGroup.patchValue({content: (followRecordGroup.get('content').value || '') + '#'+ item.name +'#'})" *ngFor="let item of labelList">#{{ item.name }}#</nz-tag>
+        <nz-tag nzColor="blue"
+          (click)="followRecordGroup.patchValue({content: (followRecordGroup.get('content').value || '') + '#'+ item.name +'#'})"
+          *ngFor="let item of labelList">#{{ item.name }}#</nz-tag>
       </div>
       <div nz-row nzGutter="8">
         <div nz-col nzSpan="4" *ngIf="followStageId != 4">
@@ -134,7 +139,9 @@
               <nz-select formControlName="memberStatusId" nzPlaceHolder="客户状态">
                 <nz-option *ngFor="let item of memberStatusList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
               </nz-select>
-              <nz-form-explain *ngIf="followRecordGroup.get('memberStatusId').dirty && followRecordGroup.get('memberStatusId').hasError('required')">请选择客户状态</nz-form-explain>
+              <nz-form-explain
+                *ngIf="followRecordGroup.get('memberStatusId').dirty && followRecordGroup.get('memberStatusId').hasError('required')">
+                请选择客户状态</nz-form-explain>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -144,7 +151,9 @@
               <nz-select formControlName="followType" nzPlaceHolder="跟进方式">
                 <nz-option *ngFor="let item of followTypeList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
               </nz-select>
-              <nz-form-explain *ngIf="followRecordGroup.get('followType').dirty && followRecordGroup.get('followType').hasError('required')">请选择跟进方式</nz-form-explain>
+              <nz-form-explain
+                *ngIf="followRecordGroup.get('followType').dirty && followRecordGroup.get('followType').hasError('required')">
+                请选择跟进方式</nz-form-explain>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -154,27 +163,26 @@
               <nz-select formControlName="staffId" nzPlaceHolder="跟进老师">
                 <nz-option *ngFor="let item of teacherList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
               </nz-select>
-              <nz-form-explain *ngIf="followRecordGroup.get('staffId').dirty && followRecordGroup.get('staffId').hasError('required')">请选择跟进老师</nz-form-explain>
+              <nz-form-explain
+                *ngIf="followRecordGroup.get('staffId').dirty && followRecordGroup.get('staffId').hasError('required')">
+                请选择跟进老师</nz-form-explain>
             </nz-form-control>
           </nz-form-item>
         </div>
         <div nz-col nzSpan="5">
           <nz-form-item>
             <nz-form-control>
-              <nz-date-picker formControlName="nextFollowTime" nzFormat="yyyy-MM-dd" nzPlaceHolder="选择下次跟进时间" [nzDisabledDate]="_disabledDate"></nz-date-picker>
-              <nz-form-explain *ngIf="followRecordGroup.get('nextFollowTime').dirty && followRecordGroup.get('nextFollowTime').hasError('required')">请选择下次跟进时间</nz-form-explain>
+              <nz-date-picker formControlName="nextFollowTime" nzFormat="yyyy-MM-dd" nzPlaceHolder="选择下次跟进时间"
+                [nzDisabledDate]="_disabledDate"></nz-date-picker>
+              <nz-form-explain
+                *ngIf="followRecordGroup.get('nextFollowTime').dirty && followRecordGroup.get('nextFollowTime').hasError('required')">
+                请选择下次跟进时间</nz-form-explain>
             </nz-form-control>
           </nz-form-item>
         </div>
-        <div nz-col nzSpan="3" *ngIf="followStageId != 4">
-          <nz-form-item>
-            <nz-form-control>
-              <nz-switch formControlName="status" nzCheckedChildren="已预约到店" nzUnCheckedChildren="未预约到店"></nz-switch>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
-        <div nz-col nzSpan="4" style="height: 64px; float: right">
-          <button (click)="saveFollowRecord()" style="margin-top: 4px;float: right;" nz-button nzType="primary" [nzLoading]="saveFollowRecordLoading" [style.margin-top]="'5px'">发布</button>
+        <div nz-col nzSpan="4" style="height: 63px; float: right">
+          <button (click)="saveFollowRecord()" style="margin-top: 4px;float: right;" nz-button nzType="primary"
+            [nzLoading]="saveFollowRecordLoading" [style.margin-top]="'5px'">发布</button>
         </div>
         <div nz-col nzSpan="4" *ngIf="followRecordGroup.get('status').value">
           <nz-form-item>
@@ -182,7 +190,9 @@
               <nz-select formControlName="swimTeacherId" nzPlaceHolder="预约老师">
                 <nz-option *ngFor="let item of swimTeacherList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
               </nz-select>
-              <nz-form-explain *ngIf="followRecordGroup.get('swimTeacherId').dirty && followRecordGroup.get('swimTeacherId').hasError('required')">请选择预约老师</nz-form-explain>
+              <nz-form-explain
+                *ngIf="followRecordGroup.get('swimTeacherId').dirty && followRecordGroup.get('swimTeacherId').hasError('required')">
+                请选择预约老师</nz-form-explain>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -190,10 +200,16 @@
           <nz-form-item>
             <nz-form-control>
               <nz-input-group nzCompact>
-                <nz-date-picker formControlName="reserveDate" nzPlaceHolder="请选择预约日期" [nzDisabledDate]="_disabledDate"></nz-date-picker>
-                <nz-time-picker formControlName="reserveHour" nzFormat="HH:mm" [nzMinuteStep]="15" [nzDisabledHours]="_disabledHours" [ngClass]="{'has-error': followRecordGroup.get('reserveHour').dirty && followRecordGroup.get('reserveHour').hasError('required')}"></nz-time-picker>
+                <nz-date-picker formControlName="reserveDate" nzPlaceHolder="请选择预约日期" [nzDisabledDate]="_disabledDate">
+                </nz-date-picker>
+                <nz-time-picker formControlName="reserveHour" nzFormat="HH:mm" [nzMinuteStep]="15"
+                  [nzDisabledHours]="_disabledHours"
+                  [ngClass]="{'has-error': followRecordGroup.get('reserveHour').dirty && followRecordGroup.get('reserveHour').hasError('required')}">
+                </nz-time-picker>
               </nz-input-group>
-              <nz-form-explain style="color: #f5222d;" *ngIf="(followRecordGroup.get('reserveDate').dirty && followRecordGroup.get('reserveDate').hasError('required')) || (followRecordGroup.get('reserveHour').dirty && followRecordGroup.get('reserveHour').hasError('required'))">请选择预约日期和时间！</nz-form-explain>
+              <nz-form-explain style="color: #f5222d;"
+                *ngIf="(followRecordGroup.get('reserveDate').dirty && followRecordGroup.get('reserveDate').hasError('required')) || (followRecordGroup.get('reserveHour').dirty && followRecordGroup.get('reserveHour').hasError('required'))">
+                请选择预约日期和时间！</nz-form-explain>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -217,12 +233,10 @@
               <div>
                 <label>跟进老师：</label>
                 <nz-tag nzColor="#108ee9">{{ item.staffName }}</nz-tag>
-                <ng-container *ngIf="item.status > 0; else elseTemplate">
-                  <nz-tag nzColor="#2db7f5" *ngIf="followStageId != 4">已预约到店-{{ item.status == 1 ? '体验' : item.status == 2 ? '未体验' : '未到店' }}</nz-tag>
+                <ng-container *ngIf="item.status > 0">
+                  <nz-tag nzColor="#2db7f5" *ngIf="followStageId != 4">
+                    已预约到店-{{ item.status == 1 ? '体验' : item.status == 2 ? '未体验' : '未到店' }}</nz-tag>
                 </ng-container>
-                <ng-template #elseTemplate>
-                  <nz-tag nzColor="#ccc" *ngIf="followStageId != 4">未预约到店</nz-tag>
-                </ng-template>
               </div>
               <div *ngIf="item.reserveDate">
                 <label>预约时间：</label><span>{{ item.reserveDate + ' ' + item.reserveHour + ':' + item.reserveMinute }}</span>
@@ -241,12 +255,16 @@
   <form nz-form [formGroup]="followRecordGroup">
     <nz-form-item>
       <nz-form-control>
-        <textarea nz-input formControlName="content" [nzAutosize]="{ minRows: 3, maxRows: 6 }" placeholder="新建跟进记录......(必填, 限200字)"></textarea>
-        <nz-form-explain *ngIf="followRecordGroup.get('content').dirty && followRecordGroup.get('content').hasError('required')">请输入200字以下跟进记录</nz-form-explain>
+        <textarea nz-input formControlName="content" [nzAutosize]="{ minRows: 3, maxRows: 6 }"
+          placeholder="新建跟进记录......(必填, 限200字)"></textarea>
+        <nz-form-explain
+          *ngIf="followRecordGroup.get('content').dirty && followRecordGroup.get('content').hasError('required')">
+          请输入200字以下跟进记录</nz-form-explain>
       </nz-form-control>
     </nz-form-item>
     <div class="tags-content" *ngIf="labelList.length">
-      <nz-tag nzColor="blue" (click)="followRecordGroup.patchValue({content: (followRecordGroup.get('content').value || '') + '#'+ item.name +'#'})"
+      <nz-tag nzColor="blue"
+        (click)="followRecordGroup.patchValue({content: (followRecordGroup.get('content').value || '') + '#'+ item.name +'#'})"
         *ngFor="let item of labelList">#{{ item.name }}#</nz-tag>
     </div>
     <div nz-row nzGutter="8">
@@ -256,7 +274,9 @@
             <nz-select formControlName="memberStatusId" nzPlaceHolder="客户状态">
               <nz-option *ngFor="let item of memberStatusList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
             </nz-select>
-            <nz-form-explain *ngIf="followRecordGroup.get('memberStatusId').dirty && followRecordGroup.get('memberStatusId').hasError('required')">请选择跟进状态</nz-form-explain>
+            <nz-form-explain
+              *ngIf="followRecordGroup.get('memberStatusId').dirty && followRecordGroup.get('memberStatusId').hasError('required')">
+              请选择跟进状态</nz-form-explain>
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -266,7 +286,9 @@
             <nz-select formControlName="followType" nzPlaceHolder="跟进方式">
               <nz-option *ngFor="let item of followTypeList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
             </nz-select>
-            <nz-form-explain *ngIf="followRecordGroup.get('followType').dirty && followRecordGroup.get('followType').hasError('required')">请选择跟进方式</nz-form-explain>
+            <nz-form-explain
+              *ngIf="followRecordGroup.get('followType').dirty && followRecordGroup.get('followType').hasError('required')">
+              请选择跟进方式</nz-form-explain>
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -276,7 +298,9 @@
             <nz-select formControlName="staffId" nzPlaceHolder="跟进老师">
               <nz-option *ngFor="let item of teacherList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
             </nz-select>
-            <nz-form-explain *ngIf="followRecordGroup.get('staffId').dirty && followRecordGroup.get('staffId').hasError('required')">请选择跟进方式</nz-form-explain>
+            <nz-form-explain
+              *ngIf="followRecordGroup.get('staffId').dirty && followRecordGroup.get('staffId').hasError('required')">
+              请选择跟进方式</nz-form-explain>
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -285,24 +309,28 @@
           <nz-form-control>
             <nz-date-picker formControlName="nextFollowTime" nzFormat="yyyy-MM-dd" nzPlaceHolder="选择下次跟进时间"
               [nzDisabledDate]="_disabledDate"></nz-date-picker>
-            <nz-form-explain *ngIf="followRecordGroup.get('nextFollowTime').dirty && followRecordGroup.get('nextFollowTime').hasError('required')">请选择下次跟进时间</nz-form-explain>
+            <nz-form-explain
+              *ngIf="followRecordGroup.get('nextFollowTime').dirty && followRecordGroup.get('nextFollowTime').hasError('required')">
+              请选择下次跟进时间</nz-form-explain>
           </nz-form-control>
         </nz-form-item>
       </div>
-      <div nz-col nzSpan="8" *ngIf="followStageId != 4">
+      <!-- <div nz-col nzSpan="8" *ngIf="followStageId != 4">
         <nz-form-item>
           <nz-form-control>
             <nz-switch formControlName="status" nzCheckedChildren="已预约到店" nzUnCheckedChildren="未预约到店"></nz-switch>
           </nz-form-control>
         </nz-form-item>
-      </div>
+      </div> -->
       <div nz-col nzSpan="8" *ngIf="followRecordGroup.get('status').value">
         <nz-form-item>
           <nz-form-control>
             <nz-select formControlName="swimTeacherId" nzPlaceHolder="预约老师">
               <nz-option *ngFor="let item of swimTeacherList" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
             </nz-select>
-            <nz-form-explain *ngIf="followRecordGroup.get('swimTeacherId').dirty && followRecordGroup.get('swimTeacherId').hasError('required')">请选择预约老师</nz-form-explain>
+            <nz-form-explain
+              *ngIf="followRecordGroup.get('swimTeacherId').dirty && followRecordGroup.get('swimTeacherId').hasError('required')">
+              请选择预约老师</nz-form-explain>
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -310,15 +338,21 @@
         <nz-form-item>
           <nz-form-control>
             <nz-input-group nzCompact>
-              <nz-date-picker style="width: 60%" formControlName="reserveDate" nzPlaceHolder="请选择预约日期" [nzDisabledDate]="_disabledDate"></nz-date-picker>
-              <nz-time-picker style="width: 40%" formControlName="reserveHour" nzFormat="HH:mm" [nzMinuteStep]="15" [nzDisabledHours]="_disabledHours"
-                [ngClass]="{'has-error': followRecordGroup.get('reserveHour').dirty && followRecordGroup.get('reserveHour').hasError('required')}"></nz-time-picker>
+              <nz-date-picker style="width: 60%" formControlName="reserveDate" nzPlaceHolder="请选择预约日期"
+                [nzDisabledDate]="_disabledDate"></nz-date-picker>
+              <nz-time-picker style="width: 40%" formControlName="reserveHour" nzFormat="HH:mm" [nzMinuteStep]="15"
+                [nzDisabledHours]="_disabledHours"
+                [ngClass]="{'has-error': followRecordGroup.get('reserveHour').dirty && followRecordGroup.get('reserveHour').hasError('required')}">
+              </nz-time-picker>
             </nz-input-group>
-            <nz-form-explain style="color: #f5222d;" *ngIf="(followRecordGroup.get('reserveDate').dirty && followRecordGroup.get('reserveDate').hasError('required')) || (followRecordGroup.get('reserveHour').dirty && followRecordGroup.get('reserveHour').hasError('required'))">请选择预约日期和时间！</nz-form-explain>
+            <nz-form-explain style="color: #f5222d;"
+              *ngIf="(followRecordGroup.get('reserveDate').dirty && followRecordGroup.get('reserveDate').hasError('required')) || (followRecordGroup.get('reserveHour').dirty && followRecordGroup.get('reserveHour').hasError('required'))">
+              请选择预约日期和时间！</nz-form-explain>
           </nz-form-control>
         </nz-form-item>
       </div>
-      <div nz-col nzSpan="24"><button (click)="saveFollowRecord()" nz-button nzType="primary" [nzLoading]="saveFollowRecordLoading">发布</button></div>
+      <div nz-col nzSpan="24"><button (click)="saveFollowRecord()" nz-button nzType="primary"
+          [nzLoading]="saveFollowRecordLoading">发布</button></div>
     </div>
   </form>
 </nz-drawer>

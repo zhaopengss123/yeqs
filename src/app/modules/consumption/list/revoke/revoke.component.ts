@@ -1,7 +1,7 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { DrawerSave } from 'src/app/ng-relax/decorators/drawer/save.decorator';
+import { DrawerSaveAsync } from 'src/app/ng-relax/decorators/drawer/save-async.decorator';
 
 @Component({
   selector: 'app-revoke',
@@ -53,6 +53,6 @@ export class UpdateRevokeComponent implements OnInit {
 
   }
 
-  @DrawerSave('/customer/revocationConsume') save: () => void;
+  @DrawerSaveAsync('/customer/revocationConsume') save: () => void;
 
 }

@@ -13,7 +13,7 @@ import { DrawerClose } from 'src/app/ng-relax/decorators/drawer/close.decorator'
 })
 export class UpdateComponent implements OnInit {
 
-  @Input() deductionInfo: any = {};
+  @Input() dataInfo: any = {};
 
   formGroup: FormGroup;
 
@@ -38,7 +38,7 @@ export class UpdateComponent implements OnInit {
       deductPoints: [, [Validators.required, Validators.pattern(/^\-?[0-9]+(\.\d{1,2})?$/)]],
       comment: []
     });
-    this.deductionInfo.id && this.formGroup.patchValue(this.deductionInfo);
+    this.dataInfo.id && this.formGroup.patchValue(this.dataInfo);
   }
 
 

@@ -4,7 +4,7 @@
       <nz-tab nzTitle="教师课表">
         <div class="query">
           <nz-form-label>主教老师</nz-form-label>
-          <nz-select style="width: 200px;" nzPlaceHolder="请选择" [(ngModel)]="isTeacher">
+          <nz-select style="width: 200px;" nzPlaceHolder="请选择" nzAllowClear [(ngModel)]="isTeacher">
             <nz-option *ngFor="let items of teacherList" [nzLabel]="items.name" [nzValue]="items.id"></nz-option>
           </nz-select>
           <button nz-button nzType="primary" (click)="queryList()">查询</button>

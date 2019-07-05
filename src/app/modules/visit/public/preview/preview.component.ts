@@ -30,18 +30,18 @@ export class PreviewComponent implements OnInit {
   constructor(
     private http: HttpService,
     private fb: FormBuilder = new FormBuilder(),
-    private drawer: NzDrawerService,
     private drawerRef: NzDrawerRef<boolean>,
-    private format: DatePipe
+    private format: DatePipe,
+    private drawer: NzDrawerService
   ) {
     /* ------------------- 客户状态 ------------------- */
-    this.http.post('/common/showMemberStatus').then(res => this.memberStatusList = res.result);
+    this.http.post('/common/showMemberStatus', {}, false).then(res => this.memberStatusList = res.result);
     /* ------------------- 跟进方式 ------------------- */
-    this.http.post('/common/followTypeList').then(res => this.followTypeList = res.result);
+    this.http.post('/common/followTypeList', {}, false).then(res => this.followTypeList = res.result);
     /* ------------------- 跟进老师 ------------------- */
-    this.http.post('/retrunVisit/getEmployeeList').then(res => this.teacherList = res.result);
+    this.http.post('/retrunVisit/getEmployeeList', {}, false).then(res => this.teacherList = res.result);
     /* ------------------- 预约老师 ------------------- */
-    this.http.post('/tongka/teacherList').then(res => this.swimTeacherList = res.result);
+    this.http.post('/tongka/teacherList', {}, false).then(res => this.swimTeacherList = res.result);
   }
 
   ngOnInit() {
@@ -71,7 +71,7 @@ export class PreviewComponent implements OnInit {
     });
 
     /* ------------------- 获取记录标签 ------------------- */
-    this.http.post('/common/labelList').then(res => {
+    this.http.post('/common/labelList', {}, false).then(res => {
       this.labelList = res.result;
     });
 
@@ -145,8 +145,11 @@ export class PreviewComponent implements OnInit {
     this.showUpdateRecord = true;
     let recordInfo = JSON.parse(JSON.stringify(info));
     recordInfo.status = recordInfo.status == 1;
-    recordInfo.reserveHour = new Date(`${recordInfo.reserveDate} ${recordInfo.reserveHour}:${recordInfo.reserveMinute}`);
-    recordInfo.reserveDate = new Date(recordInfo.reserveDate);
+    //recordInfo.reserveHour = recordInfo.reserveHour.replace(/-/g,"/");
+    console.log(recordInfo.reserveHour);
+    recordInfo.reserveHour = recordInfo.reserveHour ? new Date(`${recordInfo.reserveDate} ${recordInfo.reserveHour}:${recordInfo.reserveMinute}`) : '';
+    recordInfo.reserveDate = new Date(recordInfo.reserveDate ? recordInfo.reserveDate : new Date());
+    console.log(recordInfo);
     this.updateRecordInfo = recordInfo;
     this.followRecordGroup.patchValue(recordInfo);
   }
@@ -176,5 +179,6 @@ export class PreviewComponent implements OnInit {
   _disabledHours(): number[] {
     return [0, 1, 2, 3, 4, 5, 6, 7]
   }
+
 
 }

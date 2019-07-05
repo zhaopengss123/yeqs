@@ -26,6 +26,7 @@ export class UpdateComponent implements OnInit {
 
   customerFormInitValue: object = {};
 
+  sourceList: any[] = [];
   collectorList: any[] = [];
   recommenderList: any[] = [];
   parentIdentityList: any[] = [];
@@ -40,7 +41,9 @@ export class UpdateComponent implements OnInit {
     private monthDiff: MonthdiffPipe,
     private cache: CacheService,
     private drawerRef: NzDrawerRef
-  ) { }
+  ) { 
+
+  }
 
   ngOnInit() {
     this._customerFormInit();
@@ -69,6 +72,7 @@ export class UpdateComponent implements OnInit {
     this.cache.get('/common/recommenderList').subscribe(res => this.recommenderList = res);
     this.cache.get('/common/parentIdentityList').subscribe(res => this.parentIdentityList = res);
     this.cache.get('/member/communityList').subscribe(res => this.showCommunityList = res);
+    this.cache.get('/management/selectSource').subscribe(res => this.sourceList = res);
   }
 
   _customerFormInit() {
@@ -88,7 +92,7 @@ export class UpdateComponent implements OnInit {
       parentRelationShipId: [],                                                        // 家长身份
       parentWeChat: [, [Validators.pattern(/^[A-Za-z0-9]{6,30}/)]],                                   // 家长QQ或者微信
 
-      source: [, [Validators.required]],                                                        // 来源
+      customerSourceId: [, [Validators.required]],                                                        // 来源
       recommendedId: [],                                                                               // 推荐人
       collectorId: [],                                                                               // 收集人
     });

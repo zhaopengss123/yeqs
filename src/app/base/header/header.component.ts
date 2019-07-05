@@ -3,10 +3,6 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { UserInfoState } from 'src/app/core/reducers/userInfo-reducer';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
-import { NzMessageService, NzDrawerService, NzNotificationService, NzDrawerRef } from 'ng-zorro-antd';
-import { WebsocketService } from './websocket.service';
-import { HttpService } from 'src/app/ng-relax/services/http.service';
 
 @Component({
   selector: 'app-header',
@@ -24,11 +20,6 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private http: HttpService,
-    private websocket: WebsocketService,
-    private notification: NzNotificationService,
-    private message: NzMessageService,
-    private drawer: NzDrawerService
   ) {
     // this.openWs();
 
@@ -39,7 +30,7 @@ export class HeaderComponent implements OnInit {
         while (route.firstChild) route = route.firstChild;
         return route;
       },
-        filter((route: any) => route.outlet === 'primary'))
+      filter((route: any) => route.outlet === 'primary'))
     ).subscribe((event) => {
       let pathArray = [];
       event.pathFromRoot.map(res => {
@@ -55,21 +46,6 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  openWs() {
-    this.websocket.createObservableSocket(`${environment.domainWs}/socketServer`).subscribe(res => {
-      if (res === 'close') {
-        this.openWs();
-      } else if (res.flag == 1) {
-        this.notification.info('您有新的预约，请及时处理', `用户：<b>${res.memberName}</b> 预约了老师<b>${res.employeeName}</b>于<i>${res.reserveDate}</i>`);
-        this.audio.nativeElement.play();
-      } else if (res.flag == 2) {
-        this.notification.success('您有新的线索，请及时跟进', '');
-        this.audio.nativeElement.play();
-      }
-    });
-  }
-
-  esDrawer: NzDrawerRef
   ngOnInit() {
     
   }
@@ -94,15 +70,5 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
-  childrenVisible: boolean;
-  search(mobilePhone) {
-    // this.esDrawer = this.drawer.create({
-    //   nzTitle: '快捷操作',
-    //   nzWidth: 720,
-    //   nzContent: MemberComponent,
-    //   nzContentParams: { datas: mobilePhone }
-    // })
-
-  }
 
 }
