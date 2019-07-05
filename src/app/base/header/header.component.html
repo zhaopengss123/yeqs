@@ -9,17 +9,6 @@
       </nz-tab>
     </nz-tabset>
   </div>
-
-  <div class="search">
-    <nz-input-group [nzSuffix]="suffixIconSearch">
-      <input type="text" nz-input (keyup.enter)="search(searchText.value)" #searchText maxlength="11"
-        placeholder="请输入搜索内容">
-      <ng-template #suffixIconSearch>
-        <i nz-icon type="search" (click)="search(searchText.value)"></i>
-      </ng-template>
-    </nz-input-group>
-  </div>
-
   <div class="ui-user-info">
 
     <nz-dropdown nzPlacement="bottomRight">
@@ -51,5 +40,3 @@
   </div>
 
 </div>
-
-<audio src="./assets/message.mp3" preload="meta" #audio style="opacity: 0; visibility: hidden;"></audio>

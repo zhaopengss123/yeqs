@@ -1,5 +1,6 @@
+import { DrawerClose } from 'src/app/ng-relax/decorators/drawer/close.decorator';
 import { Component, OnInit } from '@angular/core';
-import { NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService, NzDrawerRef } from 'ng-zorro-antd';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { differenceInCalendarDays } from 'date-fns';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -29,7 +30,8 @@ export class UpclassComponent implements OnInit {
     private message: NzMessageService,
     private http: HttpService,
     private fb: FormBuilder = new FormBuilder(),
-    private format: DatePipe
+    private format: DatePipe,
+    private drawerRef: NzDrawerRef
   ) { 
     this.followRecordGroup = this.fb.group({
       roomName: [],
@@ -101,4 +103,6 @@ export class UpclassComponent implements OnInit {
   disabledDate = (current: Date): boolean => {
     return differenceInCalendarDays(current, this.today) < 0;
   };
+
+  @DrawerClose() close: () => void;
 }

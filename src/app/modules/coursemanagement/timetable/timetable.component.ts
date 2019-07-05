@@ -76,11 +76,7 @@ export class TimetableComponent implements OnInit {
     this.selectmonth(this.monthStartDate);
     this.http.post('/intelligent/selectScour', {}, false).then(res => {
       this.dateList = res.result.list;
-      console.log(this.dateList)
     });  
-    setTimeout(() => {
-      console.log(this.dateList);
-    }, 2000);
     
    }
 

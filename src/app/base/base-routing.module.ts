@@ -78,7 +78,7 @@ const routes: Routes = [
           },
           {
             path: 'settlement',
-            data: { title: '用户互动' },
+            data: { title: '上课结算' },
             canLoad: [ AuthGuardService ],
             loadChildren: 'src/app/modules/customer/settlement/settlement.module#SettlementModule'
           }
@@ -93,12 +93,6 @@ const routes: Routes = [
             data: { title: '会员卡列表' },
             canLoad: [ AuthGuardService ],
             loadChildren: 'src/app/modules/member-card/list/list.module#ListModule'
-          },
-          {
-            path: 'intelligent',
-            data: { title: '智能排课' },
-            canLoad: [ AuthGuardService ],
-            loadChildren: 'src/app/modules/member-card/intelligent/intelligent.module#IntelligentModule'
           },
           {
             path: 'changelog',
@@ -238,6 +232,12 @@ const routes: Routes = [
             loadChildren: 'src/app/modules/coursemanagement/teacher/teacher.module#TeacherModule'
           },
           {
+            path: 'intelligent',
+            data: { title: '智能排课' },
+            canLoad: [AuthGuardService],
+            loadChildren: 'src/app/modules/coursemanagement/intelligent/intelligent.module#IntelligentModule'
+          },
+          {
             path: 'list',
             data: { title: '课程管理' },
             canLoad: [ AuthGuardService ],
@@ -278,6 +278,12 @@ const routes: Routes = [
             data: { title: '员工管理' },
             canLoad: [ AuthGuardService ],
             loadChildren: 'src/app/modules/humanresources/staff/staff.module#StaffModule'
+          },
+          {
+            path: 'bonussales',
+            data: { title: '销售提成' },
+            canLoad: [ AuthGuardService ],
+            loadChildren: 'src/app/modules/humanresources/bonussales/bonussales.module#BonussalesModule'
           },
           {
             path: 'achievements',

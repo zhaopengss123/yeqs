@@ -16,19 +16,21 @@ export class UpdateComponent implements OnInit {
 
   @GetList('/bonusSatisfaction/getTeacherRanks') teacherRankList: any;
 
+
   constructor(
     private http: HttpService,
     private fb: FormBuilder = new FormBuilder,
     private drawerRef: NzDrawerRef
   ) {
     typeof this.teacherRankList === 'function' && this.teacherRankList();
-
+    this.http.post('/satisfaction/selectPosition', {
+    }, false).then(res => {
+      this.teacherRankList = res.result;
+    });
     this.formGroup = this.fb.group({
       rankId: [, [Validators.required]],
-      rank1: [, [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
-      rank2: [, [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
-      rank3: [, [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
-      rank4: [, [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
+      rank2: [, [Validators.required, Validators.pattern(/^[0-9]\d*$/)]],
+      rank4: [, [Validators.required, Validators.pattern(/^[0-9]\d*$/)]],
     })
   }
 

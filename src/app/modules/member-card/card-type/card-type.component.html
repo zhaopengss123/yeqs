@@ -1,7 +1,7 @@
 <div class="container">
   <ea-query-simp [node]="queryNode" title="卡类型管理" (onSubmit)="table.request($event)"></ea-query-simp>
 
-  <button nz-button nzType="dashed" style="width: 100%; margin-bottom: 24px;" (click)="updateCardType()"><i class="anticon anticon-plus"></i>新增卡类型</button>
+  <button nz-button nzType="dashed" style="width: 100%; margin-bottom: 24px;" (click)="update()"><i class="anticon anticon-plus"></i>新增卡类型</button>
 
   <ea-table 
     #table 
@@ -22,7 +22,7 @@
       <td>{{ data.tong ? '是' : '否' }}</td>
       <td>{{ data.withdrawAmount }}</td>
       <td>
-        <a (click)="updateCardType(data)">编辑</a>
+        <a (click)="update({id: data.id, cardTypeInfo: data})">编辑</a>
         <nz-divider nzType="vertical"></nz-divider>
         <a (click)="operation(data.id, 'disable', data.status)">{{ data.status == 1 ? '上架' : '下架' }}</a>
         <nz-divider nzType="vertical"></nz-divider>
@@ -31,16 +31,3 @@
     </ng-template>
   </ea-table>
 </div>
-
-<nz-drawer 
-  [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
-  [nzWidth]="720" 
-  [nzVisible]="showDrawer" 
-  nzTitle="编辑卡类型" 
-  (nzOnClose)="showDrawer = false">
-  <ng-template #drawerContainer></ng-template>
-  <div class="footer">
-    <button nz-button (click)="showDrawer = false">取消</button>
-    <button nz-button nzType="primary" [nzLoading]="saveLoading" (click)="saveDrawer()">保存</button>
-  </div>
-</nz-drawer>

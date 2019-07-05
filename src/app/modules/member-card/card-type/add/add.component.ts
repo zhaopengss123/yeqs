@@ -1,7 +1,9 @@
+import { NzDrawerRef } from 'ng-zorro-antd';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { DrawerSave } from 'src/app/ng-relax/decorators/drawer/save.decorator';
+import { DrawerClose } from 'src/app/ng-relax/decorators/drawer/close.decorator';
 
 @Component({
   selector: 'app-add',
@@ -12,7 +14,7 @@ export class AddComponent implements OnInit {
 
   @Input() id;
 
-  @Input() cardTypeInfo;
+  @Input() cardTypeInfo: any = {};
 
   formGroup: FormGroup;
 
@@ -20,7 +22,8 @@ export class AddComponent implements OnInit {
 
   constructor(
     private http: HttpService,
-    private fb: FormBuilder = new FormBuilder()
+    private fb: FormBuilder = new FormBuilder(),
+    private drawerRef: NzDrawerRef
   ) { 
     this.http.post('/cardBusinessManagement/findList', {}, false).then(res => this.cardBusinessList = res.result);
   }
@@ -42,6 +45,9 @@ export class AddComponent implements OnInit {
     });
   }
 
+  saveLoading: boolean;
   @DrawerSave('/cardTypeManagement/modify') save: () => void;
+
+  @DrawerClose() close: () => void;
 
 }

@@ -150,10 +150,10 @@
       <nz-form-item>
         <nz-form-label [nzRequired]="true">来源</nz-form-label>
         <nz-form-control>
-          <nz-select formControlName="source" nzPlaceHolder="请选择来源" nzShowSearch nzAllowClear>
+          <nz-select formControlName="customerSourceId" nzPlaceHolder="请选择来源" nzShowSearch nzAllowClear>
             <nz-option *ngFor="let item of sourceList" [nzLabel]="item.sourceName" [nzValue]="item.sourceId"></nz-option>
           </nz-select>
-          <nz-form-explain *ngIf="getFormControl('source').dirty && getFormControl('source').hasError('required')">请选择来源</nz-form-explain>
+          <nz-form-explain *ngIf="getFormControl('customerSourceId').dirty && getFormControl('customerSourceId').hasError('required')">请选择来源</nz-form-explain>
         </nz-form-control>
       </nz-form-item>
     </div>

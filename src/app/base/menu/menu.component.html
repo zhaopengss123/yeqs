@@ -23,7 +23,7 @@
             </li>
           </ng-container>
           <ng-container *ngIf="!item.isLeaf">
-            <li [routerLink]="item.children[0].key"
+            <li (click)="navigate(item.children)"
               [ngClass]="{ active: (routerState.currentPath.indexOf(item.key) > -1 && item.key != '/home/index') || (routerState.currentPath == '/home/index' && item.key == '/home/index')}">
               <span>
                 <i nz-icon [type]="item.icon"></i>
