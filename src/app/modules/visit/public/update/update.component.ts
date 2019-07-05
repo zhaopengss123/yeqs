@@ -30,7 +30,7 @@ export class UpdateComponent implements OnInit {
   recommenderList: any[] = [];
   parentIdentityList: any[] = [];
   showCommunityList: any[] = [];
-
+  sourceList: any[] =[];
   constructor(
     private fb: FormBuilder = new FormBuilder(),
     private router: Router,
@@ -43,6 +43,9 @@ export class UpdateComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.http.post('/management/selectSource', { id: this.id }, false).then(res => {
+        this.sourceList = res.result;
+    });
     this._customerFormInit();
     if (this.id) {
       this._selectLoading = true;
@@ -157,8 +160,8 @@ export class UpdateComponent implements OnInit {
 
   _parentPhoneAsyncValidator = (control: FormControl): any => {
     return Observable.create(observer => {
-      let params: any = { mobilePhone: this.customerForm.get('mobilePhone').value };
-      if (this.id) { params.id = this.id; }
+      let params: any = { mobilePhone: this.customerForm.get('mobilePhone').value + ''};
+      if (this.id) { params.id = this.id + ''; }
       this.http.post('/common/checkTelphoneNum', { paramJson: JSON.stringify(params) }, false).then(res => {
         observer.next(res.result ? null : { error: true, duplicated: true });
         observer.complete();
