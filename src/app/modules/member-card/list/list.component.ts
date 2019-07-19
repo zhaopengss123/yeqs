@@ -131,7 +131,7 @@ export class ListComponent implements OnInit {
       label       : '卡状态',
       key         : 'status',
       type        : 'select',
-      options     : [ { name: '正常', id: '0' }, { name: '停卡', id: '1' }, { name: '过期', id: '2' } ]
+      options     : [ { name: '正常', id: '0' }, { name: '停卡', id: '1' }, { name: '过期', id: '2' }, { name: '退卡', id: '3' } ]
     },
     {
       label       : '儿童类型',

@@ -75,16 +75,19 @@ export class LoginComponent implements OnInit {
 
   /* ----------------------------- 登录 ----------------------------- */
   _submit() {
+    
     for (let i in this.loginForm.controls) {
       this.loginForm.controls[i].markAsDirty();
     }
 
     if (this.loginForm.valid) {
       this._login();
+      
     }
   }
   private _login(authCode?: string | boolean): void {
     if (this.loginLoading) { return; }
+    
     this.loginLoading = true;
     /* --------- 根据authCode是否存在,判断是否为免密登录 --------- */
     let params;
@@ -94,9 +97,11 @@ export class LoginComponent implements OnInit {
       params = JSON.parse(JSON.stringify(this.loginForm.value));
       params.password = this._encrypt(params.password);
     }
+    
     this.http.post<any>('/auth/login', serialize(params), {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
     }).subscribe(res => {
+      
       this.loginLoading = false;
       if (res.code == 1000) {
         /* ------------------ 存储用户名密码及用户信息 ------------------ */
