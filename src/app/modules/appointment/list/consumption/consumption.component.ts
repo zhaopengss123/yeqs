@@ -52,7 +52,7 @@ export class ConsumptionComponent implements OnInit {
       consumption: [, [Validators.required]],
       ringId: [],
       swimDuration: [],
-      temperaturePost: [],
+      height: [],
       weight: [],
       temperature: [],
       satisfaction: ['一般'],

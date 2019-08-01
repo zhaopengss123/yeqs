@@ -58,7 +58,7 @@ export class ConsumptionComponent implements OnInit, OnDestroy {
       consumption: [, [Validators.required]],
       pulmonary: [],
       swimDuration: [],
-      temperaturePost: [],
+      height: [],
       weight: [],
       temperature: [],
       satisfaction: ['满意', [Validators.required]],

@@ -99,35 +99,38 @@ export class UpdateComponent implements OnInit {
             this.step = 1; 
           }
         })
-        // 会员计算卡次 停卡 日期
-        if(res.code == 1000){
-          this.formGroup.patchValue(this.memberCardInfo);
-          let datas = res.result.card; //被转卡人
-          let userInfo = this.memberCardInfo; //原转卡人
-          let dates = Number(new Date(userInfo.expireDate).getTime() - new Date().getTime()) + Number(new Date(datas.expireDate).getTime());
-          let datem = new Date(dates);
-          let y: any = datem.getFullYear(), m: any = datem.getMonth(), d: any =datem.getDate();
-          m = m > 9 ? m : '0' + m;
-          d =  d > 9 ? d : '0' + d;
-          let expireDate = y +'-' + m + '-' + d ;
-          this.formGroup.patchValue({ name: res.result.member.name });
-          this.formGroup.patchValue({ havecard: 1 });
-          this.formGroup.patchValue({ expireDate });
-          this.formGroup.patchValue({ memberId: res.result.member.id });
-          this.formGroup.patchValue({ id: this.memberCardInfo.memberCardId});
-          this.formGroup.patchValue({ times: this.memberCardInfo.times + res.result.card.times});
-          this.formGroup.patchValue({ freeTimes: this.memberCardInfo.freeTimes + res.result.card.freeTimes});
-          this.formGroup.patchValue({ transferMemberId: this.memberCardInfo.memberId });
-          
+       // 会员计算卡次 停卡 日期
+       if(res.code == 1000){
+        this.formGroup.patchValue(this.memberCardInfo);
+        let datas = res.result.card; //被转卡人
+        let userInfo = this.memberCardInfo; //原转卡人
+        let dates = Number(new Date(userInfo.expireDate).getTime() - new Date().getTime()) + Number(new Date(datas.expireDate).getTime());
+        let datem = new Date(dates);
+        let y: any = datem.getFullYear(), m: any = datem.getMonth(), d: any =datem.getDate();
+        m = m > 9 ? m : '0' + m;
+        d =  d > 9 ? d : '0' + d;
+        let expireDate = y +'-' + m + '-' + d ;
+        this.formGroup.patchValue({ name: res.result.member.name });
+        this.formGroup.patchValue({ havecard: 1 });
+        this.formGroup.patchValue({ expireDate });
+        this.formGroup.patchValue({ memberId: res.result.member.id });
+        this.formGroup.patchValue({ id: this.memberCardInfo.memberCardId});
+        this.formGroup.patchValue({ times: this.memberCardInfo.remainTimes + res.result.card.remainTimes});
+        this.formGroup.patchValue({ freeTimes: this.memberCardInfo.remainFreeTimes + res.result.card.remainFreeTimes});
+        this.formGroup.patchValue({ transferMemberId: this.memberCardInfo.memberId });
+        
 
-        }else{
-          this.formGroup.patchValue(this.memberCardInfo);
-          this.formGroup.patchValue({ havecard: 0 });
-          this.formGroup.patchValue({ name: res.result.member.name });
-          this.formGroup.patchValue({ memberId: res.result.member.id });
-          this.formGroup.patchValue({ id: this.memberCardInfo.memberCardId});
-          this.formGroup.patchValue({ transferMemberId: this.memberCardInfo.memberId });
-        }
+      }else{
+        this.formGroup.patchValue(this.memberCardInfo);
+        this.formGroup.patchValue({ havecard: 0 });
+        this.formGroup.patchValue({ name: res.result.member.name });
+        this.formGroup.patchValue({ memberId: res.result.member.id });
+        this.formGroup.patchValue({ id: this.memberCardInfo.memberCardId});
+        this.formGroup.patchValue({ transferMemberId: this.memberCardInfo.memberId });
+        this.formGroup.patchValue({ times: this.memberCardInfo.remainTimes});
+        this.formGroup.patchValue({ freeTimes: this.memberCardInfo.remainFreeTimes });
+
+      }
       }else if(res.code == 1002){
         this.message.warning('没有该会员信息，请核对后再试');
       }else{
