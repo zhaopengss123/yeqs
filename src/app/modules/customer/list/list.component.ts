@@ -12,7 +12,7 @@ import { ConstructionComponent } from './construction/construction.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AddIntegralComponent } from './add-integral/add-integral.component';
 import { AlbumComponent } from './album/album.component';
-
+import { DetailComponent } from './detail/detail.component' ;
 declare const require: any;
 const DataSet = require('@antv/data-set');
 const scale = [{
@@ -150,7 +150,13 @@ export class ListComponent implements OnInit {
       title     : '成长相册',
       component : AlbumComponent,
       userInfo  : true
+    },
+    select: {
+      title     : '客户详情',
+      component : DetailComponent,
+      userInfo  : true
     }
+    
   }
 
   saveLoading: boolean;
@@ -259,7 +265,17 @@ export class ListComponent implements OnInit {
     });
     drawer.afterClose.subscribe(res => res && this.listPage.eaTable._request());
   }
-
+  preview(id){
+    let dataSet = JSON.parse(JSON.stringify(this.listPage.eaTable.dataSet));
+    let userInfo = dataSet.filter(res => res.id == id)[0];
+    const drawer = this.drawer.create({
+      nzWidth: 720, 
+      nzTitle: '客户详情',
+      nzContent: DetailComponent,
+      nzContentParams:  { id, userInfo }
+    });
+    drawer.afterClose.subscribe(res => res && this.listPage.eaTable._request());
+  }
   newDrawer(options) {
     let dataSet = JSON.parse(JSON.stringify(this.listPage.eaTable.dataSet));
     let userInfo = options.userInfo ? dataSet.filter(res => res.id == this.checkedItems[0])[0] : {};
@@ -278,6 +294,7 @@ export class ListComponent implements OnInit {
   import() {
     this.openDrawer({ title: '导入客户', component: ImportComponent, params: {} });
   }
+
 /****************办卡选课******************* */
 
   closeAdjust() {

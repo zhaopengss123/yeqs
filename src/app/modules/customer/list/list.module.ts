@@ -1,5 +1,5 @@
 import { AddIntegralComponent } from './add-integral/add-integral.component';
-import { AlbumComponent } from './album/album.component';
+import { AlbumComponent  } from './album/album.component';
 import { AppointComponent } from './appoint/appoint.component';
 import { ConstructionComponent } from './construction/construction.component';
 import { ConsumptionComponent } from './consumption/consumption.component';
@@ -13,9 +13,10 @@ import { UpdateComponent } from './update/update.component';
 import { ImportComponent } from './import/import.component';
 import { RouterModule } from '@angular/router';
 import { ViserModule } from 'viser-ng';
+import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
-  declarations: [ListComponent, UpdateComponent, ImportComponent, ExchangeComponent, ConsumptionComponent, ConstructionComponent, AppointComponent, AlbumComponent, AddIntegralComponent],
+  declarations: [ListComponent, UpdateComponent, ImportComponent, ExchangeComponent, ConsumptionComponent, ConstructionComponent, AppointComponent, AlbumComponent, AddIntegralComponent, DetailComponent],
   imports: [
     CommonModule,
     NgRelaxModule,
@@ -26,6 +27,6 @@ import { ViserModule } from 'viser-ng';
     }]),
     ViserModule
   ],
-  entryComponents: [UpdateComponent, ImportComponent, ExchangeComponent, ConsumptionComponent, ConstructionComponent, AppointComponent, AlbumComponent, AddIntegralComponent]
+  entryComponents: [UpdateComponent, ImportComponent, ExchangeComponent, ConsumptionComponent, ConstructionComponent, AppointComponent, AlbumComponent, AddIntegralComponent, DetailComponent]
 })
 export class ListModule { }

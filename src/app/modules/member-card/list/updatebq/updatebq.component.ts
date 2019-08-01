@@ -5,13 +5,12 @@ import { DrawerSave } from 'src/app/ng-relax/decorators/drawer/save.decorator';
 import { DrawerClose } from 'src/app/ng-relax/decorators/drawer/close.decorator';
 import { NzDrawerRef } from 'ng-zorro-antd';
 
-
 @Component({
-  selector: 'app-update',
-  templateUrl: './update.component.html',
-  styleUrls: ['./update.component.less']
+  selector: 'app-updatebq',
+  templateUrl: './updatebq.component.html',
+  styleUrls: ['./updatebq.component.less']
 })
-export class UpdateComponent implements OnInit {
+export class UpdatebqComponent implements OnInit {
 
   @Input() id: number;
 
@@ -19,8 +18,6 @@ export class UpdateComponent implements OnInit {
 
   communityList: any = [];
   sourceList: any = [];
-  teachList: any = [];
-  collectorList: any = [];
   constructor(
     private http: HttpService,
     private fb: FormBuilder = new FormBuilder(),
@@ -32,14 +29,8 @@ export class UpdateComponent implements OnInit {
     });
     this.http.post('/management/selectSource', {}, false).then(res => {
       this.sourceList = res.result;
-    });
-    this.http.post('/common/recommenderList', {}, false).then(res => {
-      this.teachList = res.result;
-    });   
-    this.http.post('/retrunVisit/getEmployeeList', {}, false).then(res => {
-      this.collectorList = res.result;
-    });   
-    
+      console.log(this.sourceList);
+    });  
   }
 
   ngOnInit() {
@@ -59,8 +50,6 @@ export class UpdateComponent implements OnInit {
       babyType: [, [Validators.required]],
       babyNumber: [, [Validators.required]],
       customerSourceId: [],
-      collectorId:[, [Validators.required]],
-      recommendedId: [],
       comment: []
     });
     /* -------------------------- 用户信息回显 -------------------------- */

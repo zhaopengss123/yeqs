@@ -74,14 +74,18 @@ export class SendoutComponent implements OnInit {
       label: '卡状态',
       key: 'status',
       type: 'select',
-      options: [{ name: '正常', id: 0 }, { name: '停卡', id: 1 }, { name: '过期', id: 2 }]
-    },
+      options: [ { name: '正常', id: '0' }, { name: '停卡', id: '1' }, { name: '过期', id: '2' }, { name: '退卡', id: '3' } ]    },
     {
       label: '卡类型',
       key: 'cardTypeId',
       type: 'select',
       optionsUrl: '/cardTypeManagement/findList'
-    }
+    },
+    {
+      label: '未到店时间',
+      key: 'storeDays',
+      type: 'select',
+      options: [ { name: '10天', id: '10' }, { name: '15天', id: '15' }, { name: '20天', id: '20' }, { name: '30天', id: '30' }, { name: '60天', id: '60' } ]    },
   ]
 
   transferList: any[] = [];

@@ -5,7 +5,6 @@ import { DrawerSave } from 'src/app/ng-relax/decorators/drawer/save.decorator';
 import { DrawerClose } from 'src/app/ng-relax/decorators/drawer/close.decorator';
 import { NzDrawerRef } from 'ng-zorro-antd';
 
-
 @Component({
   selector: 'app-update',
   templateUrl: './update.component.html',

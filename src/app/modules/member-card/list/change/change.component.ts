@@ -47,7 +47,7 @@ export class ChangeComponent implements OnInit {
       changeCardType: [, [Validators.required]],
       turnCard: [ this.memberCardInfo.turnCard ],
       salesId: [, [Validators.required]],
-      comment: []
+      comment: [, [Validators.required]]
     })
   }
 

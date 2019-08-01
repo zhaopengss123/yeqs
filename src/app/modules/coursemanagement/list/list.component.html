@@ -168,9 +168,14 @@
       <input nz-input style="width: 200px;"  placeholder="请输入" [(ngModel)]="curriculum">
     </p>
     <p>
+      <nz-form-label>视频链接</nz-form-label>
+      <input nz-input style="width: 200px;"  placeholder="请输入" [(ngModel)]="courseVideo">
+    </p>    
+    <p>
       <nz-form-label>上课内容</nz-form-label>
       <textarea  rows="4" nz-input [(ngModel)]="content"></textarea>
     </p>
+ 
   </nz-modal>
   <!-- 删除上课内容弹框 -->
   <nz-modal [(nzVisible)]="removeclassContent" nzTitle="确定删除？" (nzOnCancel)="closeremoveclassContent()" (nzOnOk)="isremoveclassContent()">

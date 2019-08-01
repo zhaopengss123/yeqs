@@ -5,9 +5,11 @@ import { CommonModule } from '@angular/common';
 import { ClueComponent } from './clue.component';
 import { VisitModule } from '../visit.module';
 import { RouterModule } from '@angular/router';
+import { UpdateComponent } from './update/update.component';
+
 
 @NgModule({
-  declarations: [ClueComponent],
+  declarations: [ClueComponent, UpdateComponent],
   imports: [
     CommonModule,
     NgRelaxModule,
@@ -17,6 +19,8 @@ import { RouterModule } from '@angular/router';
       path: '',
       component: ClueComponent
     }])
-  ]
+  ],
+  entryComponents: [UpdateComponent]
+
 })
 export class ClueModule { }

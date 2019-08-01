@@ -36,6 +36,9 @@ export class TableComponent implements OnInit {
 
   @Input() size         : 'default' | 'small' | 'middle';
 
+  @Input() nopaging     : boolean = false;
+
+
   @Output() checkedItemsChange: EventEmitter<any[]> = new EventEmitter();
 
   @Output() ready       : EventEmitter<any> = new EventEmitter();
@@ -87,7 +90,7 @@ export class TableComponent implements OnInit {
   _request(isReset?: boolean): void {
     if (this._pageInfo.loading || !this.url) { return; }
     this._pageInfo.loading = true;
-    let params = Object.assign({ paramJson: JSON.stringify(Object.assign(JSON.parse(JSON.stringify(this.paramsDefault)), this._params, this.paramsInit)) }, { pageNum: isReset ? 1 : this._pageInfo.pageNum, pageSize: this._pageInfo.pageSize });
+    let params = Object.assign({ paramJson: JSON.stringify(Object.assign(JSON.parse(JSON.stringify(this.paramsDefault)), this._params, this.paramsInit)) }, { pageNum: isReset ? 1 : this._pageInfo.pageNum, pageSize: !this.nopaging ? this._pageInfo.pageSize : 1000 });
     this.paramsInit = {};
     !this.isParamJson && (params = JSON.parse(params.paramJson));
     this.http.post<any>(this.url, serialize(params), {

@@ -26,6 +26,7 @@
           <li nz-menu-item><a (click)="operation('open')">重开卡</a></li>
           <li nz-menu-item><a (click)="operation('supplement')">补卡</a></li>
           <li nz-menu-item><a (click)="operation('number')">换卡号</a></li>
+          <li nz-menu-item><a (click)="operation('update')">转卡</a></li>
           <li nz-menu-item><a (click)="operation('withdraw')">退卡</a></li>
         </ul> 
       </nz-dropdown>
@@ -38,7 +39,7 @@
   <ng-template let-data #EaTableTbodyTr>
     <td>{{ data.cardCode }}</td>
     <td>{{ data.ctName }}</td>
-    <td>{{ data.name }}</td>
+    <td><a (click)="preview(data.id)">{{ data.name }}</a></td>
     <td>{{ data.monthAge }}</td>
     <td>{{ data.babyType }}</td>
     <td>{{ data.allTimes }}（{{ data.times }}/{{ data.freeTimes }}）</td>

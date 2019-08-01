@@ -46,6 +46,7 @@ export class QueryComponent implements OnInit {
         this._queryForm.addControl(res.valueKey[0], new FormControl(res.default ? res.default[0] : null));
         this._queryForm.addControl(res.valueKey[1], new FormControl(res.default ? res.default[1] : null));
       } else {
+        console.log(res.default);
         this._queryForm.addControl(res.key, new FormControl(typeof res.default !== 'undefined' ? res.default : null));
       }
       if (res.type === 'select' || res.type === 'radio') {

@@ -15,6 +15,8 @@ import { AppointComponent } from './appoint/appoint.component';
 import { ConsumptionComponent } from './consumption/consumption.component';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { WithdrawComponent } from './withdraw/withdraw.component';
+import { UpdateComponent } from './update/update.component';
+import { DetailComponent } from './detail/detail.component';
 
 @Component({
   selector: 'app-list',
@@ -102,6 +104,10 @@ export class ListComponent implements OnInit {
     withdraw: {
       title: '退卡',
       component: WithdrawComponent
+    },
+    update: {
+      title: '转卡',
+      component: UpdateComponent
     }
   }
 
@@ -251,7 +257,17 @@ export class ListComponent implements OnInit {
       this.openDrawer(this.operationComponents[type]);
     }
   }
-
+  preview(id){
+    let dataSet = JSON.parse(JSON.stringify(this.listPage.eaTable.dataSet));
+    let userInfo = dataSet.filter(res => res.id == id)[0];
+    const drawer = this.drawer.create({
+      nzWidth: 720, 
+      nzTitle: '客户详情',
+      nzContent: DetailComponent,
+      nzContentParams:  { id, userInfo }
+    });
+    drawer.afterClose.subscribe(res => res && this.listPage.eaTable._request());
+  }
 
   @ViewChild('listPage') listPage: ListPageComponent;
   // 排课

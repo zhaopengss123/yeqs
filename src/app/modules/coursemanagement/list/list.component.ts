@@ -61,6 +61,7 @@ export class ListComponent implements OnInit {
   lessonName:any = '';
   courseStatus:any = '';
   coursesName:any = '';
+  courseVideo: any = '';
   StateCourseList:any = [
     {
       name:'启用',
@@ -309,12 +310,14 @@ export class ListComponent implements OnInit {
     this.classContent = false;
   }
 //新增课程内容
-  addcourseContent(){
-    
-  }
+ 
 
   addcontentfindList(){
     this.addclassContent = true;
+    this.period = null;
+    this.curriculum = null;
+    this.courseVideo = null;
+    this.content = null;
   }
   closeaddclassContent(){
     this.addclassContent = false;
@@ -333,6 +336,10 @@ export class ListComponent implements OnInit {
       this.message.create('error', '上课内容不能为空');
       return false;
     }
+    if (!this.courseVideo) {
+      this.message.create('error', '请输入视频链接');
+      return false;
+    }
 
     if ( !this.modifyId ){
       let paramJson: any = JSON.stringify({
@@ -340,6 +347,7 @@ export class ListComponent implements OnInit {
         curriculum: this.curriculum,
         content: this.content,
         syllabusId: this.ListmainId,
+        courseVideo: this.courseVideo
       });
       this.http.post('/scheduling/insertContents', { paramJson }, false).then(res => {
         if (res.code == 1000) {
@@ -347,6 +355,7 @@ export class ListComponent implements OnInit {
           this.message.create('success', '添加成功！');
           this.period = '';
           this.curriculum = '';
+          this.courseVideo = '';
           this.content = "";
           this.addclassContent = false;
           this.modifyId = '';
@@ -361,6 +370,7 @@ export class ListComponent implements OnInit {
         curriculum: this.curriculum,
         content: this.content,
         id: this.modifyId,
+        courseVideo: this.courseVideo
       });
       this.http.post('/scheduling/updateContents', { paramJson }, false).then(res => {
         if (res.code == 1000) {
@@ -368,6 +378,7 @@ export class ListComponent implements OnInit {
           this.message.create('success', '修改成功！');
           this.period = '';
           this.curriculum = '';
+          this.courseVideo = '';
           this.content = "";
           this.addclassContent = false;
           this.modifyId = ''; 
@@ -404,6 +415,7 @@ export class ListComponent implements OnInit {
         this.period = res.result.list.period;
         this.curriculum = res.result.list.curriculum;
         this.content = res.result.list.content;
+        this.courseVideo = res.result.list.courseVideo;
         this.modifyId = id;
         
       } else {

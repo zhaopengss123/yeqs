@@ -1,5 +1,7 @@
 import { VisitComponent } from './../public/visit/visit.component';
-import { UpdateComponent } from './../public/update/update.component';
+// import { UpdateComponent } from './../public/update/update.component';
+import { UpdateComponent } from './update/update.component';
+
 import { QueryNode } from 'src/app/ng-relax/components/query/query.component';
 import { PreviewComponent } from './../public/preview/preview.component';
 import { NzDrawerService } from 'ng-zorro-antd';
@@ -105,7 +107,7 @@ export class ClueComponent implements OnInit {
   
   @DrawerCreate({ content: PreviewComponent, width: 860, closable: false, params: { followStageId: 2 } }) preview: ({id: number}) => void;
 
-  @DrawerCreate({ title: '新增客户', content: UpdateComponent }) addCustomer: () => void;
+  @DrawerCreate({ title: '新增客户线索', content: UpdateComponent }) addCustomer: () => void;
 
   @DrawerCreate({ title: '今日已回访列表', content: VisitComponent, params: { followStageId: 2, status: 0 } }) visitList: () => void;
 

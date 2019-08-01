@@ -1,0 +1,62 @@
+<div class="head">
+    <div class="head-img"><img src="./assets/images/default-boy.png" alt=""></div>
+    <h1>{{ userInfo.nick || userInfo.name }} <span>{{ userInfo.haveCard == 0 ?'非会员' : '会员' }}</span></h1>   
+    <p>
+      <b>所属销售：</b><span>{{ userInfo.salesName }}</span> <span>|</span>  <b>建档时间：</b><span>{{ userInfo.createDate }}</span> 
+    </p>
+    <div class="main">
+        <nz-tabset>
+            <nz-tab nzTitle="客户信息" nzDisabled="false">
+              <div class="row-detail" nz-row>
+                <div nz-col nzSpan="6">姓名：{{ userInfo.name }}</div>
+                <div nz-col nzSpan="6">小名：{{ userInfo.nick }}</div>
+                <div nz-col nzSpan="6">性别：{{ userInfo.sex }}</div>
+                <div nz-col nzSpan="6">生日：{{ userInfo.birthday }}</div>
+              </div>
+              <div class="row-detail" nz-row>
+                <div nz-col nzSpan="6">家长姓名：{{ userInfo.parentName }}</div>
+                <div nz-col nzSpan="6">来源：{{ userInfo.sourceName }}</div>
+                <div nz-col nzSpan="6">收集人：{{ userInfo.collectorName }}</div>
+                <div nz-col nzSpan="6">推荐人：{{ userInfo.recommendedName }}</div>
+              </div>
+              <div class="row-detail" nz-row>
+                <div nz-col nzSpan="6">手机号码：{{ userInfo.mobilePhone }}</div>
+                <div nz-col nzSpan="6">社区：{{ userInfo.communityName }}</div>
+                <div nz-col nzSpan="6">病史：{{ userInfo.illHistory == 1 ? '有' : '无' }}</div>
+                <div nz-col nzSpan="6">过敏史：{{ userInfo.allergieHistory == 1 ? '有' : '无' }}</div>
+              </div>
+              <div class="row-detail" nz-row>
+                <div nz-col nzSpan="6">儿童类型：{{ userInfo.babyType }}</div>
+                <div nz-col nzSpan="6">多胞胎：{{ userInfo.babyNumber }}</div>
+              </div>
+            </nz-tab>
+            <nz-tab nzTitle="续卡记录" [nzDisabled]="userInfo.haveCard == 0">
+
+                <ea-table
+                #table
+                url="/cardChangeLog/list"
+                [allowSpace]="false"
+                [nopaging]="true"
+                [showPage]="false"
+                [paramsInit]="defaultInit"
+                [thead]="['操作时间','原过期日期','现过期日期','原卡次','现卡次','原金额','现金额','原卡类型','现卡类型','操作人','销售']"
+                [EaTableTbodyTr]="EaTableTbodyTr">
+                <ng-template let-data #EaTableTbodyTr>
+                  <td>{{ data.createDate }}</td>
+                  <td>{{ data.orgExpireDate }}</td>
+                  <td>{{ data.newExpireDate }}</td>
+                  <td>{{ data.orgTimes }}/{{ data.orgFreeTimes }}</td>
+                  <td>{{ data.newTimes }}/{{ data.newFreeTimes }}</td>
+                  <td>{{ data.orgBalance  }}</td>
+                  <td>{{ data.newBalance  }}</td>
+                  <td>{{ data.orgTypeName }}</td>
+                  <td>{{ data.newTypeName }}</td>
+                  <td>{{ data.admin }}</td>
+                  <td>{{ data.salesName }}</td>
+                </ng-template>
+              </ea-table> 
+            </nz-tab>
+
+          </nz-tabset>
+    </div>
+  </div>
