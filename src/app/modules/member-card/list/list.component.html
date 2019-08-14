@@ -4,7 +4,7 @@
     url="/memberCard/list"
     [queryNode]="queryNode"
     [paramsInit]="paramsInit"
-    [tableThead]="['卡号', '卡类型', '会员', '月龄', '婴儿类型', '总次数(正价/赠送)', '剩余次数(正价/赠送)', '金额', '生效日期', '失效日期', '有效期', '状态', '业务类型', '停卡截止日期','成长顾问', '退卡单次价格', '协议号',  '备注']"
+    [tableThead]="['卡号', '卡类型', '会员', '月龄', '婴儿类型', '总次数(正价/赠送)', '剩余次数(正价/赠送)', '金额', '生效日期', '失效日期', '有效期', '状态', '业务类型', '停卡截止日期','成长顾问', '退卡单次价格', '协议号', '转卡协议号', '备注']"
     [checked]="true"
     [isRadio]="true"
     [(checkedItems)]="checkedItems"
@@ -54,6 +54,7 @@
     <td>{{ data.salesName }}</td>
     <td>{{ data.withdrawAmount }}</td>
     <td>{{ data.contractNo }}</td>
+    <td>{{ data.ransferContractNo }}</td>
     <td><span *ngIf="data.comment" nz-tooltip [nzTitle]="data.comment">{{ data.comment.length > 10 ? data.comment.substr(0, 10) + '...' : data.comment }}</span></td>
   </ng-template>
 

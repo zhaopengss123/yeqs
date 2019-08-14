@@ -56,7 +56,7 @@ export class DepartmentComponent implements OnInit {
     this.http.post('/department/removeDeptRecord', { id }).then(res => this.table._request())
   }
 
-  update(data = { id: null, position: null, bandName: null, salary: null, bandRate: null, comment: null }) {
+  update(data = { id: null, position: null, bandName: null, salary: null, bandRate: null, comment: null, manager: null }) {
     this.showDrawer = true;
 
       this.formGroup = this.fb.group({
@@ -65,8 +65,8 @@ export class DepartmentComponent implements OnInit {
         employeeId: [, [Validators.required]],
         comment: []
       });
-   
     this.formGroup.patchValue(data);
+    this.formGroup.patchValue({ employeeId: data.manager })
   }
 
   positionAsyncValidator = (control: FormControl): any => {

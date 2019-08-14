@@ -85,7 +85,7 @@ export class SendoutComponent implements OnInit {
       label: '未到店时间',
       key: 'storeDays',
       type: 'select',
-      options: [ { name: '10天', id: '10' }, { name: '15天', id: '15' }, { name: '20天', id: '20' }, { name: '30天', id: '30' }, { name: '60天', id: '60' } ]    },
+      options: [ { name: '10天内', id: '10' }, { name: '15天内', id: '15' }, { name: '20天内', id: '20' }, { name: '30天内', id: '30' }, { name: '60天内', id: '60' } ]    },
   ]
 
   transferList: any[] = [];

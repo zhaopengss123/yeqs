@@ -1,8 +1,9 @@
 import { HttpService } from 'src/app/ng-relax/services/http.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NzDrawerService } from 'ng-zorro-antd';
 import { DrawerCreate } from 'src/app/ng-relax/decorators/drawer/create.decorator';
 import { UpdateComponent } from './update/update.component';
+import { ListPageComponent } from 'src/app/ng-relax/components/list-page/list-page.component';
 
 @Component({
   selector: 'app-satisfaction',
@@ -19,6 +20,7 @@ export class SatisfactionComponent implements OnInit {
   ngOnInit() {
   }
 
+  @ViewChild('listPage') listPage: ListPageComponent;
   @DrawerCreate({ title: '满意度信息', content: UpdateComponent, width: 360 }) update: ({ dataInfo: object}?) => void;
 
   saveRatio(data) {

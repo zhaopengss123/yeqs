@@ -4,7 +4,7 @@
     [checked]="true" [isRadio]="true" [checkedItems]="checkedItems" [EaTableTbodyTr]="EaTableTbodyTr"
     (requestDataChange)="dataChange($event)" [EaBtns]="EaBtns">
     <ng-template let-data #EaTableTbodyTr>
-      <td>{{ data.memberCard }}</td>
+      <td>{{ data.cardCode }}</td>
       <td><a (click)="preview(data.id)">{{ data.name }}</a></td>
       <td><a (click)="preview(data.id)">{{ data.nick }}</a></td>
       <td>{{ data.sex }}</td>

@@ -50,7 +50,6 @@ export class UpdateComponent implements OnInit {
       balance: [{ value :this.memberCardInfo.balance ,  disabled: true }], //金额
       orgExpireDate: [{ value: this.memberCardInfo.expireDate, disabled: true }],//原停卡日期
       // salesId: [, [Validators.required]],
-      sname:[],
       mobilePhone:[ ,[Validators.required, Validators.pattern(/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/)]]
     });
 
@@ -104,17 +103,19 @@ export class UpdateComponent implements OnInit {
         this.formGroup.patchValue(this.memberCardInfo);
         let datas = res.result.card; //被转卡人
         let userInfo = this.memberCardInfo; //原转卡人
-        let dates = Number(new Date(userInfo.expireDate).getTime() - new Date().getTime()) + Number(new Date(datas.expireDate).getTime());
+        let dates = new Date(userInfo.expireDate).getTime() - new Date().getTime() + new Date(datas.expireDate).getTime();
         let datem = new Date(dates);
-        let y: any = datem.getFullYear(), m: any = datem.getMonth(), d: any =datem.getDate();
+
+        let y: any = datem.getFullYear(), m: any = datem.getMonth() +1, d: any =datem.getDate();
         m = m > 9 ? m : '0' + m;
         d =  d > 9 ? d : '0' + d;
         let expireDate = y +'-' + m + '-' + d ;
         this.formGroup.patchValue({ name: res.result.member.name });
         this.formGroup.patchValue({ havecard: 1 });
         this.formGroup.patchValue({ expireDate });
+        this.formGroup.patchValue({ cardCode: res.result.card.cardCode});
         this.formGroup.patchValue({ memberId: res.result.member.id });
-        this.formGroup.patchValue({ id: this.memberCardInfo.memberCardId});
+        this.formGroup.patchValue({ id: this.memberCardInfo.id});
         this.formGroup.patchValue({ times: this.memberCardInfo.remainTimes + res.result.card.remainTimes});
         this.formGroup.patchValue({ freeTimes: this.memberCardInfo.remainFreeTimes + res.result.card.remainFreeTimes});
         this.formGroup.patchValue({ transferMemberId: this.memberCardInfo.memberId });
@@ -125,7 +126,7 @@ export class UpdateComponent implements OnInit {
         this.formGroup.patchValue({ havecard: 0 });
         this.formGroup.patchValue({ name: res.result.member.name });
         this.formGroup.patchValue({ memberId: res.result.member.id });
-        this.formGroup.patchValue({ id: this.memberCardInfo.memberCardId});
+        this.formGroup.patchValue({ id: this.memberCardInfo.id});
         this.formGroup.patchValue({ transferMemberId: this.memberCardInfo.memberId });
         this.formGroup.patchValue({ times: this.memberCardInfo.remainTimes});
         this.formGroup.patchValue({ freeTimes: this.memberCardInfo.remainFreeTimes });

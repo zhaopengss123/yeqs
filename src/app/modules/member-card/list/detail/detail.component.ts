@@ -34,7 +34,8 @@ export class DetailComponent implements OnInit {
 
   defaultInit = {
     cardCode: null,
-    comment: '续卡'
+    comment: '续卡',
+    cardId: null
   };
   constructor(
     private activatedRoute: ActivatedRoute
@@ -56,13 +57,20 @@ export class DetailComponent implements OnInit {
         key         : 'cardCode',
         type        : 'input',
         default     : this.userInfo.cardCode,        
+      },
+      {
+        label       : '卡id',
+        key         : 'cardId',
+        type        : 'input',
+        default     : this.userInfo.id,        
       }
     ];
-    console.log(this.userInfo);
+
     this.queryNode = queryNode;
-    if (this.userInfo.cardCode) {
+    if (this.userInfo.id) {
     this.activatedRoute.queryParamMap.subscribe((res: any) => {
         this.defaultInit.cardCode = this.userInfo.cardCode;
+        this.defaultInit.cardId = this.userInfo.id;
         this.defaultInit.comment = '续卡';
     })
   }

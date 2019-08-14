@@ -45,10 +45,12 @@ export class UpdateComponent implements OnInit {
         this.formGroup.controls[i].updateValueAndValidity();
       }
     } else {
+
       this.saveLoading = true;
+      console.log(this.formGroup.get('rank1'),this.formGroup.get('rank2'),this.formGroup.get('rank3'),this.formGroup.get('rank4'));
       let params = {
         rankId: this.formGroup.get('rankId').value,
-        rank: [this.formGroup.get('rank1').value, this.formGroup.get('rank2').value, this.formGroup.get('rank3').value, this.formGroup.get('rank4').value]
+        rank: [ this.formGroup.get('rank2').value,  this.formGroup.get('rank4').value] //this.formGroup.get('rank3').value,this.formGroup.get('rank1').value,
       };
       this.http.post('/bonusSatisfaction/addBonusSatisfaction', {
         paramJson: JSON.stringify(params)

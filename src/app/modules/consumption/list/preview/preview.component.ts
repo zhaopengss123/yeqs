@@ -47,7 +47,7 @@ export class PreviewComponent implements OnInit {
       teacherId: [this.recordInfo.teacherId, [Validators.required]],
       ringId: [this.recordInfo.ringId],
       swimDuration: [this.recordInfo.swimDuration],
-      temperaturePost: [this.recordInfo.temperaturePost],
+      height: [this.recordInfo.height],
       weight: [this.recordInfo.weight],
       temperature: [this.recordInfo.temperature],
       satisfaction: [{ value: this.recordInfo.satisfaction, disabled: true }],

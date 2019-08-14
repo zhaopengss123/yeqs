@@ -244,13 +244,17 @@ export class ListComponent implements OnInit {
         }
       })
     } else if (type === 'withdraw') {
-      this.listPage.eaTable.dataSet.map(res => {
+      this.listPage.eaTable.dataSet.map(res => { 
         if (res.id == this.checkedItems[0]) {
-          if (res.runningState != '退卡') {
-            this.openDrawer(this.operationComponents[type]);
-          } else {
-            this.message.warning('该卡已退卡！');
-          }
+          if(res.status == 6){
+            this.message.warning('该会员有转卡记录，不能退卡！');
+          }else{
+              if (res.runningState != '退卡') {
+                this.openDrawer(this.operationComponents[type]);
+              } else {
+                this.message.warning('该卡已退卡！');
+              }
+            }    
         }
       })
     } else if (this.operationComponents[type]) {

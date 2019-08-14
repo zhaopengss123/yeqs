@@ -37,7 +37,7 @@ export class UpdateRevokeComponent implements OnInit {
       monthAge: [{ value: this.recordInfo.monthAge, disabled: true }],
       swimDuration: [{ value: this.recordInfo.swimDuration, disabled: true }],
       swimName: [{ value: this.recordInfo.swimName, disabled: true }],
-      temperaturePost: [{ value: this.recordInfo.temperaturePost, disabled: true }],
+      height: [{ value: this.recordInfo.height, disabled: true }],
       weight: [{ value: this.recordInfo.weight, disabled: true }],
       temperature: [{ value: this.recordInfo.temperature, disabled: true }],
       comment: [{ value: this.recordInfo.comment, disabled: true }],

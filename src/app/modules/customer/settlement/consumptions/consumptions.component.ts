@@ -54,7 +54,7 @@ export class ConsumptionsComponents implements OnInit {
       consumption: [, [Validators.required]],
       pulmonary: [],
       swimDuration: [],
-      temperaturePost: [],
+      height: [],
       weight: [],
       temperature: [],
       satisfaction: ['满意'],
