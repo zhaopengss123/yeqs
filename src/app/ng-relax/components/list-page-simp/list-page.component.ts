@@ -5,7 +5,11 @@ import { TableComponent } from '../table/table.component';
 @Component({
   selector: 'ea-list-page-simp',
   templateUrl: './list-page.component.html',
+<<<<<<< HEAD
   styleUrls: ['./list-page.component.scss']
+=======
+  styleUrls: ['./list-page.component.less']
+>>>>>>> upgrade
 })
 export class ListPageSimpComponent implements OnInit {
 
@@ -26,8 +30,11 @@ export class ListPageSimpComponent implements OnInit {
 
   @Input() paramsInit: any = {};
 
+<<<<<<< HEAD
   @Input() isParamJson: boolean = true;
 
+=======
+>>>>>>> upgrade
   @Input() checkedItems: any[];
 
   @Input() checkedKey: string = 'id';
@@ -51,6 +58,11 @@ export class ListPageSimpComponent implements OnInit {
     return this._EaBtns;
   }
 
+<<<<<<< HEAD
+=======
+  @Output() dataChange: EventEmitter<any> = new EventEmitter();
+
+>>>>>>> upgrade
   @Output('requestReady') requestComplate: EventEmitter<any> = new EventEmitter();
   requestReady(e) {
     this.requestComplate.emit(e);

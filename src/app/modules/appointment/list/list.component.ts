@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { ConsumptionComponent } from './consumption/consumption.component';
 import { ListPageComponent } from 'src/app/ng-relax/components/list-page/list-page.component';
 import { PreviewComponent } from './preview/preview.component';
+<<<<<<< HEAD
 import { HttpService } from './../../../ng-relax/services/http.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { QueryNode } from './../../../ng-relax/components/query/query.component';
@@ -10,6 +11,15 @@ import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { query } from '@angular/animations';
 import { MemberCardDetailComponent } from '../../public/member-card-detail/member-card-detail.component';
 import { ActivatedRoute } from '@angular/router';
+=======
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NzDrawerService, NzModalService } from 'ng-zorro-antd';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { QueryNode } from 'src/app/ng-relax/components/query/query.component';
+import { HttpService } from 'src/app/ng-relax/services/http.service';
+import { MemberCardDetailComponent } from '../../public/member-card-detail/member-card-detail.component';
+>>>>>>> upgrade
 
 @Component({
   selector: 'app-list',
@@ -98,9 +108,16 @@ export class ListComponent implements OnInit {
   isChange: boolean = true;
 
   requestDataLength: number = 0;
+<<<<<<< HEAD
   private routingPath;
   ngOnInit() {
     this.routingPath = this.routerinfo.snapshot.url[0].path;
+=======
+  routingPath: string;
+  ngOnInit() {
+    console.log(this.routerinfo)
+    this.routingPath = this.routerinfo['_routerState'].snapshot.url;
+>>>>>>> upgrade
     setTimeout(() => {
       this.listPage.eaQuery._queryForm.get('appointmentDate').valueChanges.subscribe(res => {
         this.isChange && this.weilaiForm.patchValue({ weilai: null });

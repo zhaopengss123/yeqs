@@ -4,13 +4,18 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-sendlog',
   templateUrl: './sendlog.component.html',
+<<<<<<< HEAD
   styleUrls: ['./sendlog.component.scss']
+=======
+  styleUrls: ['./sendlog.component.less']
+>>>>>>> upgrade
 })
 export class SendlogComponent implements OnInit {
 
   showMoreMobile: boolean;
   moreMobile: string;
 
+<<<<<<< HEAD
   constructor(
   ) { }
 
@@ -21,6 +26,11 @@ export class SendlogComponent implements OnInit {
   indexChange() {
     
   }
+=======
+  constructor() { }
+
+  ngOnInit() { }
+>>>>>>> upgrade
 
   queryNode: QueryNode[] = [
     {

@@ -1,16 +1,27 @@
+<<<<<<< HEAD
 import { DatePipe } from '@angular/common';
 import { ListPageComponent } from './../../../ng-relax/components/list-page/list-page.component';
+=======
+>>>>>>> upgrade
 import { UpdateCurriculumComponent } from './curriculum/curriculum.component';
 import { MessageComponent } from './message/message.component';
 import { UpdateRevokeComponent } from './revoke/revoke.component';
 import { UpdateSatisfactionComponent } from './satisfaction/satisfaction.component';
 import { PreviewComponent } from './preview/preview.component';
 import { NzMessageService,NzDrawerService } from 'ng-zorro-antd';
+<<<<<<< HEAD
 import { HttpService } from './../../../ng-relax/services/http.service';
+=======
+>>>>>>> upgrade
 import { Component, OnInit, ViewChild, ViewContainerRef, ComponentRef, ComponentFactory, ComponentFactoryResolver, TemplateRef } from '@angular/core';
 import { QueryNode } from 'src/app/ng-relax/components/query/query.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+<<<<<<< HEAD
+=======
+import { ListPageComponent } from 'src/app/ng-relax/components/list-page/list-page.component';
+import { HttpService } from 'src/app/ng-relax/services/http.service';
+>>>>>>> upgrade
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',

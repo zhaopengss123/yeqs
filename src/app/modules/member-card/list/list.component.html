@@ -4,7 +4,11 @@
     url="/memberCard/list"
     [queryNode]="queryNode"
     [paramsInit]="paramsInit"
+<<<<<<< HEAD
     [tableThead]="['卡号', '卡类型', '会员', '月龄', '婴儿类型', '总次数(正价/赠送)', '剩余次数(正价/赠送)', '金额', '生效日期', '失效日期', '有效期', '状态', '业务类型', '停卡截止日期','成长顾问', '退卡单次价格', '协议号',  '备注']"
+=======
+    [tableThead]="['卡号', '卡类型', '会员', '月龄', '婴儿类型', '总次数(正价/赠送)', '剩余次数(正价/赠送)', '金额', '生效日期', '失效日期', '有效期', '状态', '业务类型', '停卡截止日期','成长顾问', '退卡单次价格', '协议号', '转卡协议号', '备注']"
+>>>>>>> upgrade
     [checked]="true"
     [isRadio]="true"
     [(checkedItems)]="checkedItems"
@@ -16,10 +20,15 @@
   <!-- </ea-list-page> -->
   <ng-template #EaBtns>
     <div class="ea-button-group" style="margin-bottom: 16px;">
+<<<<<<< HEAD
       <!-- <button nz-button [nzType]="'primary'" (click)="operation('adjustment')">通卡调整</button> -->
       <button nz-button [nzType]="'primary'" (click)="operation('change')">卡项变更</button>
       <button nz-button [nzType]="'primary'" (click)="operation('continued')">续卡</button>
       <!-- <button nz-button (click)="operation('appoint')">预约</button> -->
+=======
+      <button nz-button [nzType]="'primary'" (click)="operation('change')">卡项变更</button>
+      <button nz-button [nzType]="'primary'" (click)="operation('continued')">续卡</button>
+>>>>>>> upgrade
       <button nz-button (click)="operation('consumption')">消费</button>
       <nz-dropdown style="margin-right: 10px;">
         <button nz-button nz-dropdown>更多操作<i class="anticon anticon-down"></i></button>
@@ -28,6 +37,10 @@
           <li nz-menu-item><a (click)="operation('open')">重开卡</a></li>
           <li nz-menu-item><a (click)="operation('supplement')">补卡</a></li>
           <li nz-menu-item><a (click)="operation('number')">换卡号</a></li>
+<<<<<<< HEAD
+=======
+          <li nz-menu-item><a (click)="operation('update')">转卡</a></li>
+>>>>>>> upgrade
           <li nz-menu-item><a (click)="operation('withdraw')">退卡</a></li>
         </ul> 
       </nz-dropdown>
@@ -40,12 +53,19 @@
   <ng-template let-data #EaTableTbodyTr>
     <td>{{ data.cardCode }}</td>
     <td>{{ data.ctName }}</td>
+<<<<<<< HEAD
     <td>{{ data.name }}</td>
+=======
+    <td><a (click)="preview(data.id)">{{ data.name }}</a></td>
+>>>>>>> upgrade
     <td>{{ data.monthAge }}</td>
     <td>{{ data.babyType }}</td>
     <td>{{ data.allTimes }}（{{ data.times }}/{{ data.freeTimes }}）</td>
     <td>{{ data.remainTimes + data.remainFreeTimes }}（{{ data.remainTimes }}/{{ data.remainFreeTimes }}）</td>
+<<<<<<< HEAD
     <!-- <td>{{ data.tongTimes }}（{{ data.tongTimes - data.usedTongTimes }}）</td> -->
+=======
+>>>>>>> upgrade
     <td>{{ data.balance | currency: '￥' }}</td>
     <td>{{ data.effectDate }}</td>
     <td>{{ data.expireDate }}</td>
@@ -56,10 +76,15 @@
     <td>{{ data.salesName }}</td>
     <td>{{ data.withdrawAmount }}</td>
     <td>{{ data.contractNo }}</td>
+<<<<<<< HEAD
+=======
+    <td>{{ data.ransferContractNo }}</td>
+>>>>>>> upgrade
     <td><span *ngIf="data.comment" nz-tooltip [nzTitle]="data.comment">{{ data.comment.length > 10 ? data.comment.substr(0, 10) + '...' : data.comment }}</span></td>
   </ng-template>
 
 
+<<<<<<< HEAD
 <nz-drawer 
   [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
   [nzWidth]="720" 
@@ -77,6 +102,10 @@
   <nz-modal [(nzVisible)]="passArranging" nzTitle="是否取消排课？" (nzOnCancel)="noPassArranging()" (nzOnOk)="isPassArranging()">
         <p>确定取消排课？</p>
   </nz-modal>
+=======
+
+  <nz-modal [(nzVisible)]="passArranging" nzTitle="是否取消排课？" (nzOnCancel)="noPassArranging()" (nzOnOk)="isPassArranging()"><p>确定取消排课？</p></nz-modal>
+>>>>>>> upgrade
 
 
 

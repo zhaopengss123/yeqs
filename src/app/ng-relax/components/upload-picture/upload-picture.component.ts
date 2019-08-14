@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 import { HttpService } from './../../services/http.service';
+=======
+import { AliOssClientService } from './../../services/alioss-client.service';
+>>>>>>> upgrade
 import { Component, OnInit, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { UploadFile, NzMessageService } from 'ng-zorro-antd';
 import { Observable } from 'rxjs';
+<<<<<<< HEAD
 
 declare const OSS;
 
@@ -10,6 +15,12 @@ declare const OSS;
   selector: 'ea-upload-picture',
   templateUrl: './upload-picture.component.html',
   styleUrls: ['./upload-picture.component.scss'],
+=======
+@Component({
+  selector: 'ea-upload-picture',
+  templateUrl: './upload-picture.component.html',
+  styleUrls: ['./upload-picture.component.less'],
+>>>>>>> upgrade
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => UploadPictureComponent),
@@ -50,10 +61,13 @@ export class UploadPictureComponent implements OnInit {
         pictureString.push(res.url);
       }) 
     }
+<<<<<<< HEAD
 
     setTimeout(() => {
       this.allowuploadNo = pictureString.length >= this.maxLength ? this.maxLength : pictureString.length + 1;
     }, 500);
+=======
+>>>>>>> upgrade
     this.picturesChange(pictureString.join(','));
   }
   get pictures() {
@@ -62,6 +76,7 @@ export class UploadPictureComponent implements OnInit {
 
   constructor(
     private message: NzMessageService,
+<<<<<<< HEAD
     private http: HttpService
   ) {
     /* ----------------- 获取OSS上传凭证 ----------------- */
@@ -77,6 +92,11 @@ export class UploadPictureComponent implements OnInit {
         });
       }
     });
+=======
+    private aliOssClient: AliOssClientService
+  ) {
+    this.aliOssClient.getClient().then(aliOssClient => this._aliOssClient = aliOssClient);
+>>>>>>> upgrade
   }
 
   ngOnInit() {
@@ -95,6 +115,7 @@ export class UploadPictureComponent implements OnInit {
   registerOnTouched(fn: any): void {
   }
 
+<<<<<<< HEAD
 
   allowuploadNo = 1;
   beforeUpload = (file: UploadFile): boolean => {
@@ -103,11 +124,17 @@ export class UploadPictureComponent implements OnInit {
         // setTimeout(() => {
         //   this.allowuploadNo = this.pictures.length < this.maxLength ? this.pictures.length + 1 : this.maxLength;
         // }, 500);
+=======
+  beforeUpload = (file: UploadFile): boolean => {
+    this._validatorUploadFile(file).subscribe(res => {
+      if (res) {
+>>>>>>> upgrade
       }
     })
     return false;
   }
   deletePicture = () => {
+<<<<<<< HEAD
     setTimeout(_ => {
       this.allowuploadNo = this.allowuploadNo == this.maxLength ? this.maxLength : this.allowuploadNo - 1;
     }, 0)
@@ -117,6 +144,11 @@ export class UploadPictureComponent implements OnInit {
 
 
 
+=======
+    return true;
+  }
+
+>>>>>>> upgrade
   previewImage: string;
   previewVisible: boolean;
   private _allowUpdateType = ['jpg', 'jpeg', 'png', 'gif'];
@@ -142,7 +174,11 @@ export class UploadPictureComponent implements OnInit {
             url: imageSrc,
             status: 'done'
           });
+<<<<<<< HEAD
           this.pictures = arr;
+=======
+          this.pictures = [...arr];
+>>>>>>> upgrade
           observer.next(true);
           observer.complete();
         }, err => {

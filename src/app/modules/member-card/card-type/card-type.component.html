@@ -1,7 +1,11 @@
 <div class="container">
   <ea-query-simp [node]="queryNode" title="卡类型管理" (onSubmit)="table.request($event)"></ea-query-simp>
 
+<<<<<<< HEAD
   <button nz-button nzType="dashed" style="width: 100%; margin-bottom: 24px;" (click)="updateCardType()"><i class="anticon anticon-plus"></i>新增卡类型</button>
+=======
+  <button nz-button nzType="dashed" style="width: 100%; margin-bottom: 24px;" (click)="update()"><i class="anticon anticon-plus"></i>新增卡类型</button>
+>>>>>>> upgrade
 
   <ea-table 
     #table 
@@ -22,7 +26,11 @@
       <td>{{ data.tong ? '是' : '否' }}</td>
       <td>{{ data.withdrawAmount }}</td>
       <td>
+<<<<<<< HEAD
         <a (click)="updateCardType(data)">编辑</a>
+=======
+        <a (click)="update({id: data.id, cardTypeInfo: data})">编辑</a>
+>>>>>>> upgrade
         <nz-divider nzType="vertical"></nz-divider>
         <a (click)="operation(data.id, 'disable', data.status)">{{ data.status == 1 ? '上架' : '下架' }}</a>
         <nz-divider nzType="vertical"></nz-divider>
@@ -30,6 +38,7 @@
       </td>
     </ng-template>
   </ea-table>
+<<<<<<< HEAD
 </div>
 
 <nz-drawer 
@@ -44,3 +53,6 @@
     <button nz-button nzType="primary" [nzLoading]="saveLoading" (click)="saveDrawer()">保存</button>
   </div>
 </nz-drawer>
+=======
+</div>
+>>>>>>> upgrade

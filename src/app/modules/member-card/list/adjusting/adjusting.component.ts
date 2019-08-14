@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
@@ -5,6 +6,14 @@ import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { differenceInCalendarDays } from 'date-fns';
+=======
+import { Component, OnInit, Input } from '@angular/core';
+import { NzMessageService, NzDrawerRef } from 'ng-zorro-antd';
+import { HttpService } from 'src/app/ng-relax/services/http.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { DrawerClose } from 'src/app/ng-relax/decorators/drawer/close.decorator';
+>>>>>>> upgrade
 
 
 @Component({
@@ -14,7 +23,11 @@ import { differenceInCalendarDays } from 'date-fns';
 })
 export class AdjustingComponent implements OnInit {
   today = new Date();
+<<<<<<< HEAD
   id: number;
+=======
+  @Input() id: number;
+>>>>>>> upgrade
   current: number = 0;
   followRecordGroup: FormGroup;
   conditionList: any[] = [];
@@ -55,6 +68,7 @@ export class AdjustingComponent implements OnInit {
   copywriting: string;
   employeeList: any[] = [];
   constructor(
+<<<<<<< HEAD
     private activatedRoute: ActivatedRoute,
     private message: NzMessageService,
     private http: HttpService,
@@ -62,11 +76,22 @@ export class AdjustingComponent implements OnInit {
     private format: DatePipe
   ) {
     this.id = this.activatedRoute.snapshot.params.id;
+=======
+    private message: NzMessageService,
+    private http: HttpService,
+    private fb: FormBuilder = new FormBuilder(),
+    private format: DatePipe,
+    private drawerRef: NzDrawerRef
+  ) {
+  }
+  ngOnInit() {
+>>>>>>> upgrade
     this.http.post('/scheduling/selectCondition', {}, false).then(res => { this.conditionList = res.result.list });
     this.http.post('/memberCard/getMemberCards', { memberId: this.id }, false).then(res => { this.followRecordGroup.patchValue({ memberName: res.result[0].memberName }); });
     this.http.post('/curriculum/selectMsg', { memberId: this.id }, false).then(res => { this.memberdetailTk = res.result.list; });
     this.http.post('/scheduling/selectSyllabusAll', {}, false).then(res => { this.SyllabusAllList = res.result.list; });
     this.http.post('/intelligent/selectScour', {}, false).then(res => { this.dateList = res.result.list; });
+<<<<<<< HEAD
     // this.http.post('/intelligent/selectScour', {}, false).then(res => {
     //   res.result.list.map(item => {
     //     item.label = item.startTime + '-' + item.endTime;
@@ -77,6 +102,9 @@ export class AdjustingComponent implements OnInit {
     this.nowDate();
   }
   ngOnInit() {
+=======
+    this.nowDate();
+>>>>>>> upgrade
     this.followRecordGroup = this.fb.group({
       memberName: [, [Validators.required]],
       syllabusName: [, [Validators.required]],
@@ -388,4 +416,9 @@ export class AdjustingComponent implements OnInit {
       this.followRecordGroup.patchValue({ employeeId: null });
     });
   }
+<<<<<<< HEAD
+=======
+
+  @DrawerClose() close: () =>  void;
+>>>>>>> upgrade
 }

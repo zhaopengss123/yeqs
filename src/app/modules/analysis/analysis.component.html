@@ -55,6 +55,7 @@
     </nz-tabset>
   </div>
   <div class="header" style="margin-top: 10px;">
+<<<<<<< HEAD
     <form [formGroup]="formModel" >
 
       <span *ngFor="let item of formData.datePickerList; let index = index" [attr.data-index]="index" style="margin:0 15px 10px 0; display: inline-block">
@@ -62,14 +63,33 @@
         <nz-date-picker [formControlName]="item.fieldName" nzFormat="yyyy-MM-dd" [nzFormat]="dateFormat"></nz-date-picker>
       </span>
       <span *ngFor="let item of formData.selectList; let index = index" [attr.data-index]="index" style="margin:0 15px 10px 0; display: inline-block">
+=======
+    <form [formGroup]="formModel">
+
+      <span *ngFor="let item of formData.datePickerList; let index = index" [attr.data-index]="index"
+        style="margin:0 15px 10px 0; display: inline-block">
+        <nz-form-label>{{item.chineseName}}</nz-form-label>
+        <nz-date-picker [formControlName]="item.fieldName" nzFormat="yyyy-MM-dd">
+        </nz-date-picker>
+      </span>
+      <span *ngFor="let item of formData.selectList; let index = index" [attr.data-index]="index"
+        style="margin:0 15px 10px 0; display: inline-block">
+>>>>>>> upgrade
         <nz-form-label>{{item.chineseName}}</nz-form-label>
         <nz-select style="width: 200px;" [nzAllowClear]="true" [formControlName]="item.fieldName" nzPlaceHolder="请选择">
           <nz-option *ngFor="let items of item.dataSource" [nzLabel]="items.name" [nzValue]="items.key"></nz-option>
         </nz-select>
       </span>
+<<<<<<< HEAD
       <span *ngFor="let item of formData.textFieldList; let index = index" [attr.data-index]="index" style="margin:0 15px 10px 0; display: inline-block">
         <nz-form-label>{{item.chineseName}}</nz-form-label>
         <input nz-input style="width: 200px;" placeholder="请输入" [formControlName]="item.fieldName" [(ngModel)]="value">
+=======
+      <span *ngFor="let item of formData.textFieldList; let index = index" [attr.data-index]="index"
+        style="margin:0 15px 10px 0; display: inline-block">
+        <nz-form-label>{{item.chineseName}}</nz-form-label>
+        <input nz-input style="width: 200px;" placeholder="请输入" [formControlName]="item.fieldName">
+>>>>>>> upgrade
       </span>
       <span style="margin:0 15px 10px 0; display: inline-block">
         <button nz-button nzType="primary" (click)="subData()">搜索</button>

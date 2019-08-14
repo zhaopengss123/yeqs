@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 .content{
   overflow: hidden;
 }
 .content span{
+=======
+.container{
+  overflow: hidden;
+}
+.container span{
+>>>>>>> upgrade
   display:inline-block;
   margin-right: 20px;
   margin-bottom: 10px;
@@ -109,6 +116,10 @@ img{
 .tableMain{
   width: 1650px;
   margin: 0 auto;
+<<<<<<< HEAD
+=======
+  border: solid 1px #ccc;
+>>>>>>> upgrade
 }
 .listHeader{
   width: 100%;
@@ -142,7 +153,11 @@ img{
   width: 200px;
   height: 100px;
   float: left;
+<<<<<<< HEAD
   background: #fff;
+=======
+  background: #eee;
+>>>>>>> upgrade
   border-radius: 5px;
   text-align: center;
   margin: 0 3px;

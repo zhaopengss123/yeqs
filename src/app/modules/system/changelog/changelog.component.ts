@@ -18,7 +18,11 @@ export class ChangelogComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
+<<<<<<< HEAD
     this.http.post('/version/getVersionList', {}, false).then(res => {
+=======
+    this.http.post('/version/getVersionList').then(res => {
+>>>>>>> upgrade
       res.code == 1000 && (this.changelog = res.result.list);
       this.loading = false;
     });

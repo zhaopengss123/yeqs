@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
+=======
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+>>>>>>> upgrade
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +26,7 @@ export class CacheService {
    * @description 存储数据至本地
    * @author phuhoang
    */
+<<<<<<< HEAD
   set(key: string, value: any): Observable<any> {
     let [valToStr, descStr] = [
       typeof value === 'object' ? JSON.stringify(value) : value,
@@ -32,6 +39,20 @@ export class CacheService {
       observer.complete();
     });
   }
+=======
+  // set(key: string, value: any): Observable<any> {
+  //   let [valToStr, descStr] = [
+  //     typeof value === 'object' ? JSON.stringify(value) : value,
+  //     JSON.stringify({ version: environment.version, setTime: new Date().getTime() })
+  //   ];
+  //   let cacheValue = `${valToStr}|--cache--|${descStr}`;
+  //   window.localStorage.setItem(key, cacheValue);
+  //   return new Observable(observer => {
+  //     observer.next(cacheValue);
+  //     observer.complete();
+  //   });
+  // }
+>>>>>>> upgrade
 
   /**
    * @function  根据key获取数据 
@@ -71,7 +92,11 @@ export class CacheService {
    */
   private _asyncData(observer, key, params) {
     this.http.post<any>(key, params).subscribe(res => {
+<<<<<<< HEAD
       if (res.code == 1000) { this.set(key, res.result); }
+=======
+      // if (res.code == 1000) { this.set(key, res.result); }
+>>>>>>> upgrade
       let result = res.code == 1000 ? res.result : null;
       observer.next(result);
       observer.complete();

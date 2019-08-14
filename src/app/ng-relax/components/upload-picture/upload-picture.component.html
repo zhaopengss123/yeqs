@@ -3,9 +3,15 @@
   nzListType="picture-card" 
   [(nzFileList)]="pictures" 
   [nzRemove]="deletePicture" 
+<<<<<<< HEAD
   [nzShowButton]="pictures?.length < allowuploadNo"
   [nzPreview]="handlePreview">
   <i class="anticon anticon-plus"></i>
+=======
+  [nzShowButton]="pictures?.length < maxLength"
+  [nzPreview]="handlePreview">
+  <i nz-icon nzType="plus"></i>
+>>>>>>> upgrade
   <div class="ant-upload-text">选择图片</div>
 </nz-upload>
 

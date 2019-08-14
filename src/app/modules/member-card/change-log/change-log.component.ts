@@ -1,7 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+<<<<<<< HEAD
 import { QueryComponent, QueryNode } from '../../../ng-relax/components/query/query.component';
 import { TableComponent } from '../../../ng-relax/components/table/table.component';
+=======
+import { QueryComponent, QueryNode } from 'src/app/ng-relax/components/query/query.component';
+import { TableComponent } from 'src/app/ng-relax/components/table/table.component';
+>>>>>>> upgrade
 
 @Component({
   selector: 'app-change-log',

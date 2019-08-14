@@ -1,7 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+<<<<<<< HEAD
 import { DrawerSave } from '../../../../ng-relax/decorators/drawer.decorator';
+=======
+import { DrawerSave } from 'src/app/ng-relax/decorators/drawer/save.decorator';
+import { DrawerClose } from 'src/app/ng-relax/decorators/drawer/close.decorator';
+import { NzDrawerRef } from 'ng-zorro-antd';
+>>>>>>> upgrade
 
 @Component({
   selector: 'app-continued',
@@ -21,7 +27,12 @@ export class ContinuedComponent implements OnInit {
 
   constructor(
     private http: HttpService,
+<<<<<<< HEAD
     private fb: FormBuilder = new FormBuilder()
+=======
+    private fb: FormBuilder = new FormBuilder(),
+    private drawerRef: NzDrawerRef
+>>>>>>> upgrade
   ) {
     this.http.post('/cardTypeManagement/findList', {}, false).then(res => this.cardTypeList = res.result);
     this.http.post('/member/getStoreSales', {}, false).then(res => this.salesList = res.result);
@@ -41,6 +52,12 @@ export class ContinuedComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
   @DrawerSave('/memberCard/continueCard') save: any;
+=======
+  @DrawerClose() close: () => void;
+  saveLoading: boolean;
+  @DrawerSave('/memberCard/continueCard') save: () => void;
+>>>>>>> upgrade
 
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { PreviewComponent } from '../preview/preview.component';
 import { NzDrawerService } from 'ng-zorro-antd';
@@ -8,12 +9,28 @@ import { HttpService } from 'src/app/ng-relax/services/http.service';
   selector: 'app-nocard',
   templateUrl: './nocard.component.html',
   styleUrls: ['./nocard.component.scss']
+=======
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { PreviewComponent } from '../public/preview/preview.component';
+import { NzDrawerService } from 'ng-zorro-antd';
+import { DatePipe } from '@angular/common';
+import { DrawerCreate } from 'src/app/ng-relax/decorators/drawer/create.decorator';
+import { VisitComponent } from '../public/visit/visit.component';
+@Component({
+  selector: 'app-nocard',
+  templateUrl: './nocard.component.html',
+  styleUrls: ['./nocard.component.less']
+>>>>>>> upgrade
 })
 export class NocardComponent implements OnInit {
 
   @ViewChild('EaTable') table;
+<<<<<<< HEAD
   yhfTable: any = [];
   isLoadingHf: boolean = false;
+=======
+  
+>>>>>>> upgrade
   queryNode = [
     {
       label       : '宝宝昵称',
@@ -23,10 +40,16 @@ export class NocardComponent implements OnInit {
     {
       label       : '来源',
       key         : 'customerSourceId',
+<<<<<<< HEAD
       optionKey: { label: 'sourceName', value: 'sourceId' },
       type        : 'select',
       optionsUrl  : '/management/selectSource',
       isHide      : true
+=======
+      optionKey   : { label: 'sourceName', value: 'sourceId' },
+      type        : 'select',
+      optionsUrl  : '/management/selectSource'
+>>>>>>> upgrade
     },
     {
       label       : '家长姓名',
@@ -76,7 +99,11 @@ export class NocardComponent implements OnInit {
       label       : '收集者',
       key         : 'collectorId',
       type        : 'select',
+<<<<<<< HEAD
       optionsUrl  : '/retrunVisit/getEmployeeList',
+=======
+      optionsUrl  : '/common/collectorList',
+>>>>>>> upgrade
       isHide      : true
     },
     {
@@ -87,6 +114,7 @@ export class NocardComponent implements OnInit {
       isHide      : true
     },
   ];
+<<<<<<< HEAD
   tableNode = [
     {
       name  : '宝宝昵称',
@@ -182,4 +210,20 @@ export class NocardComponent implements OnInit {
       });
     })
   }  
+=======
+  tableNode = ['宝宝昵称','宝宝姓名','宝宝生日','性别','月龄','家长姓名','家长电话','所属小区','体验时间','下次跟进时间','最后跟进时间','来源','客户状态','跟进阶段','收集者']
+
+  constructor(
+    private drawer: NzDrawerService,
+    private format: DatePipe
+  ) { }
+  
+  ngOnInit() {
+  }
+
+  @DrawerCreate({ width: 860, closable: false,  content: PreviewComponent, params: { followStageId: 3 } }) preview: ({ id: number} ) => void;
+
+  @DrawerCreate({ title: '今日已回访列表', content: VisitComponent, params: { followStageId: 3, status: 1 } }) visitList: () => void;
+  
+>>>>>>> upgrade
 }

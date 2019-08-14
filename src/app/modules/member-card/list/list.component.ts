@@ -1,3 +1,4 @@
+import { AdjustingComponent } from './adjusting/adjusting.component';
 import { Router,ActivatedRoute } from '@angular/router';
 import { SupplementComponent } from './supplement/supplement.component';
 import { StopComponent } from './stop/stop.component';
@@ -7,14 +8,15 @@ import { ChangeComponent } from './change/change.component';
 import { AdjustmentComponent } from './adjustment/adjustment.component';
 import { QueryNode } from './../../../ng-relax/components/query/query.component';
 import { Component, OnInit, ViewChild, ViewContainerRef, ComponentRef, ComponentFactoryResolver, ComponentFactory } from '@angular/core';
-import { NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService, NzDrawerService } from 'ng-zorro-antd';
 import { OpenComponent } from './open/open.component';
 import { NumberComponent } from './number/number.component';
 import { AppointComponent } from './appoint/appoint.component';
 import { ConsumptionComponent } from './consumption/consumption.component';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { WithdrawComponent } from './withdraw/withdraw.component';
-import { concat } from 'rxjs';
+import { UpdateComponent } from './update/update.component';
+import { DetailComponent } from './detail/detail.component';
 
 @Component({
   selector: 'app-list',
@@ -30,7 +32,7 @@ export class ListComponent implements OnInit {
   radioValue: any = [];
   isrepeat: any = false;
   SyllabusAllList: any = [];  
-     RecordList:any = [];
+  RecordList:any = [];
   RecordList1: any = [];
   RecordList2: any = [];
   RecordList3: any = [];
@@ -102,6 +104,10 @@ export class ListComponent implements OnInit {
     withdraw: {
       title: '退卡',
       component: WithdrawComponent
+    },
+    update: {
+      title: '转卡',
+      component: UpdateComponent
     }
   }
 
@@ -131,7 +137,7 @@ export class ListComponent implements OnInit {
       label       : '卡状态',
       key         : 'status',
       type        : 'select',
-      options     : [ { name: '正常', id: '0' }, { name: '停卡', id: '1' }, { name: '过期', id: '2' } ]
+      options     : [ { name: '正常', id: '0' }, { name: '停卡', id: '1' }, { name: '过期', id: '2' }, { name: '退卡', id: '3' } ]
     },
     {
       label       : '儿童类型',
@@ -164,10 +170,10 @@ export class ListComponent implements OnInit {
   constructor(
     private router: Router,
     private http: HttpService,
-    private reoute: ActivatedRoute,
     private message: NzMessageService,
     private resolver: ComponentFactoryResolver,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private drawer: NzDrawerService
   ) { 
     this.nowDate();
     this.activatedRoute.queryParamMap.subscribe((res: any) => {
@@ -213,83 +219,61 @@ export class ListComponent implements OnInit {
           if (res.turnCard) {
             this.message.warning('该卡有停卡限制,不能停卡！');
           } else {
-            this.showDrawer = true;
-            this.drawerTitle = this.operationComponents[type].title;
-            this.createComponent(this.operationComponents[type]);
+            this.openDrawer(this.operationComponents[type]);
           }
         }
       })
     } else if (type === 'open') {
       this.listPage.eaTable.dataSet.map(res => {
         if (res.id == this.checkedItems[0]) {
-    
-            this.showDrawer = true;
-            this.drawerTitle = this.operationComponents[type].title;
-            this.createComponent(this.operationComponents[type]);
-        
+          if (res.runningState == '停卡') {
+            this.openDrawer(this.operationComponents[type]);
+          } else {
+            this.message.warning('该卡不能重开卡！');
+          }
         }
       })
     } else if (type === 'supplement') {
       this.listPage.eaTable.dataSet.map(res => {
         if (res.id == this.checkedItems[0]) {
           if (res.serialNumber) {
-            this.showDrawer = true;
-            this.drawerTitle = this.operationComponents[type].title;
-            this.createComponent(this.operationComponents[type]);
+            this.openDrawer(this.operationComponents[type]);
           } else {
             this.message.warning('该卡是电子卡片,请点击换卡号！');
           }
         }
       })
     } else if (type === 'withdraw') {
-      this.listPage.eaTable.dataSet.map(res => {
+      this.listPage.eaTable.dataSet.map(res => { 
         if (res.id == this.checkedItems[0]) {
-          if (res.runningState != '退卡') {
-            this.showDrawer = true;
-            this.drawerTitle = this.operationComponents[type].title;
-            this.createComponent(this.operationComponents[type]);
-          } else {
-            this.message.warning('该卡已退卡！');
-          }
+          if(res.status == 6){
+            this.message.warning('该会员有转卡记录，不能退卡！');
+          }else{
+              if (res.runningState != '退卡') {
+                this.openDrawer(this.operationComponents[type]);
+              } else {
+                this.message.warning('该卡已退卡！');
+              }
+            }    
         }
       })
     } else if (this.operationComponents[type]) {
-      this.showDrawer = true;
-      this.drawerTitle = this.operationComponents[type].title;
-      this.createComponent(this.operationComponents[type]);
+      this.openDrawer(this.operationComponents[type]);
     }
   }
-
+  preview(id){
+    let dataSet = JSON.parse(JSON.stringify(this.listPage.eaTable.dataSet));
+    let userInfo = dataSet.filter(res => res.id == id)[0];
+    const drawer = this.drawer.create({
+      nzWidth: 720, 
+      nzTitle: '客户详情',
+      nzContent: DetailComponent,
+      nzContentParams:  { id, userInfo }
+    });
+    drawer.afterClose.subscribe(res => res && this.listPage.eaTable._request());
+  }
 
   @ViewChild('listPage') listPage: ListPageComponent;
-  saveLoading: boolean;
-  saveDrawer() {
-    this.saveLoading = true;
-    this.componentRef.instance.save().then(res => {
-      this.saveLoading = false;
-      if (res) {
-        this.showDrawer = false;
-        this.listPage.eaTable._request();
-        if (this.drawerTitle === '重开卡') {
-          this.listPage.eaTable.dataSet.map(res => {
-            if (res.id == this.checkedItems[0]) {
-                    // this.showAdjust = true;
-                    // this.radioValue = '';
-                    // this.RecordList = [];
-                    // this.datalabelList = [];
-                    // this.http.post('/curriculum/selectMsg', { memberId: res.memberId }, false).then(res => {
-                    //   if (res.code == 1000) {
-                    //     this.memberdetailTk = res.result.list;
-                    //   } else {
-                    //     this.message.create('error', res.info);
-                    //   }
-                    // });
-            }
-          })
-        }
-      }
-    });
-  }
   // 排课
   arranging() {
     this.nowDate();
@@ -326,19 +310,19 @@ export class ListComponent implements OnInit {
      
       }
   }
-    /* ----------------- 新增抽屉组件并传参Id及用户信息 ----------------- */
-  componentRef: ComponentRef<any>;
-  @ViewChild("drawerContainer", { read: ViewContainerRef }) container: ViewContainerRef;
-  createComponent(operationComponent) {
-    this.container.clear();
-    const factory: ComponentFactory<any> = this.resolver.resolveComponentFactory(operationComponent.component || operationComponent);
-    this.componentRef = this.container.createComponent(factory);
-    this.componentRef.instance.id = this.checkedItems[0];
-    this.listPage.eaTable.dataSet.map(res => {
-      if (res.id == this.checkedItems[0]) {
-        this.componentRef.instance.memberCardInfo = res;
-      }
-    })
+  
+
+
+  openDrawer(options) {
+    let dataSet = JSON.parse(JSON.stringify(this.listPage.eaTable.dataSet));
+    let memberCardInfo = dataSet.filter(res => res.id == this.checkedItems[0])[0];
+    const drawer = this.drawer.create({
+      nzWidth: 720,
+      nzTitle: options.title,
+      nzContent: options.component,
+      nzContentParams: options.params || { id: this.checkedItems[0], memberCardInfo }
+    });
+    drawer.afterClose.subscribe(res => res && this.listPage.eaTable._request());
   }
 
   /****************办卡选课******************* */
@@ -533,7 +517,13 @@ export class ListComponent implements OnInit {
         memberId = res.memberId;
       }
     })
-    this.router.navigateByUrl(`/home/membercard/adjusting/${ memberId }`);
+    // this.router.navigateByUrl(`/home/membercard/adjusting/${ memberId }`);
+    this.drawer.create({
+      nzTitle: '会员调课',
+      nzWidth: 960,
+      nzContent: AdjustingComponent,
+      nzContentParams: { id: memberId }
+    })
   }
   //选择课程
   datalabelChange(data) {

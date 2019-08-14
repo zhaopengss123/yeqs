@@ -1,7 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
+<<<<<<< HEAD
 import { DrawerSave } from '../../../../ng-relax/decorators/drawer.decorator';
+=======
+import { DrawerSave } from 'src/app/ng-relax/decorators/drawer/save.decorator';
+import { NzDrawerRef } from 'ng-zorro-antd';
+import { DrawerClose } from 'src/app/ng-relax/decorators/drawer/close.decorator';
+>>>>>>> upgrade
 
 @Component({
   selector: 'app-change',
@@ -20,7 +26,12 @@ export class ChangeComponent implements OnInit {
 
   constructor(
     private http: HttpService,
+<<<<<<< HEAD
     private fb: FormBuilder = new FormBuilder()
+=======
+    private fb: FormBuilder = new FormBuilder(),
+    private drawerRef: NzDrawerRef
+>>>>>>> upgrade
   ) {
     this.http.post('/cardTypeManagement/findList', {}, false).then(res => this.cardTypeList = res.result);
     this.http.post('/member/getStoreSales', {}, false).then(res => this.salesList = res.result);
@@ -44,11 +55,21 @@ export class ChangeComponent implements OnInit {
       changeCardType: [, [Validators.required]],
       turnCard: [ this.memberCardInfo.turnCard ],
       salesId: [, [Validators.required]],
+<<<<<<< HEAD
       comment: []
     })
   }
 
   @DrawerSave('/memberCard/changeCard') save: () => Promise<boolean>;
+=======
+      comment: [, [Validators.required]]
+    })
+  }
+
+  @DrawerClose() close: () => void;
+  saveLoading: boolean;
+  @DrawerSave('/memberCard/changeCard') save: () => void;
+>>>>>>> upgrade
 
   minimumValueValidator(contrastKey: string): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {

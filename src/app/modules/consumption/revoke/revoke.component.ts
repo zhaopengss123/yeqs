@@ -3,8 +3,13 @@ import { QueryNode } from 'src/app/ng-relax/components/query/query.component';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { NzDrawerService } from 'ng-zorro-antd';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+<<<<<<< HEAD
 import { HttpService } from './../../../ng-relax/services/http.service';
 import { ListPageComponent } from './../../../ng-relax/components/list-page/list-page.component';
+=======
+import { ListPageComponent } from 'src/app/ng-relax/components/list-page/list-page.component';
+import { HttpService } from 'src/app/ng-relax/services/http.service';
+>>>>>>> upgrade
 
 @Component({
   selector: 'app-revoke',
@@ -100,7 +105,11 @@ export class RevokeComponent implements OnInit {
       this.baseFormGroup.patchValue({fitnessTeacherId: res.result.fitnessTeacher.teacherId});   
     }).catch();
   } 
+<<<<<<< HEAD
   saveLoadingx: boolean;
+=======
+  saveLoading: boolean;
+>>>>>>> upgrade
   save(drawerRef){
     if (this.baseFormGroup.invalid) {
     for (let i in this.baseFormGroup.controls) {
@@ -108,9 +117,15 @@ export class RevokeComponent implements OnInit {
       this.baseFormGroup.controls[i].updateValueAndValidity();
     }
   }else{
+<<<<<<< HEAD
     this.saveLoadingx = true;
     this.http.post('/customer/updateTeacher', { paramJson: JSON.stringify(this.baseFormGroup.value) }).then(res => {
       this.saveLoadingx = false;
+=======
+    this.saveLoading = true;
+    this.http.post('/customer/updateTeacher', { paramJson: JSON.stringify(this.baseFormGroup.value) }).then(res => {
+      this.saveLoading = false;
+>>>>>>> upgrade
       drawerRef.close();
       this.listPage.eaQuery._submit();
     }).catch()

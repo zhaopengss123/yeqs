@@ -2,8 +2,15 @@ import { DatePipe } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
+<<<<<<< HEAD
 import { DrawerSave } from 'src/app/ng-relax/decorators/drawer.decorator';
 import { TableComponent } from 'src/app/ng-relax/components/table/table.component';
+=======
+import { TableComponent } from 'src/app/ng-relax/components/table/table.component';
+import { DrawerSave } from 'src/app/ng-relax/decorators/drawer/save.decorator';
+import { DrawerClose } from 'src/app/ng-relax/decorators/drawer/close.decorator';
+import { NzDrawerRef } from 'ng-zorro-antd';
+>>>>>>> upgrade
 
 @Component({
   selector: 'app-album',
@@ -23,7 +30,12 @@ export class AlbumComponent implements OnInit {
   constructor(
     private http: HttpService,
     private fb: FormBuilder = new FormBuilder(),
+<<<<<<< HEAD
     private format: DatePipe
+=======
+    private format: DatePipe,
+    private drawerRef: NzDrawerRef
+>>>>>>> upgrade
   ) { 
   }
 
@@ -37,7 +49,13 @@ export class AlbumComponent implements OnInit {
     })
   }
 
+<<<<<<< HEAD
   @DrawerSave('/babyGrowthAlbum/save') save: () => Promise<boolean>;
+=======
+  @DrawerClose() close: () => void;
+  saveLoading: boolean;
+  @DrawerSave('/babyGrowthAlbum/save') save: () => void;
+>>>>>>> upgrade
 
   selectedMonth;
   monthChange(e) {

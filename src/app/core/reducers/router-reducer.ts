@@ -16,7 +16,12 @@ import { Action } from "@ngrx/store";
 const routerStateDefalut =  {
   loginSource: '',
   goPath: '',
+<<<<<<< HEAD
   currentPath: ''
+=======
+  currentPath: '',
+  currentMenu: null
+>>>>>>> upgrade
 }
 export function routerReducer (state: RouterState = routerStateDefalut, action: Action) {
   switch (action.type) {
@@ -31,7 +36,14 @@ export function routerReducer (state: RouterState = routerStateDefalut, action: 
     case 'currentPath':
       state.currentPath = action['payload'];
       return state;
+<<<<<<< HEAD
     
+=======
+
+    case 'currentMenu':
+      state.currentMenu = action['payload'];
+
+>>>>>>> upgrade
     default: 
       return state;
   }
@@ -48,4 +60,10 @@ export interface RouterState {
   /* -------- 当前路径 -------- */
   currentPath: string;
 
+<<<<<<< HEAD
+=======
+  /* -------- 当前路由对象 -------- */
+  currentMenu: any;
+
+>>>>>>> upgrade
 }

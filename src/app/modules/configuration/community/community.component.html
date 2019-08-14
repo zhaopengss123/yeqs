@@ -1,7 +1,11 @@
 <div class="container">
   <ea-query-simp [node]="[{label: '社区名称', key: 'name', type: 'input'}]" title="社区管理" (onSubmit)="table.request($event)"></ea-query-simp>
 
+<<<<<<< HEAD
   <button nz-button nzType="dashed" style="width: 100%; margin-bottom: 24px;" (click)="update()"><i class="anticon anticon-plus"></i>新增社区</button>
+=======
+  <button nz-button nzType="primary" style="margin-bottom: 24px;" (click)="update()">新增社区</button>
+>>>>>>> upgrade
 
   <ea-table 
     #table 
@@ -30,7 +34,11 @@
             <nz-form-explain *ngIf="formGroup.get('name').dirty && formGroup.get('name').hasError('required')">请输入社区名称！</nz-form-explain>
             <nz-form-explain *ngIf="formGroup.get('name').dirty && formGroup.get('name').hasError('duplicated')">该社区名称已存在</nz-form-explain>
             <nz-form-explain *ngIf="formGroup.get('name').dirty && formGroup.get('name').pending">
+<<<<<<< HEAD
               <i class="anticon anticon-spin anticon-loading"></i>正在校验社区名称是否存在...</nz-form-explain>
+=======
+              <i nz-icon nzType="loading"></i>正在校验社区名称是否存在...</nz-form-explain>
+>>>>>>> upgrade
           </nz-form-control>
         </nz-form-item>
       </div>

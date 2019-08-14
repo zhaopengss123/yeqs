@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
+<<<<<<< HEAD
+=======
+import { DrawerClose } from 'src/app/ng-relax/decorators/drawer/close.decorator';
+>>>>>>> upgrade
 
 @Component({
   selector: 'app-import',
@@ -33,8 +37,12 @@ export class ImportComponent implements OnInit {
     }
   }
 
+<<<<<<< HEAD
   save(): Promise<boolean> {
     return new Promise(resolve => resolve(true));
   }
+=======
+  @DrawerClose() close: () => void;
+>>>>>>> upgrade
 
 }

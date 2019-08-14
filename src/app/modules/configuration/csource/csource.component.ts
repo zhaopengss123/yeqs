@@ -3,11 +3,18 @@ import { Validators, FormControl, FormGroup } from '@angular/forms';
 import { NzDrawerService } from 'ng-zorro-antd';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { TableComponent } from 'src/app/ng-relax/components/table/table.component';
+<<<<<<< HEAD
 import { Observable } from 'rxjs';
 @Component({
   selector: 'app-csource',
   templateUrl: './csource.component.html',
   styleUrls: ['./csource.component.scss']
+=======
+@Component({
+  selector: 'app-csource',
+  templateUrl: './csource.component.html',
+  styleUrls: ['./csource.component.less']
+>>>>>>> upgrade
 })
 export class CsourceComponent implements OnInit {
 
@@ -22,7 +29,10 @@ export class CsourceComponent implements OnInit {
   ) {
     this.formGroup = new FormGroup({
       sourceId: new FormControl(null),
+<<<<<<< HEAD
       // sourceName: new FormControl(null, [Validators.required], [this.nameAsyncValidator])
+=======
+>>>>>>> upgrade
       sourceName: new FormControl(null, [Validators.required])
     });
   }
@@ -37,13 +47,22 @@ export class CsourceComponent implements OnInit {
       return;
     }
     this.saveLoading = true;
+<<<<<<< HEAD
     if(this.formGroup.value.sourceId){
       this.http.post('/management/updateSource', { sourceName: this.formGroup.value.sourceName, sourceId:this.formGroup.value.sourceId }).then(res => {
+=======
+    if (this.formGroup.value.sourceId) {
+      this.http.post('/management/updateSource', { sourceName: this.formGroup.value.sourceName, sourceId: this.formGroup.value.sourceId }).then(res => {
+>>>>>>> upgrade
         drawerRef.close();
         this.table._request();
         this.saveLoading = false;
       })
+<<<<<<< HEAD
     }else{
+=======
+    } else {
+>>>>>>> upgrade
       this.http.post('/management/insertSource', { sourceName: this.formGroup.value.sourceName }).then(res => {
         drawerRef.close();
         this.table._request();
@@ -64,6 +83,7 @@ export class CsourceComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
   delete(sourceId ) {
     this.http.post('/management/deleteSource', { sourceId  }).then(res => this.table._request());
   }
@@ -83,5 +103,11 @@ export class CsourceComponent implements OnInit {
   //     })
   //   })
   // };
+=======
+  delete(sourceId) {
+    this.http.post('/management/deleteSource', { sourceId }).then(res => this.table._request());
+  }
+
+>>>>>>> upgrade
 
 }

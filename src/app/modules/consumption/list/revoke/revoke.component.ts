@@ -1,7 +1,11 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { Component, OnInit, Input } from '@angular/core';
+<<<<<<< HEAD
 import { DrawerSave } from '../../../../ng-relax/decorators/drawer.decorator';
+=======
+import { DrawerSaveAsync } from 'src/app/ng-relax/decorators/drawer/save-async.decorator';
+>>>>>>> upgrade
 
 @Component({
   selector: 'app-revoke',
@@ -24,7 +28,10 @@ export class UpdateRevokeComponent implements OnInit {
   }
 
   ngOnInit() {
+<<<<<<< HEAD
     console.log(this.recordInfo);
+=======
+>>>>>>> upgrade
     this.formGroup = this.fb.group({
       memberName: [{ value: this.recordInfo.memberName, disabled: true }],
       memberNick: [{ value: this.recordInfo.memberNick, disabled: true }],
@@ -38,7 +45,11 @@ export class UpdateRevokeComponent implements OnInit {
       monthAge: [{ value: this.recordInfo.monthAge, disabled: true }],
       swimDuration: [{ value: this.recordInfo.swimDuration, disabled: true }],
       swimName: [{ value: this.recordInfo.swimName, disabled: true }],
+<<<<<<< HEAD
       temperaturePost: [{ value: this.recordInfo.temperaturePost, disabled: true }],
+=======
+      height: [{ value: this.recordInfo.height, disabled: true }],
+>>>>>>> upgrade
       weight: [{ value: this.recordInfo.weight, disabled: true }],
       temperature: [{ value: this.recordInfo.temperature, disabled: true }],
       comment: [{ value: this.recordInfo.comment, disabled: true }],
@@ -54,6 +65,10 @@ export class UpdateRevokeComponent implements OnInit {
 
   }
 
+<<<<<<< HEAD
   @DrawerSave('/customer/revocationConsume') save: () => Promise<boolean>;
+=======
+  @DrawerSaveAsync('/customer/revocationConsume') save: () => void;
+>>>>>>> upgrade
 
 }

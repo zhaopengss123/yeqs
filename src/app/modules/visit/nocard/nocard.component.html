@@ -1,10 +1,18 @@
 <div class="container">
   <ea-query [node]="queryNode" (onSubmit)="EaTable.request($event)"></ea-query>
+<<<<<<< HEAD
   <button nz-button [nzType]="'primary'"  style="margin-bottom: 16px;" (click)="gethf()"[(nzLoading)]="isLoadingHf"> 今日已回访列表</button>
+=======
+
+  <div class="ea-button-group">
+    <button nz-button [nzType]="'primary'" (click)="visitList()">今日已回访列表</button>
+  </div>
+>>>>>>> upgrade
 
   <ea-table #EaTable [thead]="tableNode" [EaTableTbodyTr]="EaTableTbodyTr" [allowSpace]="false"
     url="/retrunVisit/customerList">
     <ng-template let-data #EaTableTbodyTr>
+<<<<<<< HEAD
       <td>
         <a (click)="preview(data.id)">{{ data.nick }}</a>
       </td>
@@ -20,6 +28,15 @@
       <td>
         <a href="javascript:;" [getMobile]="data.id">查看</a>
       </td>
+=======
+      <td><a (click)="preview({id: data.id})">{{ data.nick }}</a></td>
+      <td><a (click)="preview({id: data.id})">{{ data.name }}</a></td>
+      <td>{{ data.birthday || '--' }}</td>
+      <td><i nz-icon [nzType]="data.sex === '男' ? 'man' : 'woman'" [title]="data.sex" nzTheme="outline"></i></td>
+      <td>{{ data.birthday | monthdiff }}</td>
+      <td>{{ data.parentName }}</td>
+      <td><a href="javascript:;" [getMobile]="data.id">查看</a></td>
+>>>>>>> upgrade
       <td>{{ data.communityName || '--' }}</td>
       <td>{{ data.lastConsumeDate }}</td>
       <td>{{ data.nextFollowTime | date: 'yyyy-MM-dd' || '--' }}</td>
@@ -30,6 +47,7 @@
       <td>{{ data.contributors || '--' }}</td>
     </ng-template>
   </ea-table>
+<<<<<<< HEAD
 
   <router-outlet name="aux"></router-outlet>
 </div>
@@ -83,3 +101,6 @@
       </nz-table>
 
   </ng-template>
+=======
+</div>
+>>>>>>> upgrade

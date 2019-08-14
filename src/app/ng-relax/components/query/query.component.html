@@ -1,6 +1,10 @@
 <form nz-form [nzLayout]="'inline'" [formGroup]="_queryForm">
   <div nz-row [nzGutter]="24">
+<<<<<<< HEAD
     <ng-container *ngFor="let control of _node">
+=======
+    <ng-container *ngFor="let control of node">
+>>>>>>> upgrade
       <div class="query-cell" [ngClass]="[ 'multiple' + (control.multiple || 1) ]" nz-col *ngIf="!control.isRemove" [nzSpan]="8 * (control.multiple || 1)" [nzXs]="24" [nzSm]="12 * (control.multiple || 1)" [nzLg]="8 * (control.multiple || 1)" [nzXXl]="6 * (control.multiple || 1)" [style.display]="isCollapse && control.isHide ? 'none' : 'block'">
         <nz-form-item nzFlex nz-row>
           <nz-form-label [nzSpan]="6 / (control.multiple || 1)">{{ control.label }}</nz-form-label>
@@ -10,7 +14,11 @@
                 <input [formControlName]="control.key" nz-input [placeholder]="control.placeholder || '请输入' + control.label">
               </nz-input-group>
               <ng-template #suffixIconButton>
+<<<<<<< HEAD
                 <i class="anticon anticon-close-circle" (click)="_clearControlValue(control.key)"></i>
+=======
+                <i nz-icon type="close-circle" (click)="_clearControlValue(control.key)"></i>
+>>>>>>> upgrade
               </ng-template>
             </ng-container>
 
@@ -23,9 +31,15 @@
 
             <ng-container *ngIf="control.type === 'between'">
               <nz-input-group class="between-content">
+<<<<<<< HEAD
                 <input type="text" class="between-one" [formControlName]="control.valueKey[0]" nz-input [placeholder]="control.placeholder ? control.placeholder[0] : '最小值'">
                 <input type="text" class="between-two" disabled nz-input placeholder="-">
                 <input type="text" class="between-three" [formControlName]="control.valueKey[1]" nz-input [placeholder]="control.placeholder ? control.placeholder[1] : '最大值'">
+=======
+                <input type="text" class="between-left" [formControlName]="control.valueKey[0]" nz-input [placeholder]="control.placeholder ? control.placeholder[0] : '最小值'">
+                <input type="text" class="between-center" disabled nz-input placeholder="~">
+                <input type="text" class="between-right" [formControlName]="control.valueKey[1]" nz-input [placeholder]="control.placeholder ? control.placeholder[1] : '最大值'">
+>>>>>>> upgrade
               </nz-input-group>
             </ng-container>
 
@@ -51,7 +65,11 @@
         </nz-form-item>
       </div>
     </ng-container>
+<<<<<<< HEAD
     <div nz-col [nzSpan]="8" [nzLg]="8" [nzSm]="12" [nzXs]="24" [nzXXl]="6" class="hp-query-btns" *ngIf="_node.length">
+=======
+    <div nz-col [nzSpan]="8" [nzLg]="8" [nzSm]="12" [nzXs]="24" [nzXXl]="6" class="hp-query-btns" *ngIf="node.length">
+>>>>>>> upgrade
       <nz-form-item>
         <nz-form-control>
           <button nz-button nzType="primary" (click)="_submit()">查询</button>

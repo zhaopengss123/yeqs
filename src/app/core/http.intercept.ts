@@ -6,10 +6,18 @@ import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 
+<<<<<<< HEAD
 /**
  * @class 拦截请求与响应
  * @description 添加请求token 及 错误处理
  */
+=======
+/* 序列化请求参数 */
+export const serialize = (data: object): string => {
+  let val = ''; for (let v in data) { if (data[v] !== '' && data[v] !== null && data[v] !== undefined) { val += `${v}=${data[v]}&`; } }
+  return val.slice(0, val.length - 1);
+}
+>>>>>>> upgrade
 
 @Injectable()
 export class NoopInterceptor implements HttpInterceptor {
@@ -43,6 +51,7 @@ export class NoopInterceptor implements HttpInterceptor {
   ) { }
 
 }
+<<<<<<< HEAD
 
 /* 序列化请求参数 */
 export const serialize = (data: object): string => {
@@ -59,4 +68,10 @@ export interface ResponseType {
   code    : number,
   meg     : string,
   result  : any
+=======
+export interface YlbbResponse {
+  code  : number;
+  info  : string;
+  result: any
+>>>>>>> upgrade
 }

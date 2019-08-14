@@ -8,16 +8,28 @@ import { CacheService } from '../../services/cache.service';
 @Component({
   selector: 'ea-query-simp',
   templateUrl: './query-simp.component.html',
+<<<<<<< HEAD
   styleUrls: ['./query-simp.component.scss'],
   host: {
     '[class.ea-query-simp]': 'true'
+=======
+  styleUrls: ['./query-simp.component.less'],
+  host: {
+    '[class.ea-query-simp]': 'true',
+>>>>>>> upgrade
   }
 })
 export class QuerySimpComponent implements OnInit {
 
   @Input() title: string = '';
 
+<<<<<<< HEAD
   @Input('node') _node: QueryNode[] = [];
+=======
+  @Input() node: QueryNode[] = [];
+
+  @Input() hideQueryBtn: boolean;
+>>>>>>> upgrade
 
   @Output() onSubmit: EventEmitter<object> = new EventEmitter();
 
@@ -34,7 +46,11 @@ export class QuerySimpComponent implements OnInit {
 
   ngOnInit() {
     this._queryForm = new FormGroup({});
+<<<<<<< HEAD
     this._node.map((res: any, idx) => {
+=======
+    this.node.map((res: any, idx) => {
+>>>>>>> upgrade
       if (res.isHide) { this._showSlideBtn = true; }
       if (res.type === 'between') {
         this._queryForm.addControl(res.valueKey[0], new FormControl(res.default ? res.default[0] : ''));
@@ -61,7 +77,11 @@ export class QuerySimpComponent implements OnInit {
   }
 
   patchValue(key: string, value: object): void {
+<<<<<<< HEAD
     this._node.map(res => {
+=======
+    this.node.map(res => {
+>>>>>>> upgrade
       res.key === key && (res = Object.assign(res, value));
       return res;
     })
@@ -71,12 +91,24 @@ export class QuerySimpComponent implements OnInit {
   /* --------------- 清空 --------------- */
   _submit(): void {
     let queryForm = this._queryForm.value;
+<<<<<<< HEAD
     this._node.map((res: any) => {
+=======
+    this.node.map((res: any) => {
+>>>>>>> upgrade
       if (res.type === 'datepicker') {
         if (queryForm[res.key] && typeof queryForm[res.key] === 'object') {
           queryForm[res.key] = this.datePipe.transform(queryForm[res.key].getTime(), 'yyyy-MM-dd');
         }
       }
+<<<<<<< HEAD
+=======
+      if (res.type === 'monthpicker') {
+        if (queryForm[res.key]) {
+          queryForm[res.key] = this.datePipe.transform(queryForm[res.key], 'yyyy-MM');
+        }
+      }
+>>>>>>> upgrade
       if (res.valueKey) {
         if (res.type === 'rangepicker') {
           if (queryForm[res.key] && queryForm[res.key][0]) {

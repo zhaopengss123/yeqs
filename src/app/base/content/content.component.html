@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <nz-spin [nzTip]="'正在加载页面...'" [nzSize]="'large'" [nzSpinning]="routerState.currentPath != routerState.goPath">
   <div class="ui-content">
     <ea-breadcrumb [breadcrumb]="breadcrumb"></ea-breadcrumb>
@@ -6,3 +7,14 @@
     </div>
   </div>
 </nz-spin>
+=======
+<nz-spin [nzIndicator]="indicatorTemplate" [nzTip]="'正在加载页面...'" [nzSize]="'large'" 
+  [nzSpinning]="($routerState | async).currentPath != ($routerState | async).goPath">
+  <div class="ui-content">
+    <div><router-outlet></router-outlet></div>
+  </div>
+</nz-spin>
+<ng-template #indicatorTemplate>
+  <i nz-icon type="loading" style="font-size: 32px; position: absolute; top: 50%; margin-top: -32px; margin-left: -16px;"></i>
+</ng-template>
+>>>>>>> upgrade

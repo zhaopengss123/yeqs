@@ -3,7 +3,11 @@ import { ListPageComponent } from './../../../ng-relax/components/list-page/list
 import { ExchangeComponent } from './exchange/exchange.component';
 import { ConsumptionComponent } from './consumption/consumption.component';
 import { AppointComponent } from './appoint/appoint.component';
+<<<<<<< HEAD
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
+=======
+import { NzMessageService, NzModalService, NzDrawerService } from 'ng-zorro-antd';
+>>>>>>> upgrade
 import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { QueryNode } from './../../../ng-relax/components/query/query.component';
 import { Component, OnInit, ViewChild, ComponentFactoryResolver, ViewContainerRef, ComponentRef, ComponentFactory } from '@angular/core';
@@ -12,7 +16,11 @@ import { ConstructionComponent } from './construction/construction.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AddIntegralComponent } from './add-integral/add-integral.component';
 import { AlbumComponent } from './album/album.component';
+<<<<<<< HEAD
 
+=======
+import { DetailComponent } from './detail/detail.component' ;
+>>>>>>> upgrade
 declare const require: any;
 const DataSet = require('@antv/data-set');
 const scale = [{
@@ -29,6 +37,12 @@ const scale = [{
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
+<<<<<<< HEAD
+=======
+
+  @ViewChild('listPage') listPage: ListPageComponent;
+  
+>>>>>>> upgrade
   showAdjust:boolean = false;
   isrepeat: any = false;
   memberdetailTk:any = '';
@@ -147,7 +161,17 @@ export class ListComponent implements OnInit {
       title     : '成长相册',
       component : AlbumComponent,
       userInfo  : true
+<<<<<<< HEAD
     }
+=======
+    },
+    select: {
+      title     : '客户详情',
+      component : DetailComponent,
+      userInfo  : true
+    }
+    
+>>>>>>> upgrade
   }
 
   saveLoading: boolean;
@@ -157,10 +181,17 @@ export class ListComponent implements OnInit {
   constructor(
     private http: HttpService,
     private message: NzMessageService,
+<<<<<<< HEAD
     private resolver: ComponentFactoryResolver,
     private router: Router,
     private modal: NzModalService,
     private activatedRoute: ActivatedRoute
+=======
+    private router: Router,
+    private modal: NzModalService,
+    private activatedRoute: ActivatedRoute,
+    private drawer: NzDrawerService
+>>>>>>> upgrade
   ) {
     this.selectSyllabusAll();
     this.activatedRoute.queryParamMap.subscribe((res: any) => {
@@ -193,6 +224,7 @@ export class ListComponent implements OnInit {
     if (!this.checkedItems.length) {
       this.message.warning('请选择一条数据进行操作');
     } else if (type === 'queryCard') {
+<<<<<<< HEAD
       this.router.navigate(['/home/membercard/list'], {
         queryParams: {
           memberId: this.checkedItems[0]
@@ -204,6 +236,23 @@ export class ListComponent implements OnInit {
           memberId: this.checkedItems[0]
         }
       });
+=======
+      setTimeout(() => {
+        this.router.navigate(['/home/membercard/list'], {
+          queryParams: {
+            memberId: this.checkedItems[0]
+          }
+        });
+      }, 300);
+    } else if (type === 'consumptionLog') {
+      setTimeout(() => {
+        this.router.navigate(['/home/consumption/list'], {
+          queryParams: {
+            memberId: this.checkedItems[0]
+          }
+        });
+      }, 300);
+>>>>>>> upgrade
     } else if (type === 'resetPassword') {
       this.modal.confirm({
         nzTitle: '<i>您确定要重置密吗?</i>',
@@ -211,6 +260,7 @@ export class ListComponent implements OnInit {
         nzOnOk: () => this.http.post('/member/modifyPassword', { id: this.checkedItems[0] }).then(res => { })
       });
     } else if (type === 'construction') {
+<<<<<<< HEAD
       this.http.post('/member/checkMemberInfo', {id : this.checkedItems[0]}, false).then(res => {
         if (res.code == 2043) {
           this.message.warning(res.info);
@@ -221,21 +271,40 @@ export class ListComponent implements OnInit {
           this.showDrawer = true;
           this.drawerTitle = '建卡';
           this.createComponent(this.operationComponents[type]);
+=======
+      this.http.post('/member/checkMemberInfo', { id: this.checkedItems[0] }, false).then(res => {
+        if (res.code == 2053) {
+          this.message.warning(res.info);
+          this.openDrawer({ title: '编辑-请补全基本信息', component: UpdateComponent });
+        } else {
+          let options: any = {};
+          if (type === 'consumption') {
+            let dataSet = JSON.parse(JSON.stringify(this.listPage.eaTable.dataSet));
+            let consumptionInfo = dataSet.filter(res => res.id == this.checkedItems[0])[0];
+            options.params = { consumptionInfo }
+          }
+          this.openDrawer(Object.assign(options, this.operationComponents[type]));
+>>>>>>> upgrade
         }
       })
     } else if (type === 'album') {
       this.listPage.eaTable.dataSet.map(res => {
         if (res.id === this.checkedItems[0]) {
           if (res.haveCard) {
+<<<<<<< HEAD
             this.showDrawer = true;
             this.drawerTitle = this.operationComponents[type].title;
             this.createComponent(this.operationComponents[type]);
+=======
+            this.openDrawer(this.operationComponents[type]);
+>>>>>>> upgrade
           } else {
             this.message.warning('请办卡！');
           }
         }
       })
     } else if (this.operationComponents[type].component) {
+<<<<<<< HEAD
       this.showDrawer = true;
       this.drawerTitle = this.operationComponents[type].title;
       this.createComponent(this.operationComponents[type]);
@@ -310,11 +379,62 @@ export class ListComponent implements OnInit {
       })
     }
   }
+=======
+      this.openDrawer(this.operationComponents[type]);
+    }
+  }
+
+
+  openDrawer(options) {
+    let dataSet = JSON.parse(JSON.stringify(this.listPage.eaTable.dataSet));
+    let userInfo = options.userInfo ? dataSet.filter(res => res.id == this.checkedItems[0])[0] : {};
+    const drawer = this.drawer.create({
+      nzWidth: 720,
+      nzTitle: options.title || null,
+      nzContent: options.component,
+      nzContentParams: options.params || { id: this.checkedItems[0], userInfo }
+    });
+    drawer.afterClose.subscribe(res => res && this.listPage.eaTable._request());
+  }
+  preview(id){
+    let dataSet = JSON.parse(JSON.stringify(this.listPage.eaTable.dataSet));
+    let userInfo = dataSet.filter(res => res.id == id)[0];
+    const drawer = this.drawer.create({
+      nzWidth: 720, 
+      nzTitle: '客户详情',
+      nzContent: DetailComponent,
+      nzContentParams:  { id, userInfo }
+    });
+    drawer.afterClose.subscribe(res => res && this.listPage.eaTable._request());
+  }
+  newDrawer(options) {
+    let dataSet = JSON.parse(JSON.stringify(this.listPage.eaTable.dataSet));
+    let userInfo = options.userInfo ? dataSet.filter(res => res.id == this.checkedItems[0])[0] : {};
+    const drawer = this.drawer.create({
+      nzWidth: 1300,
+      nzTitle: options.title || null,
+      nzContent: options.component,
+      nzContentParams: options.params || { id: this.checkedItems[0], userInfo }
+    });
+    drawer.afterClose.subscribe(res => res && this.listPage.eaTable._request());
+  }
+
+  insert() {
+    this.openDrawer({ title: '新建客户', component: UpdateComponent, params: { id: null } });
+  }
+  import() {
+    this.openDrawer({ title: '导入客户', component: ImportComponent, params: {} });
+  }
+
+>>>>>>> upgrade
 /****************办卡选课******************* */
 
   closeAdjust() {
     this.message.create('error', '如果关闭弹窗，将不能继续排课！');
+<<<<<<< HEAD
       //this.showAdjust = false;
+=======
+>>>>>>> upgrade
   }
   isAdjust(status) {
     if (!this.datalabelList.length) {

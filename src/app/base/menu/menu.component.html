@@ -1,4 +1,5 @@
 <div class="ui-menu">
+<<<<<<< HEAD
   <div class="ui-logo">
     <img src="./assets/images/logo-header.png" alt="logo" [ngStyle]="{'margin-left': '24px'}" [title]="userInfo.store['shopName']">
     <span [style.font-size]="shopNameFontSize + 'px'" [ngClass]="{'active': isCollapsed}">{{ userInfo.store['shopName'] }}</span>
@@ -46,4 +47,53 @@
       </ng-container>
     </ng-container>
   </ul>
+=======
+  <div class="menu-box">
+
+    <div class="ui-logo">
+      <img src="./assets/images/logo-menu.png">
+    </div>
+
+
+    <ul class="menu-one">
+      <li [routerLink]="'/home/index'"
+        [ngClass]="{ active: (routerState.currentPath.indexOf('/home/index') > -1) || (routerState.currentPath == '/home/index')|| (!routerState.currentMenu)}">
+        <span><i nz-icon [type]="'home'"></i><span>首页</span></span>
+      </li>
+      <ng-container *ngFor="let item of menuConfig">
+        <ng-container *ngIf="roleAllowPath.indexOf(item.key) > -1 || roleAllowPath.indexOf('**') > -1">
+          <ng-container *ngIf="item.isLeaf && item.key != '/home/index'">
+            <li [routerLink]="item.key"
+              [ngClass]="{ active: (routerState.currentPath.indexOf(item.key) > -1 && item.key != '/home/index') || (routerState.currentPath == '/home/index' && item.key == '/home/index')|| (!routerState.currentMenu && item.key == '/home/index')}">
+              <span>
+                <i nz-icon [type]="item.icon"></i>
+                <span>{{ item.brief }}</span>
+              </span>
+            </li>
+          </ng-container>
+          <ng-container *ngIf="!item.isLeaf">
+            <li (click)="navigate(item.children)"
+              [ngClass]="{ active: (routerState.currentPath.indexOf(item.key) > -1 && item.key != '/home/index') || (routerState.currentPath == '/home/index' && item.key == '/home/index')}">
+              <span>
+                <i nz-icon [type]="item.icon"></i>
+                <span>{{ item.brief }}</span>
+              </span>
+            </li>
+            <ng-container>
+              <div class="menu-two" *ngIf="(routerState.currentPath.indexOf(item.key) > -1 && item.key != '/home/index') || (routerState.currentPath == '/home/index' && item.key == '/home/index')">
+                <div class="menu-two-title">{{ item.title }}</div>
+                <ul class="menu-two-list">
+                  <ng-container *ngFor="let itemB of item.children">
+                    <li *ngIf="roleAllowPath.indexOf(itemB.key) > -1 || roleAllowPath.indexOf('**') > -1" [routerLink]="itemB.key"
+                      [ngClass]="{'active': routerState.currentPath.indexOf(itemB.key) > -1}">{{ itemB.title }}</li>
+                  </ng-container>
+                </ul>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </ul>
+  </div>
+>>>>>>> upgrade
 </div>

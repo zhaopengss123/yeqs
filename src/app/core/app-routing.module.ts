@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { AuthGuardService } from './../ng-relax/services/auth-guard.service';
 import { HomeComponent } from './../base/home/home.component';
 import { UserInfoResolver } from './userInfo-resolver.service';
@@ -5,10 +6,15 @@ import { BaseComponent } from '../base/base.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+=======
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+>>>>>>> upgrade
 
 const routes: Routes = [
   {
     path: '',
+<<<<<<< HEAD
     redirectTo: '/home',
     pathMatch: 'full'
   },
@@ -155,6 +161,23 @@ const routes: Routes = [
   {
     path: 'system',
     data: { title: '系统管理' },
+=======
+    redirectTo: '/home/index',
+    pathMatch: 'full'
+  },
+  {
+    path: 'home',
+    data: { reuse: true },
+    loadChildren: 'src/app/base/base.module#BaseModule'
+  },
+  {
+    path: 'login',
+    data: { reuse: true },
+    loadChildren: 'src/app/modules/login/login.module#LoginModule'
+  },
+  {
+    path: 'system',
+>>>>>>> upgrade
     loadChildren: 'src/app/modules/system/system.module#SystemModule'
   },
   {
@@ -165,7 +188,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
+<<<<<<< HEAD
   imports: [RouterModule.forRoot(routes)],
+=======
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
+>>>>>>> upgrade
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

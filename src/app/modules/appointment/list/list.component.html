@@ -18,7 +18,11 @@
           <img [src]="data.AlbumUrl" [ngStyle]="{'max-width': '226px', 'max-height': '400px', 'transform': 'scale(1.1)'}">
         </ng-template>
       </td>
+<<<<<<< HEAD
       <td>{{ routingPath == 'list' ? data.cardCode : "***" }}</td>
+=======
+      <td>{{ routingPath == '/home/appointment/list' ? data.cardCode : "***" }}</td>
+>>>>>>> upgrade
       <td>{{ data.cardTypeName}}</td>
       <td>{{ data.babyType }}</td>
       <td>{{ data.name }}</td>
@@ -29,16 +33,26 @@
       <td><nz-tag [nzColor]="data.reserveStatus == 0 ? '#87d068' : data.reserveStatus == 1 ? '#f50' : '#2db7f5'">{{ data.reserveStatus == 0 ? '预约中' : data.reserveStatus == 1 ? '已撤销' : data.reserveStatus == 4 ? '补课预约' : '已完成' }}</nz-tag></td>
       <td>{{ data.teacherName }}</td>
       <td>{{ data.updateTime | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+<<<<<<< HEAD
       <!-- <td>{{ data.isCrossed == 1 ? '是' : '否' }}</td> -->
       <td>{{ data.reserveCancel/data.reserveTotal | percent }}</td>
       <td><span *ngIf="data.remarks" nz-tooltip [nzTitle]="data.remarks">{{ data.remarks.length > 10 ? data.remarks.substr(0, 10) + '...' : data.remarks }}</span></td>
       <td *ngIf="routingPath == 'list'">
+=======
+      <td>{{ data.reserveCancel/data.reserveTotal | percent }}</td>
+      <td><span *ngIf="data.remarks" nz-tooltip [nzTitle]="data.remarks">{{ data.remarks.length > 10 ? data.remarks.substr(0, 10) + '...' : data.remarks }}</span></td>
+      <td *ngIf="routingPath == '/home/appointment/list'">
+>>>>>>> upgrade
         <a (click)="preview(data)">查看</a>
         <nz-divider nzType="vertical" ></nz-divider>
         <a (click)="reserveCancel(data.id)" *ngIf="data.reserveStatus==0||data.reserveStatus == 4" >撤销</a>
         <a  *ngIf="data.reserveStatus!=0&&data.reserveStatus != 4" reserveStatus style="color: #ccc;">撤销</a>
       </td>
+<<<<<<< HEAD
        <td *ngIf="routingPath != 'list'"></td>
+=======
+       <td *ngIf="routingPath != '/home/appointment/list'"></td>
+>>>>>>> upgrade
     </ng-template>
 
     <ng-template #EaBtns>

@@ -102,7 +102,10 @@
                   <nz-select formControlName="fitnessTeacherId" nzPlaceHolder="请选择体适能老师">
                     <nz-option *ngFor="let option of teacherList" [nzLabel]="option.name" [nzValue]="option.id"></nz-option>
                   </nz-select>
+<<<<<<< HEAD
                   <!-- <nz-form-explain *ngIf="timesCountGroup.get('assisTeacherId').dirty && timesCountGroup.get('assisTeacherId').hasError('required')">请选择助教老师！</nz-form-explain> -->
+=======
+>>>>>>> upgrade
                 </nz-form-control>
               </nz-form-item>
             </div>
@@ -134,9 +137,12 @@
       <nz-form-item>
         <nz-form-label>肺活量</nz-form-label>
         <nz-form-control>
+<<<<<<< HEAD
           <!-- <nz-select formControlName="ringId" nzPlaceHolder="请选择泳圈型号"> 
                     <nz-option *ngFor="let option of swimRingList" [nzValue]="option.id" [nzLabel]="option.name"></nz-option>
                   </nz-select> -->
+=======
+>>>>>>> upgrade
           <nz-input-group nzAddOnAfter="毫升">
             <input nz-input type="number" formControlName="pulmonary" placeholder="请输入肺活量">
           </nz-input-group>
@@ -160,7 +166,11 @@
             <nz-form-label>身高</nz-form-label>
             <nz-form-control>
               <nz-input-group nzAddOnAfter="厘米">
+<<<<<<< HEAD
                 <input nz-input formControlName="temperaturePost" placeholder="请输入身高">
+=======
+                <input nz-input formControlName="height" placeholder="请输入身高">
+>>>>>>> upgrade
               </nz-input-group>
             </nz-form-control>
           </nz-form-item>

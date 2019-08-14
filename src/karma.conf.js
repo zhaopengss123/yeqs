@@ -17,7 +17,11 @@ module.exports = function (config) {
     },
     coverageIstanbulReporter: {
       dir: require('path').join(__dirname, '../coverage'),
+<<<<<<< HEAD
       reports: ['html', 'lcovonly'],
+=======
+      reports: ['html', 'lcovonly', 'text-summary'],
+>>>>>>> upgrade
       fixWebpackSourcePaths: true
     },
     reporters: ['progress', 'kjhtml'],

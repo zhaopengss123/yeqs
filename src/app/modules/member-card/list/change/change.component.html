@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+<div class="content">
+>>>>>>> upgrade
 <form nz-form [formGroup]="formGroup">
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
@@ -147,11 +151,27 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="24">
       <nz-form-item>
+<<<<<<< HEAD
         <nz-form-label nzFor="comment">备注</nz-form-label>
         <nz-form-control>
           <textarea nz-input placeholder="请输入备注" formControlName="comment" id="comment" [nzAutosize]="{ minRows: 3, maxRows: 4 }"></textarea>
+=======
+        <nz-form-label nzRequired nzFor="comment">备注</nz-form-label>
+        <nz-form-control>
+          <textarea nz-input placeholder="请输入备注" formControlName="comment" id="comment" [nzAutosize]="{ minRows: 3, maxRows: 4 }"></textarea>
+          <nz-form-explain *ngIf="formGroup.get('comment').dirty && formGroup.get('comment').hasError('required')">请输入备注！</nz-form-explain>
+>>>>>>> upgrade
         </nz-form-control>
       </nz-form-item>
     </div>
   </div>
+<<<<<<< HEAD
 </form>
+=======
+</form>
+</div>
+<div class="drawer-footer">
+  <button nz-button (click)="close()">取消</button>
+  <button nz-button nzType="primary" [nzLoading]="saveLoading" (click)="save()">保存</button>
+</div>
+>>>>>>> upgrade

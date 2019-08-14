@@ -1,17 +1,30 @@
+<<<<<<< HEAD
 import { environment } from './../../../../environments/environment';
+=======
+import { UpclassComponent } from './upclass/upclass.component';
+>>>>>>> upgrade
 import { ConsumptionsComponents } from './consumptions/consumptions.component';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { DatePipe } from '@angular/common';
 import { Store } from '@ngrx/store';
+<<<<<<< HEAD
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+=======
+import { NzMessageService } from 'ng-zorro-antd';
+import { Router } from '@angular/router';
+>>>>>>> upgrade
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NzDrawerService } from 'ng-zorro-antd';
 import { ListPageComponent } from 'src/app/ng-relax/components/list-page/list-page.component';
 import { AppState } from 'src/app/core/reducers/reducers-config';
 import { Subject } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
+<<<<<<< HEAD
+=======
+import { environment } from 'src/environments/environment';
+>>>>>>> upgrade
 
 
 @Component({
@@ -22,7 +35,11 @@ import { debounceTime, filter } from 'rxjs/operators';
 export class SettlementComponent implements OnInit {
   @ViewChild('listPage') listPage: ListPageComponent;
   setNum:number = 3;
+<<<<<<< HEAD
   insetStatus: Number;
+=======
+  insetStatus: number;
+>>>>>>> upgrade
   searchSubject = new Subject();
   isBtnDisVled = true;
   modal_visit: boolean;
@@ -132,7 +149,10 @@ export class SettlementComponent implements OnInit {
     private format: DatePipe,
     private drawer: NzDrawerService,
     private router: Router
+<<<<<<< HEAD
 
+=======
+>>>>>>> upgrade
   ) {
     this.store.select('userInfoState').subscribe(res => { this.storeId = res.store['id']; }); 
     this.seletdataList();
@@ -266,6 +286,7 @@ selectquery(){
     this.searchSubject.pipe(debounceTime(500), filter((txt: string) => txt.length >= 1)).subscribe(res => {
 
     if ((isNaN(this.mobilePhone) && this.mobilePhone!="" || (!isNaN(this.mobilePhone) && this.mobilePhone.length > 3)) ){
+<<<<<<< HEAD
       // http://es.haochengzhang.com/es/erp/query
       // http://testes.haochengzhang.com/es/erp/query
       this.loading_b = true; 
@@ -275,13 +296,26 @@ selectquery(){
         if(res.result){
           this.memberList_b = res.result;
           this.total_b = res.total;
+=======
+      this.loading_b = true; 
+      this.http.get(environment.domainEs + '/es/erp/query', { index: 'qs', storeId: this.storeId, type: 'member', condition: this.mobilePhone, pageNo:this.pageIndex_b, pageSize:10 }, false).then(res => {
+      this.loading_b = false;
+        if (res['returnCode'] == 'SUCCESS') {
+        if(res.result){
+          this.memberList_b = res.result;
+          this.total_b = res['total'];
+>>>>>>> upgrade
         }else{
           this.memberList_b = [];
           this.total_b = 0;
           this.pageIndex_b = 1;
         }
         } else {
+<<<<<<< HEAD
           this.message.create('error', res.returnMsg);
+=======
+          this.message.create('error', res['returnMsg']);
+>>>>>>> upgrade
         }
       });
     }else{
@@ -461,6 +495,10 @@ selectquery(){
   closeListdetail(){
     this.showListdetail = false; 
     this.memberUserDetail = { memberId:0 };   
+<<<<<<< HEAD
+=======
+    this.selectquery();
+>>>>>>> upgrade
   }
 
   //延期弹框
@@ -553,6 +591,7 @@ selectquery(){
       this.message.create('error', '请选择课程');
       return false;
     }
+<<<<<<< HEAD
     // let paramJson: any = JSON.stringify({
     //   babyNumber: this.memberData.babyNumber,
     //   status: status,
@@ -565,6 +604,8 @@ selectquery(){
     //   list: this.datalabelList
 
     // });
+=======
+>>>>>>> upgrade
     let paramJson: any = JSON.stringify({
       babyNumber: this.memberdetailTk.babyNumber,
       name: this.memberdetailTk.name,
@@ -818,8 +859,18 @@ selectquery(){
         endTime: this.studentdata.endTime,
         employeeId: this.studentdata.employeeId
     });
+<<<<<<< HEAD
    window.localStorage.setItem('jsons',Json);
     this.router.navigateByUrl(`/home/customer/upclass`);
+=======
+    window.localStorage.setItem('jsons',Json);
+    // this.router.navigateByUrl(`/home/customer/upclass`);
+    this.drawer.create({
+      nzTitle: '升班',
+      nzWidth: 960,
+      nzContent: UpclassComponent
+    })
+>>>>>>> upgrade
   }
 
 }

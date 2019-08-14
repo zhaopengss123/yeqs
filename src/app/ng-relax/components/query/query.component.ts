@@ -7,7 +7,11 @@ import { CacheService } from '../../services/cache.service';
 @Component({
   selector: 'ea-query',
   templateUrl: './query.component.html',
+<<<<<<< HEAD
   styleUrls: ['./query.component.scss'],
+=======
+  styleUrls: ['./query.component.less'],
+>>>>>>> upgrade
   host: {
     '[class.ea-query]': 'true'
   }
@@ -23,7 +27,11 @@ export class QueryComponent implements OnInit {
     return this._EaQueryBtns;
   }
 
+<<<<<<< HEAD
   @Input('node') _node: QueryNode[] = [];
+=======
+  @Input() node: QueryNode[] = [];
+>>>>>>> upgrade
 
   @Output() onSubmit: EventEmitter<object> = new EventEmitter();
 
@@ -40,12 +48,20 @@ export class QueryComponent implements OnInit {
 
   ngOnInit() {
     this._queryForm = new FormGroup({});
+<<<<<<< HEAD
     this._node.map((res: any, idx) => {
+=======
+    this.node.map((res: any, idx) => {
+>>>>>>> upgrade
       if (res.isHide) { this._showSlideBtn = true; }
       if (res.type === 'between') {
         this._queryForm.addControl(res.valueKey[0], new FormControl(res.default ? res.default[0] : null));
         this._queryForm.addControl(res.valueKey[1], new FormControl(res.default ? res.default[1] : null));
       } else {
+<<<<<<< HEAD
+=======
+        console.log(res.default);
+>>>>>>> upgrade
         this._queryForm.addControl(res.key, new FormControl(typeof res.default !== 'undefined' ? res.default : null));
       }
       if (res.type === 'select' || res.type === 'radio') {
@@ -77,10 +93,17 @@ export class QueryComponent implements OnInit {
   }
 
 
+<<<<<<< HEAD
   /* --------------- 清空 --------------- */
   _submit(): void {
     let queryForm = this._queryForm.value;
     this._node.map((res: any) => {
+=======
+  /* --------------- 提交 --------------- */
+  _submit(): void {
+    let queryForm = this._queryForm.value;
+    this.node.map((res: any) => {
+>>>>>>> upgrade
       if (res.type === 'datepicker') {
         if (queryForm[res.key]) {
           queryForm[res.key] = this.datePipe.transform(queryForm[res.key].getTime(), 'yyyy-MM-dd');

@@ -1,8 +1,10 @@
 <nz-layout>
-  <nz-sider [nzWidth]="isCollapsed ? 80 : 256"><ea-menu [isCollapsed]="isCollapsed" [userInfo]="userInfo"></ea-menu></nz-sider>
+  <nz-sider [nzWidth]="($routerState | async).currentMenu && ($routerState | async).currentMenu.isLeaf || !($routerState | async).currentMenu || ($routerState | async).currentPath == '/home/modifypassword' ? 100 : 221">
+    <app-menu [userInfo]="$userInfo | async"></app-menu>
+  </nz-sider>
   <nz-layout>
-    <nz-header><ea-header [(isCollapsed)]="isCollapsed" [userInfo]="userInfo"></ea-header></nz-header>
-    <nz-content><ea-content></ea-content></nz-content>
-    <nz-footer><ea-footer></ea-footer></nz-footer>
+    <nz-header><app-header [userInfo]="$userInfo | async"></app-header></nz-header>
+    <nz-content><app-content></app-content></nz-content>
+    <nz-footer><app-footer></app-footer></nz-footer>
   </nz-layout>
 </nz-layout>

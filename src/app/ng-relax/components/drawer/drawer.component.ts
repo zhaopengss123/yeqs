@@ -6,7 +6,11 @@ import { OptionsKey } from '../query/query.component';
 @Component({
   selector: 'ea-drawer',
   templateUrl: './drawer.component.html',
+<<<<<<< HEAD
   styleUrls: ['./drawer.component.scss']
+=======
+  styleUrls: ['./drawer.component.less']
+>>>>>>> upgrade
 })
 export class DrawerComponent implements OnInit {
 

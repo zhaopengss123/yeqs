@@ -1,6 +1,10 @@
 <ea-query-simp #eaQuery [node]="queryNode" (onSubmit)="EaTable.request($event)" *ngIf="queryNode.length"></ea-query-simp>
 
+<<<<<<< HEAD
 <div class="ea-btns">
+=======
+<div class="ea-btns" *ngIf="EaBtns">
+>>>>>>> upgrade
   <ng-container *ngTemplateOutlet="EaBtns"></ng-container>
 </div>
 
@@ -11,7 +15,10 @@
   [allowSpace]="allowSpace"
   [paramsDefault]="paramsDefault" 
   [paramsInit]="paramsInit"
+<<<<<<< HEAD
   [isParamJson]="isParamJson"
+=======
+>>>>>>> upgrade
   [EaTableTbodyTr]="EaTableTbodyTr" 
   [EaTableTbodyExpand]="EaTableTbodyExpand" 
   [checked]="checked" 
@@ -19,5 +26,9 @@
   [checkedItems]="checkedItems" 
   [checkedKey]="checkedKey" 
   (ready)="requestReady($event)"
+<<<<<<< HEAD
+=======
+  (dataChange)="dataChange.emit($event)"
+>>>>>>> upgrade
   (checkedItems)="checkedChange($event)">
 </ea-table>

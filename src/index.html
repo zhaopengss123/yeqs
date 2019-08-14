@@ -1,5 +1,9 @@
 <!doctype html>
 <html lang="en">
+<<<<<<< HEAD
+=======
+
+>>>>>>> upgrade
 <head>
   <meta charset="utf-8">
   <title>亲水ERP系统</title>
@@ -13,6 +17,7 @@
       var explorer = window.navigator.userAgent.toLowerCase(), browserInfo;
       if (explorer.indexOf('msie') >= 0) {
         var ver = explorer.match(/msie ([\d.]+)/)[1];
+<<<<<<< HEAD
         browserInfo =  { type: 'IE', version: ver };
       } else if (explorer.indexOf('firefox') >= 0) {
         var ver = explorer.match(/firefox\/([\d.]+)/)[1];
@@ -26,18 +31,41 @@
       } else if (explorer.indexOf('Safari') >= 0) {
         var ver = explorer.match(/version\/([\d.]+)/)[1];
         browserInfo =  { type: 'Safari', version: ver };
+=======
+        browserInfo = { type: 'IE', version: ver };
+      } else if (explorer.indexOf('firefox') >= 0) {
+        var ver = explorer.match(/firefox\/([\d.]+)/)[1];
+        browserInfo = { type: 'Firefox', version: ver };
+      } else if (explorer.indexOf('chrome') >= 0) {
+        var ver = explorer.match(/chrome\/([\d.]+)/)[1];
+        browserInfo = { type: 'Chrome', version: ver };
+      } else if (explorer.indexOf('opera') >= 0) {
+        var ver = explorer.match(/opera.([\d.]+)/)[1];
+        browserInfo = { type: 'Opera', version: ver };
+      } else if (explorer.indexOf('Safari') >= 0) {
+        var ver = explorer.match(/version\/([\d.]+)/)[1];
+        browserInfo = { type: 'Safari', version: ver };
+>>>>>>> upgrade
       }
       if (
         (browserInfo.type === 'Chrome' && Number(browserInfo.version.split('.')[0]) < 45) ||
         (browserInfo.type === 'Firefox' && Number(browserInfo.version.split('.')[0]) < 51) ||
         (browserInfo.type === 'Opera' && Number(browserInfo.version.split('.')[0]) < 32)
+<<<<<<< HEAD
         ) {
+=======
+      ) {
+>>>>>>> upgrade
         window.location.href = './assets/download-browser.html';
       }
     })();
   </script>
   <script src="https://gosspublic.alicdn.com/aliyun-oss-sdk.min.js"></script>
 </head>
+<<<<<<< HEAD
+=======
+
+>>>>>>> upgrade
 <body>
   <app-root>
     <style type="text/css">
@@ -52,11 +80,16 @@
         z-index: 9999;
         transition: opacity .65s
       }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> upgrade
       .preloader-hidden-add {
         opacity: 1;
         display: block
       }
+<<<<<<< HEAD
     
       .preloader-hidden-add-active {
         opacity: 0
@@ -66,6 +99,17 @@
         display: none
       }
     
+=======
+
+      .preloader-hidden-add-active {
+        opacity: 0
+      }
+
+      .preloader-hidden {
+        display: none
+      }
+
+>>>>>>> upgrade
       .cs-loader {
         position: absolute;
         top: 0;
@@ -73,7 +117,11 @@
         height: 100%;
         width: 100%
       }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> upgrade
       .cs-loader-inner {
         transform: translateY(-50%);
         top: 50%;
@@ -82,31 +130,52 @@
         color: #fff;
         text-align: center
       }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> upgrade
       .cs-loader-inner label {
         font-size: 20px;
         opacity: 0;
         display: inline-block
       }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> upgrade
       @keyframes lol {
         0% {
           opacity: 0;
           transform: translateX(-300px)
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> upgrade
         33% {
           opacity: 1;
           transform: translateX(0)
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> upgrade
         66% {
           opacity: 1;
           transform: translateX(0)
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> upgrade
         100% {
           opacity: 0;
           transform: translateX(300px)
         }
       }
+<<<<<<< HEAD
     
       .cs-loader-inner label:nth-child(6) {
         animation: lol 3s infinite ease-in-out
@@ -128,6 +197,29 @@
         animation: lol 3s .4s infinite ease-in-out
       }
     
+=======
+
+      .cs-loader-inner label:nth-child(6) {
+        animation: lol 3s infinite ease-in-out
+      }
+
+      .cs-loader-inner label:nth-child(5) {
+        animation: lol 3s .1s infinite ease-in-out
+      }
+
+      .cs-loader-inner label:nth-child(4) {
+        animation: lol 3s .2s infinite ease-in-out
+      }
+
+      .cs-loader-inner label:nth-child(3) {
+        animation: lol 3s .3s infinite ease-in-out
+      }
+
+      .cs-loader-inner label:nth-child(2) {
+        animation: lol 3s .4s infinite ease-in-out
+      }
+
+>>>>>>> upgrade
       .cs-loader-inner label:nth-child(1) {
         animation: lol 3s .5s infinite ease-in-out
       }
@@ -146,6 +238,10 @@
     </div>
   </app-root>
 </body>
+<<<<<<< HEAD
+=======
+
+>>>>>>> upgrade
 </html>
 <!--
                    _ooOoo_

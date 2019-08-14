@@ -5,7 +5,11 @@ import { TableComponent } from '../table/table.component';
 @Component({
   selector: 'ea-list-page',
   templateUrl: './list-page.component.html',
+<<<<<<< HEAD
   styleUrls: ['./list-page.component.scss']
+=======
+  styleUrls: ['./list-page.component.less']
+>>>>>>> upgrade
 })
 export class ListPageComponent implements OnInit {
 
@@ -28,8 +32,11 @@ export class ListPageComponent implements OnInit {
 
   @Input() paramsInit: any = {};
 
+<<<<<<< HEAD
   @Input() isParamJson: boolean = true;
 
+=======
+>>>>>>> upgrade
   @Input() checkedItems: any[];
 
   @Input() checkedKey: string = 'id';

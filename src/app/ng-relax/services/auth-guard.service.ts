@@ -1,5 +1,8 @@
 import { Observable } from 'rxjs';
+<<<<<<< HEAD
 import { NzMessageService } from 'ng-zorro-antd';
+=======
+>>>>>>> upgrade
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, CanLoad, Route, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -11,8 +14,13 @@ export class AuthGuardService implements CanActivate, CanLoad {
     return new Observable(observer => {
       this.store.select('userInfoState').subscribe(res => {
         let stateUrl = state.url.indexOf('/(') > -1 ? state.url.split('/(')[0]
+<<<<<<< HEAD
                        : state.url.indexOf('?') > -1 ? state.url.split('?')[0]
                        : state.url;
+=======
+          : state.url.indexOf('?') > -1 ? state.url.split('?')[0]
+            : state.url;
+>>>>>>> upgrade
         let userInfo = res || JSON.parse(window.localStorage.getItem('userInfo'));
         if (!res) {
           let roleAllowPath = [];
@@ -56,6 +64,7 @@ export class AuthGuardService implements CanActivate, CanLoad {
     })
   }
 
+<<<<<<< HEAD
   constructor(
     private router: Router,
     private store: Store<AppState>,
@@ -63,4 +72,14 @@ export class AuthGuardService implements CanActivate, CanLoad {
   ) {
 
   }
+=======
+  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
+    return this.canActivate(route, state);
+  }
+
+  constructor(
+    private router: Router,
+    private store: Store<AppState>
+  ) { }
+>>>>>>> upgrade
 }

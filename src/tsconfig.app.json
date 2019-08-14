@@ -2,11 +2,18 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/app",
+<<<<<<< HEAD
     "module": "es2015",
     "types": []
   },
   "exclude": [
     "src/test.ts",
+=======
+    "types": []
+  },
+  "exclude": [
+    "test.ts",
+>>>>>>> upgrade
     "**/*.spec.ts"
   ]
 }

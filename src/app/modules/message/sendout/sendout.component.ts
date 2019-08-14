@@ -1,14 +1,28 @@
+<<<<<<< HEAD
 import { FormComponent } from './form/form.component';
 import { NzDrawerService, NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { QueryNode } from 'src/app/ng-relax/components/query/query.component';
 import { HttpService } from './../../../ng-relax/services/http.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+=======
+import { NzMessageService, NzModalService } from 'ng-zorro-antd';
+import { QueryNode } from 'src/app/ng-relax/components/query/query.component';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { HttpService } from 'src/app/ng-relax/services/http.service';
+import { AppState } from 'src/app/core/reducers/reducers-config';
+>>>>>>> upgrade
 
 @Component({
   selector: 'app-sendout',
   templateUrl: './sendout.component.html',
+<<<<<<< HEAD
   styleUrls: ['./sendout.component.scss']
+=======
+  styleUrls: ['./sendout.component.less']
+>>>>>>> upgrade
 })
 export class SendoutComponent implements OnInit {
 
@@ -43,11 +57,19 @@ export class SendoutComponent implements OnInit {
       label: '婴儿类型',
       key: 'babyType',
       type: 'select',
+<<<<<<< HEAD
       options: [{ name: '0-3岁', id: '0-3岁' }, { name: '3-6岁', id: '3-6岁' }, { name: '6-12岁', id: '6-12岁' }],    
     },
     {
       label: '是否办卡',
       key: 'havecard',
+=======
+      options: [{ name: '婴儿', id: '婴儿' }, { name: '幼儿', id: '幼儿' }]
+    },
+    {
+      label: '是否办卡',
+      key: 'havacard',
+>>>>>>> upgrade
       type: 'select',
       options: [{ name: '已办卡', id: 1 }, { name: '未办卡', id: 0 }]
     },
@@ -73,14 +95,27 @@ export class SendoutComponent implements OnInit {
       label: '卡状态',
       key: 'status',
       type: 'select',
+<<<<<<< HEAD
       options: [{ name: '正常', id: 0 }, { name: '停卡', id: 1 }, { name: '过期', id: 2 }]
     },
+=======
+      options: [ { name: '正常', id: '0' }, { name: '停卡', id: '1' }, { name: '过期', id: '2' }, { name: '退卡', id: '3' } ]    },
+>>>>>>> upgrade
     {
       label: '卡类型',
       key: 'cardTypeId',
       type: 'select',
       optionsUrl: '/cardTypeManagement/findList'
+<<<<<<< HEAD
     }
+=======
+    },
+    {
+      label: '未到店时间',
+      key: 'storeDays',
+      type: 'select',
+      options: [ { name: '10天内', id: '10' }, { name: '15天内', id: '15' }, { name: '20天内', id: '20' }, { name: '30天内', id: '30' }, { name: '60天内', id: '60' } ]    },
+>>>>>>> upgrade
   ]
 
   transferList: any[] = [];
@@ -89,6 +124,7 @@ export class SendoutComponent implements OnInit {
 
   queryLoading: boolean;
 
+<<<<<<< HEAD
   constructor(
     private http: HttpService,
     private drawer: NzDrawerService,
@@ -102,6 +138,24 @@ export class SendoutComponent implements OnInit {
     this.http.post('/smsBalance/balance', {}, false).then(res => this.smsBalance = res.result);
   }
   ngOnInit() {
+=======
+  brandName: string;
+
+  constructor(
+    private http: HttpService,
+    private message: NzMessageService,
+    private fb: FormBuilder = new FormBuilder(),
+    private modal: NzModalService,
+    private store: Store<AppState>
+  ) {
+    this.http.post('/smsBalance/balance').then(res => this.smsBalanceSurplus = res.result);
+
+    this.http.post('/common/getStoreSmsTemplate').then(res => this.smsTemplateList = res.result);
+    this.http.post('/smsBalance/balance').then(res => this.smsBalance = res.result);
+  }
+  ngOnInit() {
+    this.store.select('userInfoState').subscribe(res => this.brandName = res.store.shopBrand.brandName);
+>>>>>>> upgrade
     this.formGroup = this.fb.group({
       mobilePhones: [],
       type: [1],
@@ -113,8 +167,13 @@ export class SendoutComponent implements OnInit {
       this.smsTemplateList.map(item => item.id === id && this.formGroup.patchValue({ content: item.memo }));
     });
     this.formGroup.get('content').valueChanges.subscribe(val => {
+<<<<<<< HEAD
       this.sendNum = this.selectList.length * (val && val.length > 60 ? Math.ceil(val.length / 60) : 1);
     })
+=======
+      this.sendNum = this.selectList.length * (val && val.length + (this.brandName.length + 8) > 70 ? Math.ceil((val.length + (this.brandName.length + 8)) / 70) : 1);
+    });
+>>>>>>> upgrade
   }
 
   query(params = {}) {
@@ -173,14 +232,21 @@ export class SendoutComponent implements OnInit {
   }
 
   _sendSms() {
+<<<<<<< HEAD
     let that = this;
+=======
+>>>>>>> upgrade
     this.saveLoading = true;
     this.formGroup.patchValue({ mobilePhones: this.selectList.join(','), })
     this.http.post('/smsSend/sendSmsToConsume', {
       paramJson: JSON.stringify(this.formGroup.value)
+<<<<<<< HEAD
     }).then(res => {
       this.saveLoading = false;
     }).catch( err=>{
+=======
+    }, true).then(res => {
+>>>>>>> upgrade
       this.saveLoading = false;
     });
   }

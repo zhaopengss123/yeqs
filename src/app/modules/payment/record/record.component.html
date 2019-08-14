@@ -1,5 +1,6 @@
 <div class="container">
   <ea-query #eaQuery [node]="queryNode" (onSubmit)="query($event)"></ea-query>
+<<<<<<< HEAD
   
   <nz-table 
     #anzTable 
@@ -12,6 +13,12 @@
     [(nzPageIndex)]="_pageInfo.pageNum"
     [(nzPageSize)]="_pageInfo.pageSize"
     >
+=======
+
+  <nz-table #anzTable [nzFrontPagination]="false" [nzData]="dataSet" (nzPageIndexChange)="request()"
+    [nzLoading]="_pageInfo.loading" [nzTotal]="_pageInfo.totalPage" [(nzPageIndex)]="_pageInfo.pageNum"
+    [(nzPageSize)]="_pageInfo.pageSize">
+>>>>>>> upgrade
     <thead>
       <tr>
         <th>交易号</th>

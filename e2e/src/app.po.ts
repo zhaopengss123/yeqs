@@ -5,7 +5,11 @@ export class AppPage {
     return browser.get('/');
   }
 
+<<<<<<< HEAD
   getParagraphText() {
+=======
+  getTitleText() {
+>>>>>>> upgrade
     return element(by.css('app-root h1')).getText();
   }
 }

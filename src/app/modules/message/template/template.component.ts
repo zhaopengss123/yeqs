@@ -1,12 +1,25 @@
+<<<<<<< HEAD
 import { HttpService } from './../../../ng-relax/services/http.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TableComponent } from 'src/app/ng-relax/components/table/table.component';
+=======
+import { DrawerCreate } from 'src/app/ng-relax/decorators/drawer/create.decorator';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { TableComponent } from 'src/app/ng-relax/components/table/table.component';
+import { HttpService } from 'src/app/ng-relax/services/http.service';
+import { NzDrawerService } from 'ng-zorro-antd';
+import { UpdateComponent } from './update/update.component';
+>>>>>>> upgrade
 
 @Component({
   selector: 'app-template',
   templateUrl: './template.component.html',
+<<<<<<< HEAD
   styleUrls: ['./template.component.scss']
+=======
+  styleUrls: ['./template.component.less']
+>>>>>>> upgrade
 })
 export class TemplateComponent implements OnInit {
 
@@ -20,6 +33,7 @@ export class TemplateComponent implements OnInit {
     }
   ];
 
+<<<<<<< HEAD
   formGroup: FormGroup;
 
   showDrawer: boolean;
@@ -36,10 +50,17 @@ export class TemplateComponent implements OnInit {
       memo: [, [Validators.required]],
     });
   }
+=======
+  constructor(
+    private http: HttpService,
+    private drawer: NzDrawerService
+  ) { }
+>>>>>>> upgrade
 
   ngOnInit() {
   }
 
+<<<<<<< HEAD
 
   updateTemplate(data?) {
     this.showDrawer = true;
@@ -67,4 +88,12 @@ export class TemplateComponent implements OnInit {
     }
   }
 
+=======
+  deleteTemplate(id) {
+    this.http.post('/smsTemplate/delete', { paramJson: JSON.stringify({ id }) }).then(() => this.table._request());
+  }
+
+  @DrawerCreate({ title: '编辑模板', content: UpdateComponent }) update: ({ templateInfo: object }?) => void;
+
+>>>>>>> upgrade
 }

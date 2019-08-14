@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+=======
+import { NzDrawerRef } from 'ng-zorro-antd';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpService } from 'src/app/ng-relax/services/http.service';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { DrawerClose } from 'src/app/ng-relax/decorators/drawer/close.decorator';
+>>>>>>> upgrade
 
 @Component({
   selector: 'app-consumption',
@@ -29,6 +37,10 @@ export class ConsumptionComponent implements OnInit, OnDestroy {
   constructor(
     private http: HttpService,
     private fb: FormBuilder = new FormBuilder(),
+<<<<<<< HEAD
+=======
+    private drawerRef: NzDrawerRef
+>>>>>>> upgrade
   ) { 
   }
 
@@ -53,7 +65,11 @@ export class ConsumptionComponent implements OnInit, OnDestroy {
       consumption: [, [Validators.required]],
       ringId: [],
       swimDuration: [],
+<<<<<<< HEAD
       temperaturePost: [],
+=======
+      height: [],
+>>>>>>> upgrade
       weight: [],
       temperature: [],
       satisfaction: ['满意', [Validators.required]],
@@ -121,9 +137,15 @@ export class ConsumptionComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
+<<<<<<< HEAD
   saveLoading: boolean;
   save(): Promise<boolean> {
     return new Promise( resolve => {
+=======
+  @DrawerClose() close: () => void;
+  saveLoading: boolean;
+  save() {
+>>>>>>> upgrade
       let baseValue = {};
       Object.keys(this.baseFormGroup.controls).map(key => {
         baseValue[key] = this.baseFormGroup.controls[key].value;
@@ -134,12 +156,20 @@ export class ConsumptionComponent implements OnInit, OnDestroy {
             this.timesCountGroup.controls[i].markAsDirty();
             this.timesCountGroup.controls[i].updateValueAndValidity();
           }
+<<<<<<< HEAD
           resolve(false)
         } else {
           this.saveLoading = true;
           this.http.post('/customer/create', { paramJson: JSON.stringify(Object.assign(baseValue, this.timesCountGroup.value)), settleStatus: 0 }).then(res => {
             resolve(true)
           }).catch(err => resolve(false))
+=======
+        } else {
+          this.saveLoading = true;
+          this.http.post('/customer/create', { paramJson: JSON.stringify(Object.assign(baseValue, this.timesCountGroup.value)), settleStatus: 0 }).then(res => {
+            this.drawerRef.close(true);
+          })
+>>>>>>> upgrade
         }
       } else {
         if (this.singleTimeGroup.invalid) {
@@ -147,6 +177,7 @@ export class ConsumptionComponent implements OnInit, OnDestroy {
             this.singleTimeGroup.controls[i].markAsDirty();
             this.singleTimeGroup.controls[i].updateValueAndValidity();
           }
+<<<<<<< HEAD
           resolve(false)
         } else {
           this.saveLoading = true;
@@ -156,6 +187,15 @@ export class ConsumptionComponent implements OnInit, OnDestroy {
         }
       }
     })
+=======
+        } else {
+          this.saveLoading = true;
+          this.http.post('/customer/create', { paramJson: JSON.stringify(Object.assign(baseValue, this.singleTimeGroup.value)), settleStatus: 0 }).then(res => {
+            this.drawerRef.close(true);
+          })
+        }
+      }
+>>>>>>> upgrade
   }
 
 }

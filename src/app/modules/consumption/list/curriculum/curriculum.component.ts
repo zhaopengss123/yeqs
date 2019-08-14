@@ -1,7 +1,11 @@
 import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
+<<<<<<< HEAD
 import { DrawerSave } from '../../../../ng-relax/decorators/drawer.decorator';
+=======
+import { DrawerSave } from 'src/app/ng-relax/decorators/drawer/save.decorator';
+>>>>>>> upgrade
 
 @Component({
   selector: 'app-curriculum',
@@ -33,6 +37,10 @@ export class UpdateCurriculumComponent implements OnInit {
     })
   }
 
+<<<<<<< HEAD
   @DrawerSave('') save: () => Promise<boolean>;
+=======
+  @DrawerSave('') save: () => void;
+>>>>>>> upgrade
 
 }

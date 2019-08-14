@@ -1,8 +1,15 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { Component, OnInit, Input } from '@angular/core';
+<<<<<<< HEAD
 import { DrawerSave } from '../../../../ng-relax/decorators/drawer.decorator';
 import { DatePipe } from '@angular/common';
+=======
+import { DatePipe } from '@angular/common';
+import { DrawerSave } from 'src/app/ng-relax/decorators/drawer/save.decorator';
+import { NzDrawerRef } from 'ng-zorro-antd';
+import { DrawerClose } from 'src/app/ng-relax/decorators/drawer/close.decorator';
+>>>>>>> upgrade
 
 @Component({
   selector: 'app-appoint',
@@ -25,7 +32,12 @@ export class AppointComponent implements OnInit {
   constructor(
     private http: HttpService,
     private fb: FormBuilder = new FormBuilder(),
+<<<<<<< HEAD
     private format: DatePipe
+=======
+    private format: DatePipe,
+    private drawerRef: NzDrawerRef
+>>>>>>> upgrade
   ) { 
   }
 
@@ -79,7 +91,13 @@ export class AppointComponent implements OnInit {
     }));
   }
 
+<<<<<<< HEAD
   @DrawerSave('/reserve/createReserve') save: () => Promise<boolean>;
+=======
+  @DrawerClose() close: () => void;
+  saveLoading: boolean;
+  @DrawerSave('/reserve/createReserve') save: () => void;
+>>>>>>> upgrade
 
 
   _disabledDate(current: Date): boolean {

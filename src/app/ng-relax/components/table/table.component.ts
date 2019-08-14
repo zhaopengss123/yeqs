@@ -1,12 +1,20 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
+<<<<<<< HEAD
 import { serialize } from 'src/app/ng-relax/services/http.service';
+=======
+import { serialize } from 'src/app/core/http.intercept';
+>>>>>>> upgrade
 
 @Component({
   selector: 'ea-table',
   templateUrl: './table.component.html',
+<<<<<<< HEAD
   styleUrls: ['./table.component.scss']
+=======
+  styleUrls: ['./table.component.less']
+>>>>>>> upgrade
 })
 export class TableComponent implements OnInit {
 
@@ -20,10 +28,17 @@ export class TableComponent implements OnInit {
 
   @Input() paramsInit   : any = {};
 
+<<<<<<< HEAD
   @Input() isParamJson  : boolean = true;
 
   @Input() checked      : boolean;
 
+=======
+  @Input() checked      : boolean;
+
+  @Input() isParamJson  : boolean = true;
+
+>>>>>>> upgrade
   @Input() checkedItems : any[];
 
   @Input() checkedKey   : string = 'id';
@@ -36,6 +51,12 @@ export class TableComponent implements OnInit {
 
   @Input() size         : 'default' | 'small' | 'middle';
 
+<<<<<<< HEAD
+=======
+  @Input() nopaging     : boolean = false;
+
+
+>>>>>>> upgrade
   @Output() checkedItemsChange: EventEmitter<any[]> = new EventEmitter();
 
   @Output() ready       : EventEmitter<any> = new EventEmitter();
@@ -64,7 +85,11 @@ export class TableComponent implements OnInit {
     return this._EaTableTbodyExpand;
   }
 
+<<<<<<< HEAD
   dataSet   : any[] = [];
+=======
+  @Input() dataSet   : any[] = [];
+>>>>>>> upgrade
 
   _pageInfo : PageInfo = new PageInfo();
 
@@ -85,6 +110,7 @@ export class TableComponent implements OnInit {
   }
 
   _request(isReset?: boolean): void {
+<<<<<<< HEAD
     if (this._pageInfo.loading) { return; }
     this._pageInfo.loading = true;
     let params = Object.assign({ paramJson: JSON.stringify(Object.assign(JSON.parse(JSON.stringify(this.paramsDefault)), this._params, this.paramsInit)) }, { pageNum: isReset ? 1 : this._pageInfo.pageNum, pageSize: this._pageInfo.pageSize });
@@ -95,6 +121,13 @@ export class TableComponent implements OnInit {
       params = requestParams;
     }
     this.paramsInit = {};
+=======
+    if (this._pageInfo.loading || !this.url) { return; }
+    this._pageInfo.loading = true;
+    let params = Object.assign({ paramJson: JSON.stringify(Object.assign(JSON.parse(JSON.stringify(this.paramsDefault)), this._params, this.paramsInit)) }, { pageNum: isReset ? 1 : this._pageInfo.pageNum, pageSize: !this.nopaging ? this._pageInfo.pageSize : 1000 });
+    this.paramsInit = {};
+    !this.isParamJson && (params = JSON.parse(params.paramJson));
+>>>>>>> upgrade
     this.http.post<any>(this.url, serialize(params), {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')
     }).subscribe(res => {

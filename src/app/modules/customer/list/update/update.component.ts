@@ -1,7 +1,13 @@
 import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
+<<<<<<< HEAD
 import { DrawerSave } from '../../../../ng-relax/decorators/drawer.decorator';
+=======
+import { DrawerSave } from 'src/app/ng-relax/decorators/drawer/save.decorator';
+import { DrawerClose } from 'src/app/ng-relax/decorators/drawer/close.decorator';
+import { NzDrawerRef } from 'ng-zorro-antd';
+>>>>>>> upgrade
 
 @Component({
   selector: 'app-update',
@@ -18,7 +24,12 @@ export class UpdateComponent implements OnInit {
   sourceList: any = [];
   constructor(
     private http: HttpService,
+<<<<<<< HEAD
     private fb: FormBuilder = new FormBuilder()
+=======
+    private fb: FormBuilder = new FormBuilder(),
+    private drawerRef: NzDrawerRef
+>>>>>>> upgrade
   ) {
     /* ----------------------- 获取该门店下所有小区 ----------------------- */
     this.http.post('/member/communityList', {}, false).then(res => {
@@ -57,7 +68,13 @@ export class UpdateComponent implements OnInit {
     }
   } 
 
+<<<<<<< HEAD
   @DrawerSave('/member/modifyMember') save: () => Promise<boolean>;
+=======
+  @DrawerClose() close: () => void;
+  saveLoading: boolean;
+  @DrawerSave('/member/modifyMember') save: () => void;
+>>>>>>> upgrade
 
 
   /* ------------ 宝宝生日禁止选择今天以后的日期 ------------ */

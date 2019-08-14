@@ -74,7 +74,11 @@
                       <nz-form-item>
                         <nz-form-control>  
                         <nz-form-label >上课日期</nz-form-label>
+<<<<<<< HEAD
                             <nz-range-picker style="width:300px" [(ngModel)]="dateRange" [nzDisabledDate]="disabledDate"  formControlName="date" (ngModelChange)="dateChange($event)" [nzFormat]="dateFormat"></nz-range-picker>
+=======
+                            <nz-range-picker style="width:300px" [(ngModel)]="dateRange" [nzDisabledDate]="disabledDate"  formControlName="date" (ngModelChange)="dateChange($event)"></nz-range-picker>
+>>>>>>> upgrade
                             <nz-form-explain  *ngIf="followRecordGroup.get('date').dirty && followRecordGroup.get('date').hasError('required')">请选择上课日期</nz-form-explain>       
                         </nz-form-control>
                       </nz-form-item>
@@ -126,7 +130,11 @@
             <button nz-button nzType="default" (click)="nextDate()">下周</button>
           </div>
           <h3 style="margin-top: 20px;">课程排期</h3>
+<<<<<<< HEAD
           <nz-radio-group style="width: 100%;" [(ngModel)]="radioValue">
+=======
+          <nz-radio-group style="width: 100%;">
+>>>>>>> upgrade
             <nz-table #basicTable [nzData]="dateList" nzShowPagination='false'>
               <thead>
                 <tr>
@@ -290,7 +298,11 @@
                 </nz-table>
           </div>
           <div class="btn" >
+<<<<<<< HEAD
               <button class="nextBtn" nz-button  nzType="primary" routerLink="/home/membercard/list">再次调课</button>
+=======
+              <button class="nextBtn" nz-button  nzType="primary" (click)="close()">再次调课</button>
+>>>>>>> upgrade
             </div> 
         </div>
 

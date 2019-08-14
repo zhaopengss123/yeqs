@@ -14,9 +14,13 @@
       <td>{{ data.nick }}</td>
       <td>{{ data.name || '--' }}</td>
       <td>{{ data.birthday || '--' }}</td>
+<<<<<<< HEAD
       <td>
         <i class="iconfont" [title]="data.sex" [ngClass]="[ data.sex === '男' ? 'icon-nan' : 'icon-nv']"></i>
       </td>
+=======
+      <td>{{ data.sex }}</td>
+>>>>>>> upgrade
       <td>{{ data.birthday | monthdiff }}</td>
       <td>{{ data.parentName }}</td>
       <td>

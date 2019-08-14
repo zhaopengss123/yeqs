@@ -3,7 +3,11 @@ import { Component, Output, Input, EventEmitter } from '@angular/core';
 @Component({
   selector: 'ea-tip',
   templateUrl: './tip.component.html',
+<<<<<<< HEAD
   styleUrls: ['./tip.component.scss']
+=======
+  styleUrls: ['./tip.component.less']
+>>>>>>> upgrade
 })
 export class TipComponent {
 

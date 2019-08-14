@@ -1,7 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
+<<<<<<< HEAD
 import { DrawerSave } from '../../../../ng-relax/decorators/drawer.decorator';
+=======
+import { DrawerSave } from 'src/app/ng-relax/decorators/drawer/save.decorator';
+import { DrawerClose } from 'src/app/ng-relax/decorators/drawer/close.decorator';
+import { NzDrawerRef } from 'ng-zorro-antd';
+>>>>>>> upgrade
 
 @Component({
   selector: 'app-exchange',
@@ -18,7 +24,12 @@ export class ExchangeComponent implements OnInit {
 
   constructor(
     private http: HttpService,
+<<<<<<< HEAD
     private fb: FormBuilder = new FormBuilder()
+=======
+    private fb: FormBuilder = new FormBuilder(),
+    private drawerRef: NzDrawerRef
+>>>>>>> upgrade
   ) {
   }
 
@@ -37,6 +48,12 @@ export class ExchangeComponent implements OnInit {
   }
 
 
+<<<<<<< HEAD
   @DrawerSave('/member/redeem') save: () => Promise<boolean>;
+=======
+  @DrawerClose() close: () => void;
+  saveLoading: boolean;
+  @DrawerSave('/member/redeem') save: () => void;
+>>>>>>> upgrade
 
 }

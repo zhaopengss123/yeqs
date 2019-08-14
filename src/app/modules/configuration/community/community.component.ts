@@ -4,11 +4,19 @@ import { NzDrawerService } from 'ng-zorro-antd';
 import { HttpService } from 'src/app/ng-relax/services/http.service';
 import { TableComponent } from 'src/app/ng-relax/components/table/table.component';
 import { Observable } from 'rxjs';
+<<<<<<< HEAD
+=======
+import { ModifyData } from 'src/app/ng-relax/decorators/list/modify.decorator';
+>>>>>>> upgrade
 
 @Component({
   selector: 'app-community',
   templateUrl: './community.component.html',
+<<<<<<< HEAD
   styleUrls: ['./community.component.scss']
+=======
+  styleUrls: ['./community.component.less']
+>>>>>>> upgrade
 })
 export class CommunityComponent implements OnInit {
 
@@ -36,7 +44,11 @@ export class CommunityComponent implements OnInit {
       this.formGroup.get('name').updateValueAndValidity();
       return;
     }
+<<<<<<< HEAD
     this.http.post('/community/saveStoreCommunity', { paramJson: JSON.stringify(this.formGroup.value) }).then(res => {
+=======
+    this.http.post('/community/saveStoreCommunity', { paramJson: JSON.stringify(this.formGroup.value) }, true).then(res => {
+>>>>>>> upgrade
       drawerRef.close();
       this.table._request();
     })
@@ -53,9 +65,13 @@ export class CommunityComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
   delete(id) {
     this.http.post('/community/removeStoreCommunity', { id }).then(res => this.table._request());
   }
+=======
+  @ModifyData('/community/removeStoreCommunity') delete: (id: number) => void;
+>>>>>>> upgrade
 
   nameAsyncValidator = (control: FormControl): any => {
     return Observable.create(observer => {
