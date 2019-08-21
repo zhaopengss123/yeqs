@@ -16,6 +16,7 @@ export class ClassroomComponent implements OnInit {
   roomName: any;
   roomCode: any;
   employeeId: any;
+  assisEmployeeId: number;
   galleryful: any;
   roomId: any = '';
   delectclassroom: boolean = false;
@@ -51,13 +52,14 @@ export class ClassroomComponent implements OnInit {
   addClassroomfun() {
     this.addclassroom = true;
     this.roomId = '';
-
+    this.employeeId = '';
   }
   closeaddclassroom() {
     this.addclassroom = false;
     this.roomName = '';
     this.roomCode = '';
     this.employeeId = '';
+    this.assisEmployeeId = null;
     this.galleryful = '';
   }
   //添加教室
@@ -74,6 +76,10 @@ export class ClassroomComponent implements OnInit {
       this.message.create('error', '请选择主教老师');
       return false;
     }
+    if (!this.assisEmployeeId) {
+      this.message.create('error', '请选择助教老师');
+      return false;
+    }
     if (!this.galleryful) {
       this.message.create('error', '请输入容纳人数');
       return false;
@@ -83,6 +89,7 @@ export class ClassroomComponent implements OnInit {
         roomName: this.roomName,
         roomCode: this.roomCode,
         employeeId: this.employeeId,
+        assisEmployeeId: this.assisEmployeeId,
         galleryful: this.galleryful,
       });
 
@@ -94,6 +101,7 @@ export class ClassroomComponent implements OnInit {
           this.roomName = '';
           this.roomCode = '';
           this.employeeId = '';
+          this.assisEmployeeId = null;
           this.galleryful = '';
         } else {
           this.message.create('error', res.info);
@@ -104,6 +112,7 @@ export class ClassroomComponent implements OnInit {
         roomName: this.roomName,
         roomCode: this.roomCode,
         employeeId: this.employeeId,
+        assisEmployeeId: this.assisEmployeeId,
         galleryful: this.galleryful,
         id: this.roomId
       });
@@ -116,6 +125,7 @@ export class ClassroomComponent implements OnInit {
           this.roomName = '';
           this.roomCode = '';
           this.employeeId = '';
+          this.assisEmployeeId = null;
           this.galleryful = '';
         } else {
           this.message.create('error', res.info);
@@ -131,6 +141,7 @@ export class ClassroomComponent implements OnInit {
         this.roomName = res.result.list.roomName;
         this.roomCode = res.result.list.roomCode;
         this.employeeId = res.result.list.employeeId;
+        this.assisEmployeeId = res.result.list.assisEmployeeId;
         this.galleryful = res.result.list.galleryful;
         this.roomId = res.result.list.id;
       } else {
