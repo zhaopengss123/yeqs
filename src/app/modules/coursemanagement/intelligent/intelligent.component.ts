@@ -215,6 +215,9 @@ export class IntelligentComponent implements OnInit {
       if (this.form.list[index].list[indexs].roomId == item.id) {
         this.form.list[index].list[indexs].employeeName = item.employeeName;
         this.form.list[index].list[indexs].employeeId = item.employeeId;
+        this.form.list[index].list[indexs].assisEmployeeName = item.assisEmployeeName;
+        this.form.list[index].list[indexs].assisEmployeeId = item.assisEmployeeId; 
+
       }
     })
 

@@ -13,6 +13,7 @@
           <th>教室编号</th>
           <th>容纳人数</th>
           <th>主教老师</th>
+          <th>助教老师</th>
           <th>操作</th>
         </tr>
       </thead>
@@ -22,6 +23,7 @@
           <td>{{data.roomCode}}</td>
           <td>{{data.galleryful}}</td>
           <td>{{data.employeeName}}</td>
+          <td>{{data.assisEmployeeName}}</td>
           <td>
             <a (click)="Editingclassroom(data.id)">修改</a>
             <nz-divider nzType="vertical"></nz-divider>
@@ -45,6 +47,12 @@
   <p>
     <nz-form-label>主教老师</nz-form-label>
     <nz-select style="width: 200px;" nzPlaceHolder="请选择" name="courseName" [(ngModel)]="employeeId">
+      <nz-option *ngFor="let items of TeacherList" [nzLabel]="items.name" [nzValue]="items.id"></nz-option>
+    </nz-select>
+  </p>
+  <p>
+    <nz-form-label>助教老师</nz-form-label>
+    <nz-select style="width: 200px;" nzPlaceHolder="请选择" name="assisEmployeeId" [(ngModel)]="assisEmployeeId">
       <nz-option *ngFor="let items of TeacherList" [nzLabel]="items.name" [nzValue]="items.id"></nz-option>
     </nz-select>
   </p>
