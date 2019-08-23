@@ -732,7 +732,8 @@ selectquery(){
       monthAge:'',
       cardCode:'',
       cardId:'',
-      reserveStatus:''
+      reserveStatus:'',
+      employeeId: this.studentdata.employeeId
     };
        appointmentInfo.id = item.reserveId;
        appointmentInfo.sex = item.sex;

@@ -30,7 +30,8 @@
     </td>
     <td>{{ data.name }}</td>
     <td>{{ data.nameEn }}</td>
-    <td><i class="iconfont" [ngClass]="[data.sex == 0 ? 'icon-nan' : 'icon-nv']"></i></td>
+    <!-- <td><i class="iconfont" [ngClass]="[data.sex == 0 ? 'icon-nan' : 'icon-nv']"></i></td> -->
+    <td>{{ data.sex == 0 ? '男' : '女' }}</td>
     <td>{{ data.mobile }}</td>
     <td>{{ data.qq }}</td>
     <td>{{ data.idCardNo }}</td>

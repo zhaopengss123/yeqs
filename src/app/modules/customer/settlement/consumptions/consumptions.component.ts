@@ -34,7 +34,6 @@ export class ConsumptionsComponents implements OnInit {
   ngOnInit() {
     /* ---------------- 根据有无会员卡选择消费方式 ---------------- */
     this.consumptionType = this.appointmentInfo.cardId ? 0 : 1;
-    
     this.baseFormGroup = this.fb.group({
       reserveId: [this.appointmentInfo.id],
       memberId: [this.appointmentInfo.memberId],
@@ -46,7 +45,7 @@ export class ConsumptionsComponents implements OnInit {
     });
     this.timesCountGroup = this.fb.group({
       cardId: [, [Validators.required]],
-      swimTeacherId: [, [Validators.required]],
+      swimTeacherId: [ this.appointmentInfo.employeeId],
       assisTeacherId: [, [Validators.required]],
       showerTeacherId: [],
       fitnessTeacherId:[],

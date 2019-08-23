@@ -49,7 +49,7 @@ export class UpdateComponent implements OnInit {
       birthday: [this.staffInfo.birthday, [Validators.required]],                 //	是	string	员工生日
       joinDate: [this.staffInfo.joinDate, [Validators.required]],                 //	是	string	入职时间
       leaveDate: [this.staffInfo.leaveDate],              //	否	string	离职时间
-      sex: [this.staffInfo.sex || 1],                 //	是	int	性别 ‘1’: ’女’, ’0’: ’男’
+      sex: [this.staffInfo.sex || this.staffInfo.sex == 0 ? this.staffInfo.sex : 1],                 //	是	int	性别 ‘1’: ’女’, ’0’: ’男’
       state: [this.staffInfo.state || '全职'],                 //	是	string	员工状态 ‘全职’: ’全职’, ’临时’: ’临时’, ’兼职’: ’兼职’, ’离职’: ’离职’
       notStatistics: [typeof this.staffInfo.notStatistics === 'boolean' ? this.staffInfo.notStatistics : true],                 //	是	boolean	是否提成 false: ’是’, true: ’否’
       teacher: [typeof this.staffInfo.teacher === 'boolean' ? this.staffInfo.teacher : true],                 //	是	boolean	是否泳师 true: ’是’, false: ’否’

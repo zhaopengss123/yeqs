@@ -6,8 +6,8 @@
 export const environment = {
   production: false,
   version: '0.0.1',
-  domain: 'http://192.168.1.128:8080',
-  //domain: 'http://39.107.232.95:6056/new_bss',
+  //domain: 'http://192.168.1.128:8080',
+  domain: 'http://39.107.232.95:6056/new_bss',
   domainPay: 'https://tpay.beibeiyue.com/pay',
   domainOss: 'https://oss.beibeiyue.com',
   domainEs: 'http://es.beibeiyue.com'

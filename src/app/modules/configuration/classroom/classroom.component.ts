@@ -52,7 +52,8 @@ export class ClassroomComponent implements OnInit {
   addClassroomfun() {
     this.addclassroom = true;
     this.roomId = '';
-    this.employeeId = '';
+    this.employeeId =  null;
+
   }
   closeaddclassroom() {
     this.addclassroom = false;
@@ -82,6 +83,10 @@ export class ClassroomComponent implements OnInit {
     }
     if (!this.galleryful) {
       this.message.create('error', '请输入容纳人数');
+      return false;
+    }
+    if(this.employeeId == this.assisEmployeeId ){
+      this.message.create('error', '主教老师和助教老师不能相同');
       return false;
     }
     if (!this.roomId) {

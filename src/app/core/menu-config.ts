@@ -68,7 +68,7 @@ export const MenuConfig = [
         title : '上课结算',
         key   : '/home/customer/settlement',
         isLeaf: true
-      },
+      }
     ]
   },
   {

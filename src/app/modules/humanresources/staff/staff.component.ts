@@ -34,7 +34,7 @@ export class StaffComponent implements OnInit {
       label: '服务区域',
       key: 'serviceArea',
       type: 'select',
-      options: [{ name: '婴儿区', id: 1 }, { name: '幼儿区', id: 2 }, { name: '兼顾', id: 3 }]
+      options: [{ name: '泳区', id: 1 }, { name: '体适能区', id: 2 }, { name: '兼顾', id: 3 }]
     }
   ]
 
