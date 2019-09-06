@@ -34,6 +34,12 @@ const routes: Routes = [
             canLoad: [ AuthGuardService ],
             loadChildren: 'src/app/modules/appointment/teacher/teacher.module#TeacherModule'
           },
+          {
+            path: 'scheduling',
+            data: { title: '水育师排班' },
+            canLoad: [ AuthGuardService ],
+            loadChildren: 'src/app/modules/appointment/scheduling/scheduling.module#SchedulingModule'
+          }
         ]
       },
       {
@@ -81,6 +87,12 @@ const routes: Routes = [
             data: { title: '上课结算' },
             canLoad: [ AuthGuardService ],
             loadChildren: 'src/app/modules/customer/settlement/settlement.module#SettlementModule'
+          },
+          {
+            path: 'leave',
+            data: { title: '请假管理' },
+            canLoad: [ AuthGuardService ],
+            loadChildren: 'src/app/modules/customer/leave/leave.module#LeaveModule'
           }
         ]
       },
@@ -261,6 +273,7 @@ const routes: Routes = [
         path: 'humanresources',
         data: { noReuse: true },
         children: [
+ 
           {
             path: 'positionsalary',
             data: { title: '职位管理' },
@@ -289,6 +302,7 @@ const routes: Routes = [
             path: 'achievements',
             data: { noReuse: true },
             children: [
+             
               {
                 path: 'checkwork',
                 data: { title: '考勤情况' },
@@ -357,6 +371,7 @@ const routes: Routes = [
         path: 'configuration',
         data: { noReuse: true },
         children: [
+       
           {
             path: 'base',
             data: { title: '基础设置' },
@@ -373,6 +388,18 @@ const routes: Routes = [
             data: { title: '客户来源' },
             canLoad: [ AuthGuardService ],
             loadChildren: 'src/app/modules/configuration/csource/csource.module#CsourceModule'
+          },
+          {
+            path: 'tips',
+            data: { title: '用户建议' },
+            canLoad: [ AuthGuardService ],
+            loadChildren: 'src/app/modules/configuration/tips/tips.module#TipsModule'
+          },
+          {
+            path: 'store',
+            data: { title: '门店信息' },
+            canLoad: [ AuthGuardService ],
+            loadChildren: 'src/app/modules/configuration/store/store.module#StoreModule'
           },
           {
             path: 'commodity',
@@ -428,6 +455,18 @@ const routes: Routes = [
             canLoad: [ AuthGuardService ],
             loadChildren: 'src/app/modules/configuration/classroom/classroom.module#ClassroomModule'
           },
+        ]
+      },
+      {
+        path: 'examine',
+        data: { noReuse: true },
+        children: [
+          {
+            path: 'list',
+            data: { title: '审核列表' },
+            canLoad: [ AuthGuardService ],
+            loadChildren: 'src/app/modules/examine/list/list.module#ListModule'
+          }
         ]
       }
     ]

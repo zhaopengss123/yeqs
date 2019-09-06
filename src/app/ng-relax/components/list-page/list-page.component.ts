@@ -38,6 +38,10 @@ export class ListPageComponent implements OnInit {
 
   @Input() allowSpace: boolean = true;
 
+  @Input() nopaging     : boolean = false;
+
+  @Input() initDatas     : boolean = false;
+  
   @Input() EaTableTbodyTr: TemplateRef<void>;
 
   @Input() EaTableTbodyExpand: TemplateRef<void>;
@@ -67,7 +71,9 @@ export class ListPageComponent implements OnInit {
     this.checkedItemsChange.emit(e);
   }
 
-  constructor() { }
+  constructor() { 
+    console.log(this.nopaging);
+  }
 
   ngOnInit() {
   }

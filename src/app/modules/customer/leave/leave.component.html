@@ -1,3 +1,25 @@
-<p>
-  leave works!
-</p>
+<div class="container">
+  <ea-list-page #listPage url="/customer/consumeRecordList" [allowSpace]="false" [queryNode]="queryNode"
+    [tableThead]="['卡号', '姓名', '小名', '补课状态', '性别',  '月龄', '手机号','消费时间','消费商品','卡类型']"
+    [checked]="true" [isRadio]="true" [checkedItems]="checkedItems" [paramsInit]="defaultInit" [EaTableTbodyTr]="EaTableTbodyTr" [initDatas]="true"
+    (requestDataChange)="dataChange($event)" [EaBtns]="EaBtns">
+    <ng-template let-data #EaTableTbodyTr>
+      <td>{{ data.cardCode }}</td>
+      <td>{{ data.name }}</td>
+      <td>{{ data.memberNick }}</td>
+      <td>{{ data.makeStatus == 0  ?  '未补课' : data.makeStatus == 1 ?'已生成补课记录 ' : data.makeStatus == 2 ?'已取消' : data.makeStatus == 3 ?'已结算' : '--' }}</td>
+      <td>{{ data.sex }}</td>
+      <td>{{ data.monthAge }}</td>
+      <td>{{ data.mobilePhone }}</td> 
+      <td>{{ data.modifyDate }}</td>
+      <td>{{ data.commodityName }}</td>
+      <td>{{ data.cardName }}</td>
+    </ng-template>
+
+    <ng-template #EaBtns>
+      <div class="ea-button-group">
+        <button nz-button nzType="primary" (click)="operation('consumption')">补课</button>
+      </div>
+    </ng-template>
+  </ea-list-page>
+</div>

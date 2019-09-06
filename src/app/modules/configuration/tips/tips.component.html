@@ -1,0 +1,15 @@
+<div class="container">
+  <ea-list-page #listPage url="/intelligent/feedBackList" [allowSpace]="false" [queryNode]="queryNode"
+    [tableThead]="['会员姓名', '家长姓名',  '电话', '内容', '提交时间']"
+     [EaTableTbodyTr]="EaTableTbodyTr"
+    >
+    <ng-template let-data #EaTableTbodyTr>
+      <td>{{ data.memberName }}</td>
+      <td>{{ data.name }}</td>
+      <td>{{ data.phone }}</td>
+      <td>{{ data.content }}</td>
+      <td>{{ data.createDate }}</td>
+
+    </ng-template>
+  </ea-list-page>
+</div>

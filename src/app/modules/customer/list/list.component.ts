@@ -212,7 +212,8 @@ export class ListComponent implements OnInit {
     } else if (type === 'consumptionLog') {
       setTimeout(() => {
         this.router.navigate(['/home/consumption/list'], {
-          queryParams: {
+        
+       queryParams: {
             memberId: this.checkedItems[0]
           }
         });

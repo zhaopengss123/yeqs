@@ -14,7 +14,7 @@
       <td>{{ data.bandName }}</td>
       <td>{{ data.salary }}</td>
       <td>{{ data.bandRate }}</td>
-      <td>{{ data.role == 1 ? '店长' : data.role == 2 ? '销售' : data.role == 3 ? '主管': data.role == 4 ? '水育师' : '--' }}</td>
+      <td>{{ data.role == 1 ? '店长' : data.role == 2 ? '销售' : data.role == 3 ? '主管': data.role == 4 ? '水育师' : data.role == 5 ? '游泳主教' : data.role == 6 ? '游泳助教' : data.role == 7 ? '体适能老师' : '--' }}</td>
       <td>
         <a (click)="update(data)">编辑</a>
         <nz-divider nzType="vertical"></nz-divider>
@@ -84,6 +84,9 @@
               <nz-option nzLabel="销售" [nzValue]="2"></nz-option>
               <nz-option nzLabel="主管" [nzValue]="3"></nz-option>
               <nz-option nzLabel="水育师" [nzValue]="4"></nz-option>
+              <nz-option nzLabel="游泳主教" [nzValue]="5"></nz-option>
+              <nz-option nzLabel="游泳助教" [nzValue]="6"></nz-option>
+              <nz-option nzLabel="体适能老师" [nzValue]="7"></nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>

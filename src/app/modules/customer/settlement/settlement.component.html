@@ -443,7 +443,7 @@
             <p>
               <span>
                 <nz-form-label>是否补课</nz-form-label>
-                <nz-switch [(ngModel)]="buttonStatus"></nz-switch>
+                <nz-switch [(ngModel)]="buttonStatus" [nzDisabled]="studentInformation.consumeRecordId"></nz-switch>
 
               </span>
             </p>

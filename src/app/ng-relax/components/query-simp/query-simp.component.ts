@@ -48,7 +48,7 @@ export class QuerySimpComponent implements OnInit {
         res.optionKey = res.optionKey || { label: 'name', value: 'id' };
         if (res.optionsUrl && res.noCache) {
           this.http.post<any>(res.optionsUrl, {}).subscribe(result => {
-            res.options = (res.options || []).concat(result.result);
+            res.options = (res.options || []).concat(result.result.list || result.result);
             res.optionsResult && res.optionsResult(res.options);
           })
         } else if (res.optionsUrl) {

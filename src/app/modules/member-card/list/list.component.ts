@@ -182,11 +182,13 @@ export class ListComponent implements OnInit {
         this.paramsInit.cardCode = res.params.code;
         setTimeout(() => {
           this.listPage.eaQuery._queryForm.patchValue({ cardCode: res.params.code })
+          this.listPage.eaQuery._submit(); 
         });
       } else if (res.params.memberId) {
         this.paramsInit = { memberId: res.params.memberId };
         setTimeout(() => {
           this.listPage.eaQuery._queryForm.patchValue({ memberId: res.params.memberId });
+          this.listPage.eaQuery._submit(); 
         });
       }
     });

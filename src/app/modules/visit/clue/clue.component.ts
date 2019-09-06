@@ -90,7 +90,7 @@ export class ClueComponent implements OnInit {
       isHide: true
     },
   ];
-  tableNode = ['宝宝昵称', '宝宝姓名', '宝宝生日', '性别', '月龄', '家长姓名', '家长电话', '所属小区', '入库时间', '下次跟进时间', '最后跟进时间', '来源', '客户状态', '跟进阶段', '收集者']
+  tableNode = ['宝宝昵称', '宝宝姓名', '宝宝生日', '性别', '月龄', '家长姓名', '家长电话', '所属小区', '入库时间', '下次跟进时间', '最后跟进时间', '来源', '客户状态', '跟进阶段', '跟进人']
 
   constructor(
     private activatedRoute: ActivatedRoute,

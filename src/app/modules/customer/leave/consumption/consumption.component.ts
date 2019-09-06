@@ -6,14 +6,14 @@ import { DrawerClose } from 'src/app/ng-relax/decorators/drawer/close.decorator'
 @Component({
   selector: 'app-consumption',
   templateUrl: './consumption.component.html',
-  styleUrls: ['./consumption.component.scss']
+  styleUrls: ['./consumption.component.less']
 })
 export class ConsumptionComponent implements OnInit, OnDestroy {
 
   @Input() id;
 
   @Input() userInfo;
-
+  
   baseFormGroup: FormGroup;
   timesCountGroup: FormGroup;
   singleTimeGroup: FormGroup;
@@ -33,20 +33,21 @@ export class ConsumptionComponent implements OnInit, OnDestroy {
     private message: NzMessageService,
     private drawerRef: NzDrawerRef
   ) { 
+  
   }
 
   ngOnInit() {
     /* -------------------- 根据有无会员卡选择消费方式 -------------------- */
     this.consumptionType = this.userInfo.cardCode ? 0 : 1;
-    
     this.baseFormGroup = this.fb.group({
-      memberId: [this.id],
+      memberId: [this.userInfo.memberId],
+      consumeRecordId: [this.userInfo.id],
       name: [{ value: this.userInfo.name, disabled: true }],
       nick: [{ value: this.userInfo.nick, disabled: true }],
       sex: [{ value: this.userInfo.sex, disabled: true }],
       monthAge: [{ value: this.userInfo.monthAge, disabled: true }],
       comment: []
-    });
+    }); 
 
     this.timesCountGroup = this.fb.group({
       cardId: [, [Validators.required]],
@@ -63,8 +64,8 @@ export class ConsumptionComponent implements OnInit, OnDestroy {
       temperature: [],
       satisfaction: ['满意', [Validators.required]],
       consumeDate: [{ value: null, disabled: true }],
-      reserveStatus: [0]
-
+      reserveStatus: [0],
+      consumeRecordId : [] 
     });
     this.singleTimeGroup = this.fb.group({
       commodityId: [, [Validators.required]],

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LeaveComponent } from './leave.component';
-import { NgRelaxModule } from 'src/app/ng-relax/ng-relax.module';
+import { TipsComponent } from './tips.component';
 import { RouterModule } from '@angular/router';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { ViserModule } from 'viser-ng';
-import { ConsumptionComponent } from './consumption/consumption.component';
+import { NgRelaxModule } from 'src/app/ng-relax/ng-relax.module';
+
 @NgModule({
-  declarations: [LeaveComponent, ConsumptionComponent],
+  declarations: [TipsComponent],
   imports: [
     CommonModule,
     NgRelaxModule,
@@ -15,10 +15,8 @@ import { ConsumptionComponent } from './consumption/consumption.component';
     ViserModule,
     RouterModule.forChild([{
       path: '',
-      component: LeaveComponent
+      component: TipsComponent
     }])
-  ],
-  entryComponents: [ConsumptionComponent]
-
+  ]
 })
-export class LeaveModule { }
+export class TipsModule { }

@@ -22,6 +22,11 @@ export const MenuConfig = [
         title : '泳师专用列表',
         key   : '/home/appointment/teacherlist',
         isLeaf: true
+      },      
+      {
+        title : '水育师排班',
+        key   : '/home/appointment/scheduling',
+        isLeaf: true
       },
     ]
   },
@@ -67,6 +72,11 @@ export const MenuConfig = [
       {
         title : '上课结算',
         key   : '/home/customer/settlement',
+        isLeaf: true
+      },
+      {
+        title : '请假管理',
+        key   : '/home/customer/leave',
         isLeaf: true
       }
     ]
@@ -244,6 +254,7 @@ export const MenuConfig = [
         key   : '/home/humanresources/positionsalary',
         isLeaf: true
       },
+
       {
         title : '部门管理',
         key   : '/home/humanresources/department',
@@ -323,6 +334,16 @@ export const MenuConfig = [
         isLeaf: true
       },
       {
+        title : '门店信息',
+        key   : '/home/configuration/store',
+        isLeaf: true
+      },
+      {
+        title : '用户建议',
+        key   : '/home/configuration/tips',
+        isLeaf: true
+      },
+      {
         title : '商品列表',
         key   : '/home/configuration/commodity/list',
         isLeaf: true
@@ -358,5 +379,19 @@ export const MenuConfig = [
         isLeaf: true
       }
     ]
-  }
+  },  {
+    title : '审核',
+    brief : '审核',
+    key   : '/home/examine',
+    icon  : 'setting',
+    children: [
+      {
+        title : '事件审核',
+        key   : '/home/examine/list',
+        isLeaf: true
+      },
+    
+    ]
+  },
+  
 ];

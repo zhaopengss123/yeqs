@@ -26,7 +26,7 @@ export class ListComponent implements OnInit {
   queryNode: QueryNode[] = [
     {
       label       : '会员卡号',
-      key         : 'cardCode',
+      key         : 'cardCode',   
       type        : 'input'
     },
     {
@@ -148,11 +148,27 @@ export class ListComponent implements OnInit {
     this.reoute.queryParamMap.subscribe((res: any) => {
       if (res.params.memberId) {
         this.getQueryParams = res.params;
+        let datas = {
+          cardCode:null,
+          memberName:null,
+          memberId:null,
+          nick:null,
+          teacherId:null,
+          babyType:null,
+          commodityId:null,
+          categoryId:null,
+          cardTypeId:null,
+          satisfaction:null,
+          date:null
+        }
         setTimeout(() => {
+          this.listPage.eaQuery._queryForm.patchValue(datas);
           this.listPage.eaQuery._queryForm.patchValue(this.getQueryParams);
+          this.listPage.eaQuery._submit(); 
         });
       }
     })
+
   }
 
   requestReady(e) {

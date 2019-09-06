@@ -38,6 +38,7 @@ export class TableComponent implements OnInit {
 
   @Input() nopaging     : boolean = false;
 
+  @Input() initDatas     : boolean = false;
 
   @Output() checkedItemsChange: EventEmitter<any[]> = new EventEmitter();
 
@@ -81,7 +82,9 @@ export class TableComponent implements OnInit {
   constructor(
     private http    : HttpClient,
     private message : NzMessageService
-  ) { }
+  ) { 
+    console.log(this.nopaging);
+  }
 
   ngOnInit() {
     this._request();
@@ -91,7 +94,7 @@ export class TableComponent implements OnInit {
     if (this._pageInfo.loading || !this.url) { return; }
     this._pageInfo.loading = true;
     let params = Object.assign({ paramJson: JSON.stringify(Object.assign(JSON.parse(JSON.stringify(this.paramsDefault)), this._params, this.paramsInit)) }, { pageNum: isReset ? 1 : this._pageInfo.pageNum, pageSize: !this.nopaging ? this._pageInfo.pageSize : 1000 });
-    this.paramsInit = {};
+    if( !this.initDatas ){   this.paramsInit = {}   }
     !this.isParamJson && (params = JSON.parse(params.paramJson));
     this.http.post<any>(this.url, serialize(params), {
       headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8')

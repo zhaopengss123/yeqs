@@ -18,6 +18,8 @@ export class UpdateComponent implements OnInit {
 
   communityList: any = [];
   sourceList: any = [];
+  collectorList: any = [];
+  teachList: any = [];
   constructor(
     private http: HttpService,
     private fb: FormBuilder = new FormBuilder(),
@@ -27,10 +29,16 @@ export class UpdateComponent implements OnInit {
     this.http.post('/member/communityList', {}, false).then(res => {
       this.communityList = res.result;
     });
+    this.http.post('/common/recommenderList', {}, false).then(res => {
+      this.teachList = res.result;
+    });  
     this.http.post('/management/selectSource', {}, false).then(res => {
       this.sourceList = res.result;
       console.log(this.sourceList);
-    });  
+    });
+    this.http.post('/retrunVisit/getEmployeeList', {}, false).then(res => {
+      this.collectorList = res.result;
+    });
   }
 
   ngOnInit() {
@@ -50,6 +58,8 @@ export class UpdateComponent implements OnInit {
       babyType: [, [Validators.required]],
       babyNumber: [, [Validators.required]],
       customerSourceId: [],
+      collectorId:[, [Validators.required]],
+      recommendedId: [],
       comment: []
     });
     /* -------------------------- 用户信息回显 -------------------------- */
@@ -58,7 +68,7 @@ export class UpdateComponent implements OnInit {
         this.formGroup.patchValue(res.result);
       })
     }
-  } 
+  }
 
   @DrawerClose() close: () => void;
   saveLoading: boolean;
@@ -70,5 +80,5 @@ export class UpdateComponent implements OnInit {
     return current && current.getTime() > Date.now();
   }
 
-  
+
 }

@@ -143,12 +143,12 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <nz-form-item>
-        <nz-form-label nzRequired>收集人</nz-form-label>
+        <nz-form-label nzRequired>跟进人</nz-form-label>
         <nz-form-control>
-          <nz-select formControlName="collectorId" nzPlaceHolder="请选择收集人">
+          <nz-select formControlName="collectorId" nzPlaceHolder="请选择跟进人">
             <nz-option *ngFor="let item of collectorList" [(nzLabel)]="item.name" [(nzValue)]="item.id"></nz-option>
           </nz-select>
-          <nz-form-explain *ngIf="formGroup.get('collectorId').dirty && formGroup.get('collectorId').hasError('required')">请选择收集人！</nz-form-explain>
+          <nz-form-explain *ngIf="formGroup.get('collectorId').dirty && formGroup.get('collectorId').hasError('required')">请选择跟进人！</nz-form-explain>
         </nz-form-control>
       </nz-form-item>
     </div>
